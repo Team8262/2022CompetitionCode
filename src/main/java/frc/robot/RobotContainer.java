@@ -22,10 +22,11 @@ import frc.robot.Constants;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   Joystick primaryJoystick = new Joystick(0);
-
+  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
+    DrivetrainSubsystem.getInstance().setDefaultCommand(new DriveCommand());
     configureButtonBindings();
   }
 
