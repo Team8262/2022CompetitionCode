@@ -7,8 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.AnalogEncoder;
-import edu.wpi.first.wpilibj.AnalogInput;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -17,7 +15,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
+  private static Command m_autonomousCommand;
 
   private static RobotContainer m_robotContainer;
 
@@ -43,6 +41,8 @@ public class Robot extends TimedRobot {
    * <p>This runs after the mode specific periodic functions, but before LiveWindow and
    * SmartDashboard integrated updating.
    */
+
+  
   @Override
   public void robotPeriodic() {
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled

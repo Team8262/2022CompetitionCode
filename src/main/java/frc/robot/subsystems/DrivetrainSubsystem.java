@@ -22,10 +22,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     double wheelbase = Constants.wheelBase;
     boolean gyroscopeInverted = true;
     // module ports values are placeholders
-    int[][] modulePorts = {{0, 0, 0}, // front left steer, drive, encoder
-                           {0, 0, 0}, // front right steer, drive, encoder
-                           {0, 0, 0}, // back left steer, drive, encoder
-                           {0, 0, 0}}; // back right steer, drive, encoder
+    int[][] modulePorts = {{10, 11, 1}, // front left steer, drive, encoder
+                           {5, 12, 0}, // front right steer, drive, encoder
+                           {3, 8, 3}, // back left steer, drive, encoder
+                           {7, 4, 2}}; // back right steer, drive, encoder
     // zeros in offset numbers are placeholders
     double[] wheeloffsets = {-Math.toRadians(0), // front left
                         -Math.toRadians(0), // front right

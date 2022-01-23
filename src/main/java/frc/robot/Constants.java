@@ -15,7 +15,7 @@ package frc.robot;
 public final class Constants {
     // Robot
     // units are in inches!!
-    public static final double trackWidth = 29;
-    public static final double wheelBase = 29;
+    public static final double trackWidth = 22;
+    public static final double wheelBase = 22;
     public static final int zeroGyroButton = 1; // not the actual value
 }
