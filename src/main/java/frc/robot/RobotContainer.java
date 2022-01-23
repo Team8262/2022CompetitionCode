@@ -21,19 +21,12 @@ import frc.robot.Constants;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
   public static Joystick primaryJoystick = new Joystick(0);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    try {
-     DrivetrainSubsystem.getInstance().setDefaultCommand(new DriveCommand());
-     System.out.println("asdfjhfsjkdf,sajd");
-    } catch(NullPointerException n) {
-      System.out.println("aaaaaaa");
-    }
-    //ElevatorSubsystem.getInstance().setDefaultCommand(new DriveCommand());
-    // Configure the button bindings
+
     DrivetrainSubsystem.getInstance().setDefaultCommand(new DriveCommand());
     configureButtonBindings();
   }
