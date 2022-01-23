@@ -21,13 +21,9 @@ import frc.robot.Constants;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-<<<<<<< HEAD
+
   public static Joystick primaryJoystick = new Joystick(0);
 
-=======
-  Joystick primaryJoystick = new Joystick(0);
-  
->>>>>>> e74d7f92a9da657c3a79a820528820a15d34dbed
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     try {

@@ -28,9 +28,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
                            {7, 4, 2}}; // back right steer, drive, encoder
     // zeros in offset numbers are placeholders
     double[] wheeloffsets = {-Math.toRadians(0), // front left
-                        -Math.toRadians(0), // front right
-                        -Math.toRadians(0), // back left
-                        -Math.toRadians(0)}; // back right
+                        -Math.toRadians(316), // front right
+                        -Math.toRadians(25), // back left
+                        -Math.toRadians(63)}; // back right
                         
     drivetrain = new Mk2SwerveDrivetrainFalcon(trackwidth, wheelbase, wheeloffsets, modulePorts, gyroscopeInverted, false);
   }
