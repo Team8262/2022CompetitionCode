@@ -7,7 +7,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import org.jumprobotics.robot.Utilities;
 import org.jumprobotics.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.Joystick;

@@ -56,11 +56,11 @@ dependencies {
     roborioDebug wpi.java.deps.wpilibJniDebug(wpi.platforms.roborio)
     roborioDebug wpi.java.vendor.jniDebug(wpi.platforms.roborio)
 
-    roborioRelease wpi.java.deps.wpilibJniRelease(wpi.platforms.roborio)
-    roborioRelease wpi.java.vendor.jniRelease(wpi.platforms.roborio)
-
     //Add JUMP-Core
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    
+    roborioRelease wpi.java.deps.wpilibJniRelease(wpi.platforms.roborio)
+    roborioRelease wpi.java.vendor.jniRelease(wpi.platforms.roborio)
 
     nativeDebug wpi.java.deps.wpilibJniDebug(wpi.platforms.desktop)
     nativeDebug wpi.java.vendor.jniDebug(wpi.platforms.desktop)
