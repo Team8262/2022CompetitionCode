@@ -42,9 +42,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(primaryJoystick, Constants.zeroGyroButton).whenPressed(
-      new InstantCommand(() -> DrivetrainSubsystem.getInstance().resetGyroscope())
-    );
+    // new JoystickButton(primaryJoystick, Constants.zeroGyroButton).whenPressed(
+    //   new InstantCommand(() -> DrivetrainSubsystem.getInstance().resetGyroscope())
+    // );
   }
 
   /**
