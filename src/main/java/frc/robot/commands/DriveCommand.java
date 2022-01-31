@@ -27,7 +27,7 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double forward = -Robot.getRobotContainer().getPrimaryJoystick().getRawAxis(1);
+    double forward = Robot.getRobotContainer().getPrimaryJoystick().getRawAxis(1);
     forward = Utilities.deadband(forward);
     // Square the forward stick
     forward = Math.copySign(Math.pow(forward, 2.0), forward);
