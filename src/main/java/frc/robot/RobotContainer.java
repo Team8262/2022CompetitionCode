@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -52,4 +54,11 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+  public Command getAutonomousCommand() {
+    SequentialCommandGroup autonCommand = new SequentialCommandGroup();
+    // drive straight for 15 cycles
+    // error: cannot find symbol
+    autonCommand.addCommands(new AutoDriveCommand(1.0,0.0,0.0,15));
+    return autonCommand;
+  }
 }
