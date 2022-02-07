@@ -27,10 +27,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
                            {7, 4, 3}  , // back left steer, drive, encoder
                            {3, 8, 2}}; // back right steer, drive, encoder
     // zeros in offset numbers are placeholders
-    double[] wheeloffsets = {-Math.toRadians(63.3), // front left
-                        -Math.toRadians(29.7), // front right
-                        -Math.toRadians(47.9), // back left
-                        -Math.toRadians(167.9)}; // back right
+    double[] wheeloffsets = {-Math.toRadians(29.358110), // front left
+                        -Math.toRadians(62.999469), // front right 
+                        -Math.toRadians(48.547976), // back left
+                        -Math.toRadians(169.369487)}; // back right
                         //247, 131, 209, 63
                         //342.513722, 342.513722, 342.083526, 342.513722
                         //341.805373, 342.513722, 342.330069, 342.072941

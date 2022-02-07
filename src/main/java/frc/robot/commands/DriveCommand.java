@@ -32,7 +32,7 @@ public class DriveCommand extends CommandBase {
     // Square the forward stick
     forward = Math.copySign(Math.pow(forward, 2.0), forward);
 
-    double strafe = -Robot.getRobotContainer().getPrimaryJoystick().getRawAxis(0);
+    double strafe = Robot.getRobotContainer().getPrimaryJoystick().getRawAxis(0);
     strafe = Utilities.deadband(strafe);
     // Square the strafe stick
     strafe = Math.copySign(Math.pow(strafe, 2.0), strafe);
