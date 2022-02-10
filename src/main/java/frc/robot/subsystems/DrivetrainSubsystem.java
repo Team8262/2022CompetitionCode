@@ -22,18 +22,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
     double wheelbase = Constants.wheelBase;
     boolean gyroscopeInverted = true;
     // module ports values are placeholders
-    int[][] modulePorts = {{5, 12, 0}, // front left steer, drive, encoder
-                           {6, 11, 1}, // front right steer, drive, encoder
+    int[][] modulePorts = {{6, 11, 0}, // front left steer, drive, encoder
+                           {5, 12, 2}, // front right steer, drive, encoder
                            {7, 4, 3}  , // back left steer, drive, encoder
-                           {3, 8, 2}}; // back right steer, drive, encoder
+                           {3, 8, 1}}; // back right steer, drive, encoder
     // zeros in offset numbers are placeholders
-    double[] wheeloffsets = {-Math.toRadians(29.358110), // front left
-                        -Math.toRadians(62.999469), // front right 
-                        -Math.toRadians(48.547976), // back left
-                        -Math.toRadians(169.369487)}; // back right
+    double[] wheeloffsets = {-Math.toRadians(64.162519), // front left 64.162519
+                        -Math.toRadians(26.027723), // front right 
+                        -Math.toRadians(36.044750), // back left 48.274529
+                        -Math.toRadians(0)}; // back right 
                         //247, 131, 209, 63
-                        //342.513722, 342.513722, 342.083526, 342.513722
-                        //341.805373, 342.513722, 342.330069, 342.072941
+                        //64.162519, 28.572380, 0, 168.599657
+                        ///5.677976, 36.044750, 30.366774
 
     drivetrain = new Mk2SwerveDrivetrainFalcon(trackwidth, wheelbase, wheeloffsets, modulePorts, gyroscopeInverted, false);
   }

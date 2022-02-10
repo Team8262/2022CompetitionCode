@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.AnalogEncoder;
+
 
 
 /**
@@ -29,10 +31,10 @@ public class Robot extends TimedRobot {
   // private TalonFx talon11 = new TalonFX(11);
   // private TalonFx talon12 = new TalonFX(12);
   
-  // private Encoder encoder4 = new Encoder(1, 2);
-  // private Encoder encoder8 = new Encoder(1, 2);
-  // private Encoder encoder11 = new Encoder(1, 2);
-  // private Encoder encoder12 = new Encoder(1, 2);
+  // AnalogEncoder encoder512 = new AnalogEncoder(0);
+  // AnalogEncoder encoder611 = new AnalogEncoder(1);
+  // AnalogEncoder encoder74 = new AnalogEncoder(3);
+  // AnalogEncoder encoder38 = ne w AnalogEncoder(2);
   
 
   private static RobotContainer m_robotContainer;
@@ -47,39 +49,6 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     
-    // double posrate = 1;
-    // double negrate = -1;
-
-    // while(encoder4.getDistance()>0){
-    //   talon4.set(ControlMode.PercentOutput, negrate);
-    // }
-    // while(encoder8.getDistance()>0){
-    //   talon8.set(ControlMode.PercentOutput, negrate);
-    // }
-    // while(encoder11.getDistance()>0){
-    //   talon11.set(ControlMode.PercentOutput, negrate);
-    // }
-    // while(encoder12.getDistance()>0){
-    //   talon12.set(ControlMode.PercentOutput, negrate);
-    // }
-
-    // while(encoder12.getDistance()<0){
-    //   talon12.set(ControlMode.PercentOutput, posrate);
-    // }
-    // while(encoder11.getDistance()<0){
-    //   talon11.set(ControlMode.PercentOutput, posrate);
-    // }
-    // while(encoder8.getDistance()<0){
-    //   talon8.set(ControlMode.PercentOutput, posrate);
-    // }
-    // while(encoder8.getDistance()<0){
-    //   talon8.set(ControlMode.PercentOutput, posrate);
-    // }
-
-    // encoder4.reset();
-    // encoder8.reset();
-    // encoder11.reset();
-    // encoder12.reset();
   }
 
   public static RobotContainer getRobotContainer(){
