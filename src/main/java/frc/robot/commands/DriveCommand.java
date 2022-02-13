@@ -8,6 +8,9 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import edu.wpi.first.math.geometry.Translation2d;
+
+import com.ctre.phoenix.Util;
+
 import org.jumprobotics.robot.Utilities;
 import org.jumprobotics.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.Joystick;
@@ -31,18 +34,21 @@ public class DriveCommand extends CommandBase {
     forward = Utilities.deadband(forward);
     // Square the forward stick
     forward = Math.copySign(Math.pow(forward, 2.0), forward);
+    // double forward = 0.0;
 
     double strafe = Robot.getRobotContainer().getPrimaryJoystick().getRawAxis(0);
     strafe = Utilities.deadband(strafe);
     // Square the strafe stick
     strafe = Math.copySign(Math.pow(strafe, 2.0), strafe);
+    // double strafe = 0.0;
 
-    double rotation = -Robot.getRobotContainer().getPrimaryJoystick().getRawAxis(2);
+    double rotation = Robot.getRobotContainer().getPrimaryJoystick().getRawAxis(2);
     rotation = Utilities.deadband(rotation);
-    // Square the rotation stick
+    // // Square the rotation stick
     rotation = Math.copySign(Math.pow(rotation, 2.0), rotation);
+    // double rotation = 0.0;
     
-    DrivetrainSubsystem.getInstance().drive(new Translation2d(forward/5, strafe/5), rotation/5, true);
+    DrivetrainSubsystem.getInstance().drive(new Translation2d(forward/5, strafe/5), rotation/5, false);
   }
 
   // Called once the command ends or is interrupted.

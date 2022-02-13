@@ -22,18 +22,28 @@ public class DrivetrainSubsystem extends SubsystemBase {
     double wheelbase = Constants.wheelBase;
     boolean gyroscopeInverted = true;
     // module ports values are placeholders
-    int[][] modulePorts = {{6, 11, 0}, // front left steer, drive, encoder
-                           {5, 12, 2}, // front right steer, drive, encoder
+    int[][] modulePorts = {{5, 12, 2}, // front right steer, drive, encoder
+                           {6, 11, 0}, // front left steer, drive, encoder
                            {7, 4, 3}  , // back left steer, drive, encoder
                            {3, 8, 1}}; // back right steer, drive, encoder
     // zeros in offset numbers are placeholders
-    double[] wheeloffsets = {-Math.toRadians(64.162519), // front left 64.162519
-                        -Math.toRadians(26.027723), // front right 
-                        -Math.toRadians(36.044750), // back left 48.274529
-                        -Math.toRadians(0)}; // back right 
-                        //247, 131, 209, 63
-                        //64.162519, 28.572380, 0, 168.599657
-                        ///5.677976, 36.044750, 30.366774
+    double[] wheeloffsets = {-Math.toRadians(26.027723), // front right 
+                        -Math.toRadians(64.162519), // front left 
+                        -Math.toRadians(36.044750), // back left 
+                        -Math.toRadians(180)}; // back right 
+
+
+    ////////////////////to test angle offset///////////////////
+    // int[][] modulePorts = {{6, 11, 0}, // front left steer, drive, encoder
+    //                        {5, 12, 2}, // front right steer, drive, encoder
+    //                        {7, 4, 3}, // back left steer, drive, encoder
+    //                        {3, 8, 1}}; // back right steer, drive, encoder
+    // // zeros in offset numbers are placeholders
+    // double[] wheeloffsets = {-Math.toRadians(0), // front left 
+    //                         -Math.toRadians(0), // front right 
+    //                         -Math.toRadians(0), // back left 
+    //                         -Math.toRadians(0)}; // back right 
+  //////////////////////////////////////////
 
     drivetrain = new Mk2SwerveDrivetrainFalcon(trackwidth, wheelbase, wheeloffsets, modulePorts, gyroscopeInverted, false);
   }
