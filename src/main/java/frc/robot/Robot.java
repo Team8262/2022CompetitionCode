@@ -9,11 +9,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.Encoder;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -23,17 +21,6 @@ import edu.wpi.first.wpilibj.Encoder;
  */
 public class Robot extends TimedRobot {
   private static Command m_autonomousCommand;
-
-  // private TalonFx talon4 = new TalonFX(4);
-  // private TalonFx talon8 = new TalonFX(8);
-  // private TalonFx talon11 = new TalonFX(11);
-  // private TalonFx talon12 = new TalonFX(12);
-  
-  // private Encoder encoder4 = new Encoder(1, 2);
-  // private Encoder encoder8 = new Encoder(1, 2);
-  // private Encoder encoder11 = new Encoder(1, 2);
-  // private Encoder encoder12 = new Encoder(1, 2);
-  
 
   private static RobotContainer m_robotContainer;
 
@@ -46,40 +33,6 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    
-    // double posrate = 1;
-    // double negrate = -1;
-
-    // while(encoder4.getDistance()>0){
-    //   talon4.set(ControlMode.PercentOutput, negrate);
-    // }
-    // while(encoder8.getDistance()>0){
-    //   talon8.set(ControlMode.PercentOutput, negrate);
-    // }
-    // while(encoder11.getDistance()>0){
-    //   talon11.set(ControlMode.PercentOutput, negrate);
-    // }
-    // while(encoder12.getDistance()>0){
-    //   talon12.set(ControlMode.PercentOutput, negrate);
-    // }
-
-    // while(encoder12.getDistance()<0){
-    //   talon12.set(ControlMode.PercentOutput, posrate);
-    // }
-    // while(encoder11.getDistance()<0){
-    //   talon11.set(ControlMode.PercentOutput, posrate);
-    // }
-    // while(encoder8.getDistance()<0){
-    //   talon8.set(ControlMode.PercentOutput, posrate);
-    // }
-    // while(encoder8.getDistance()<0){
-    //   talon8.set(ControlMode.PercentOutput, posrate);
-    // }
-
-    // encoder4.reset();
-    // encoder8.reset();
-    // encoder11.reset();
-    // encoder12.reset();
   }
 
   public static RobotContainer getRobotContainer(){

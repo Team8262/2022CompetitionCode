@@ -56,8 +56,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     SequentialCommandGroup autonCommand = new SequentialCommandGroup();
-    // drive straight for 15 cycles
-    // error: cannot find symbol
+    // drive straight for 15 seconds
     autonCommand.addCommands(new AutoDriveCommand(1.0,0.0,0.0,15));
     return autonCommand;
   }

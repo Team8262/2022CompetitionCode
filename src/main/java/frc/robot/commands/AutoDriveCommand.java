@@ -21,16 +21,15 @@ public class AutoDriveCommand extends CommandBase {
   Translation2d translation;
   double rotation;
   int seconds;
-  //int counter;
   private static int unique = 0;
   private int uid;
+  
   public AutoDriveCommand(double x, double y, double rotate, int seconds) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(DrivetrainSubsystem.getInstance());
     this.translation = new Translation2d(x, y);
     this.rotation = rotate;
     this.seconds = seconds;
-    //this.counter = 0;
 
     uid = unique;
     unique++;
@@ -48,9 +47,7 @@ public class AutoDriveCommand extends CommandBase {
     elapsedTime = System.currentTimeMillis() - startTime;
     elapsedSeconds = elapsedTime / 1000;
     wholeSeconds = elapsedSeconds % 60;
-    //counter ++;
     System.out.println("UID: " + uid);
-    //System.out.println("Counter: " + counter);
     System.out.println("Seconds passed: " + wholeSeconds);
   }
 
@@ -58,7 +55,6 @@ public class AutoDriveCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     DrivetrainSubsystem.getInstance().drive(new Translation2d(0,0), 0, true);
-    //counter = 0;
   }
 
   // Returns true when the command should end.
