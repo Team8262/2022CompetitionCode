@@ -10,23 +10,28 @@ import frc.robot.Robot;
 import edu.wpi.first.math.geometry.Translation2d;
 import org.jumprobotics.robot.Utilities;
 import org.jumprobotics.robot.subsystems.Drivetrain;
-import edu.wpi.first.wpilibj.Joystick;
 
 public class AutoDriveCommand extends CommandBase {
   /** Creates a new AutoDriveCommand. */
+  long startTime = System.currentTimeMillis(); // in milliseconds
+  long elapsedTime;
+  long elapsedSeconds;
+  long wholeSeconds;
+
   Translation2d translation;
   double rotation;
-  int cycles;
-  int counter;
+  int seconds;
+  //int counter;
   private static int unique = 0;
   private int uid;
-  public AutoDriveCommand(double x, double y, double rotate, int cycle) {
+  public AutoDriveCommand(double x, double y, double rotate, int seconds) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(DrivetrainSubsystem.getInstance());
-    this.translation = new Translation2d(x,y);
+    this.translation = new Translation2d(x, y);
     this.rotation = rotate;
-    this.cycles = cycle;
-    this.counter = 0;
+    this.seconds = seconds;
+    //this.counter = 0;
+
     uid = unique;
     unique++;
   }
@@ -40,22 +45,25 @@ public class AutoDriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    counter ++;
+    elapsedTime = System.currentTimeMillis() - startTime;
+    elapsedSeconds = elapsedTime / 1000;
+    wholeSeconds = elapsedSeconds % 60;
+    //counter ++;
     System.out.println("UID: " + uid);
-    System.out.println("Counter: " + counter);
-    System.out.println("Cycles: " + cycles);
+    //System.out.println("Counter: " + counter);
+    System.out.println("Seconds passed: " + wholeSeconds);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     DrivetrainSubsystem.getInstance().drive(new Translation2d(0,0), 0, true);
-    counter = 0;
+    //counter = 0;
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return counter == cycles;
+    return wholeSeconds == seconds;
   }
 }
