@@ -18,4 +18,8 @@ public final class Constants {
     public static final double trackWidth = 22.5;
     public static final double wheelBase = 22.5;
     public static final int zeroGyroButton = 1; // not the actual value
+    public static final double cargoCircleDiameter = 306;
+
+    // https://firstfrc.blob.core.windows.net/frc2022/Manual/Sections/2022FRCGameManual-05.pdf
+    // https://firstfrc.blob.core.windows.net/frc2022/Manual/Sections/2022FRCGameManual-06.pdf
 }
