@@ -37,34 +37,36 @@ public class RobotContainer {
    */
   public RobotContainer() {
 
-    double forward = Robot.getRobotContainer().getPrimaryJoystick().getRawAxis(1);
+    double forward = getPrimaryJoystick().getRawAxis(1);
     // Square the forward stick
     forward = deadband(forward, 0.025);
     forward = Math.copySign(Math.pow(forward, 2.0), forward);
 
-    // double forward = 0.0;
-    // DoubleSupplier forwardsupp = () -> forward;
 
-    double strafe = Robot.getRobotContainer().getPrimaryJoystick().getRawAxis(0);
+    // double forward = 0.0;
+     DoubleSupplier forwardsupp = () -> Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(1), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(1), 0.025));
+     ;
+
+    double strafe = getPrimaryJoystick().getRawAxis(0);
     // Square the strafe stick
     strafe = deadband(strafe, 0.025);
     strafe = Math.copySign(Math.pow(strafe, 2.0), strafe);
     // double strafe = 0.0;
-    // DoubleSupplier strafesupp = () -> forward;
+     DoubleSupplier strafesupp = () -> Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(0), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(0), 0.025));
 
-    double rotation = Robot.getRobotContainer().getPrimaryJoystick().getRawAxis(2);
+    double rotation = getPrimaryJoystick().getRawAxis(2);
     // Square the rotation stick
     rotation = deadband(rotation, 0.025);
     rotation = Math.copySign(Math.pow(rotation, 2.0), rotation);
     // double rotation = 0.0;
-    // DoubleSupplier rotatesupp = () -> forward;
+     DoubleSupplier rotatesupp = () -> Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(2), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(2), 0.025));
 
 
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
             m_drivetrainSubsystem, 
-            forward,
-            strafe,
-            rotation));
+            forwardsupp,
+            strafesupp,
+            rotatesupp));
 
     // Configure the button bindings
     // configureButtonBindings();
