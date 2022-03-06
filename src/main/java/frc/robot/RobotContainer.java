@@ -56,20 +56,20 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     SequentialCommandGroup autonCommand = new SequentialCommandGroup();
-    // drive straight for 15 seconds
-    autonCommand.addCommands(new AutoDriveCommand(1.0,0.0,0.0,15));
+    // drive straight for 5 seconds
+    autonCommand.addCommands(new AutoDriveCommand(1.0,0.0,0.0,5));
 
-    // drive in a square, 10 seconds per side
-    autonCommand.addCommands(new AutoDriveCommand(1.0,0.0,0.0,10));
-    autonCommand.addCommands(new AutoDriveCommand(1.0,1.0,0.0,10));
-    autonCommand.addCommands(new AutoDriveCommand(0.0,1.0,0.0,10));
-    autonCommand.addCommands(new AutoDriveCommand(0.0,0.0,0.0,10));
+    // drive in a square, 5 seconds per side
+    autonCommand.addCommands(new AutoDriveCommand(1.0,0.0,0.0,5));
+    autonCommand.addCommands(new AutoDriveCommand(1.0,1.0,0.0,5));
+    autonCommand.addCommands(new AutoDriveCommand(0.0,1.0,0.0,5));
+    autonCommand.addCommands(new AutoDriveCommand(0.0,0.0,0.0,5));
 
-    // spin
-    autonCommand.addCommands(new AutoDriveCommand(0.0,0.0,360.0,10));
+    // spin for 5 seconds
+    autonCommand.addCommands(new AutoDriveCommand(0.0,0.0,360.0,5));
 
-    // drive straight for 10 seconds while spinning
-    autonCommand.addCommands(new AutoDriveCommand(1.0,0.0,360.0,10));
+    // drive straight for 5 seconds while spinning
+    autonCommand.addCommands(new AutoDriveCommand(1.0,0.0,360.0,5));
 
     return autonCommand;
   }
