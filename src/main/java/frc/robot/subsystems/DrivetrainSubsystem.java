@@ -188,10 +188,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void writeToSmartDashboard(){
-        SmartDashboard.putNumber("Front Left Module Angle", FRONT_LEFT_MODULE_STEER_OFFSET);
-        SmartDashboard.putNumber("Front Right Module Angle", FRONT_RIGHT_MODULE_STEER_OFFSET);
-        SmartDashboard.putNumber("Back Left Module Angle", BACK_LEFT_MODULE_STEER_OFFSET);
-        SmartDashboard.putNumber("Back Right Module Angle", BACK_RIGHT_MODULE_STEER_OFFSET);
+        SmartDashboard.putNumber("Front Left Module Angle", Math.toDegrees(m_frontLeftModule.getSteerAngle()));
+        SmartDashboard.putNumber("Front Right Module Angle", Math.toDegrees(m_frontRightModule.getSteerAngle()));
+        SmartDashboard.putNumber("Back Left Module Angle", Math.toDegrees(m_backLeftModule.getSteerAngle()));
+        SmartDashboard.putNumber("Back Right Module Angle", Math.toDegrees(m_backRightModule.getSteerAngle()));
   }
 
   @Override
