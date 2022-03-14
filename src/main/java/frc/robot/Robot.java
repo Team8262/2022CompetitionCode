@@ -8,6 +8,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
+// import com.ctre.phoenix.sensors.CANCoder;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -18,6 +23,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private static RobotContainer m_robotContainer;
+  
 
 
   /**
@@ -30,9 +36,10 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
   }
-  public static RobotContainer getRobotContainer(){
-    return m_robotContainer;
-  }
+
+  // public static RobotContainer getRobotContainer(){
+  //   return m_robotContainer;
+  // }
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
@@ -41,6 +48,8 @@ public class Robot extends TimedRobot {
    * <p>This runs after the mode specific periodic functions, but before LiveWindow and
    * SmartDashboard integrated updating.
    */
+
+  
   @Override
   public void robotPeriodic() {
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
@@ -84,6 +93,8 @@ public class Robot extends TimedRobot {
   }
 
   /** This function is called periodically during operator control. */
+
+
   @Override
   public void teleopPeriodic() {}
 
