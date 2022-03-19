@@ -51,19 +51,19 @@ public class RobotContainer {
     // strafe = deadband(strafe, 0.025);
     // double strafe2 = Math.copySign(Math.pow(strafe, 2.0), strafe);
     // double strafe = 0.0;
-     DoubleSupplier strafesupp = () -> Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(0), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(0), 0.025));
+     DoubleSupplier strafesupp = () -> -Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(0), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(0), 0.025));
 
     // double rotation = getPrimaryJoystick().getRawAxis(2);
     // Square the rotation stick
     // rotation = deadband(rotation, 0.025);
     // double rotation2 = Math.copySign(Math.pow(rotation, 2.0), rotation);
     // double rotation = 0.0;
-     DoubleSupplier rotatesupp = () -> Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(2), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(2), 0.025));
+     DoubleSupplier rotatesupp = () -> -Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(2), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(2), 0.025));
 
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
             m_drivetrainSubsystem, 
-            forwardsupp,
             strafesupp,
+            forwardsupp,
             rotatesupp
             ));
 
@@ -121,7 +121,3 @@ public class RobotContainer {
   }
 }
 
-
-  // () ->  -deadband(forward2, 0.025)  * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND ,
-            // () -> -deadband(strafe2, 0.025)  * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND ,
-            // () -> -deadband(rotation2, 0.025) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND

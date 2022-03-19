@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
+// import com.ctre.phoenix.sensors.PigeonIMU;
 import com.swervedrivespecialties.swervelib.Mk4SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 import com.swervedrivespecialties.swervelib.SwerveModule;
@@ -19,9 +19,11 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.SPI.Port;
-// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.sensors.CANCoder;
+import java.lang.Math;
+
 
 
 
@@ -75,7 +77,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   // The important thing about how you configure your gyroscope is that rotating the robot counter-clockwise should
   // cause the angle reading to increase until it wraps back over to zero.
   // FIXME Remove if you are using a Pigeon
-  private final PigeonIMU m_pigeon = new PigeonIMU(DRIVETRAIN_PIGEON_ID);
+  // private final PigeonIMU m_pigeon = new PigeonIMU(DRIVETRAIN_PIGEON_ID);
   // FIXME Uncomment if you are using a NavX
  private final AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200); // NavX connected over MXP
 
@@ -199,21 +201,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public void resetGyroscope() {}
 
-
   public CANCoder frontleft = new CANCoder(3);
   public CANCoder frontright = new CANCoder(6);
-  public CANCoder backleft = new CANCoder(9);
-  public CANCoder backright = new CANCoder(12);  
+  public CANCoder backleft = new CANCoder(12);
+  public CANCoder backright = new CANCoder(9);  
   
         
-
-    double FLdegree = frontleft.getPosition();
-    double FRdegree = frontright.getPosition();
-    double BLdegree = backleft.getPosition();
-    double BRdegree = backright.getPosition();
-
-
-
     //get angles for angle offset
 
   @Override
@@ -226,9 +219,19 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_backLeftModule.set(states[2].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[2].angle.getRadians());
     m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[3].angle.getRadians());
 
-    System.out.println("Front Left Module Angle " + FLdegree);
-    System.out.println("Front Right Module Angle " +FRdegree);
-    System.out.println("Back Left Module Angle " + BLdegree);
-    System.out.println("Back Right Module Angle " + BRdegree);
+    double FLdegree = frontleft.getPosition()%360;
+    double FRdegree = frontright.getPosition()%360;
+    double BLdegree = backleft.getPosition()%360;
+    double BRdegree = backright.getPosition()%360;
+    // double gyrodegree = m_navx.getAngle();
+    // boolean X = m_navx.isRotating();
+    // ErrorCode error = backright.getLastError(); doesn't work, figure out what's errorcode type
+
+    SmartDashboard.putNumber("Front Left Module Angle ", FLdegree);
+    SmartDashboard.putNumber("Front Right Module Angle ", FRdegree);
+    SmartDashboard.putNumber("Back Left Module Angle ", BLdegree);
+    SmartDashboard.putNumber("Back Right Module Angle ", BRdegree);
+    // System.out.println("gyrodegree " + gyrodegree);
+    // System.out.println("Gyro is rotating: " + X);
   }
 }
