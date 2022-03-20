@@ -43,7 +43,7 @@ public class RobotContainer {
     // double forward2 = Math.copySign(Math.pow(forward, 2.0), forward);
 
     // double forward = 0.0;
-     DoubleSupplier forwardsupp = () -> Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(1), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(1), 0.025));
+     DoubleSupplier forwardsupp = () -> -Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(1), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(1), 0.025));
   
 
     // double strafe = getPrimaryJoystick().getRawAxis(0);
@@ -58,12 +58,15 @@ public class RobotContainer {
     // rotation = deadband(rotation, 0.025);
     // double rotation2 = Math.copySign(Math.pow(rotation, 2.0), rotation);
     // double rotation = 0.0;
+
+
+    
      DoubleSupplier rotatesupp = () -> -Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(2), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(2), 0.025));
 
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
             m_drivetrainSubsystem, 
-            strafesupp,
             forwardsupp,
+            strafesupp,
             rotatesupp
             ));
 

@@ -2,9 +2,11 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 // import frc.robot.Robot;
 import frc.robot.subsystems.DrivetrainSubsystem;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DefaultDriveCommand extends CommandBase {
     private final DrivetrainSubsystem m_drivetrainSubsystem;
@@ -27,15 +29,23 @@ public class DefaultDriveCommand extends CommandBase {
 
     @Override
     public void execute() {        // You can use `new ChassisSpeeds(...)` for robot-oriented movement instead of field-oriented movement
-        m_drivetrainSubsystem.drive(
-                ChassisSpeeds.fromFieldRelativeSpeeds(
+        m_drivetrainSubsystem.drive(new ChassisSpeeds(
                         m_translationXSupplier.getAsDouble(),
                         m_translationYSupplier.getAsDouble(),
-                        m_rotationSupplier.getAsDouble(),
-                        m_drivetrainSubsystem.getGyroscopeRotation()
-                )
+                        m_rotationSupplier.getAsDouble()
+        )
+                // ChassisSpeeds.fromFieldRelativeSpeeds(
+                //         m_translationXSupplier.getAsDouble(),
+                //         m_translationYSupplier.getAsDouble(),
+                //         m_rotationSupplier.getAsDouble(),
+                //         m_drivetrainSubsystem.getGyroscopeRotation()
+                // )
         );
-        // m_drivetrainSubsystem.writeToSmartDashboard();
+        
+        SmartDashboard.putNumber("xinput ", m_translationXSupplier.getAsDouble());
+        SmartDashboard.putNumber("yinput ", m_translationYSupplier.getAsDouble());
+        SmartDashboard.putNumber("rotation", m_rotationSupplier.getAsDouble());
+        // SmartDashboard.putNumber("drivetrain" + m_drivetrainSubsystem);
     }
 
     @Override

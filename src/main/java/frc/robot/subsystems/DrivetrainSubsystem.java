@@ -223,7 +223,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     double FRdegree = frontright.getPosition()%360;
     double BLdegree = backleft.getPosition()%360;
     double BRdegree = backright.getPosition()%360;
-    // double gyrodegree = m_navx.getAngle();
+    double gyrodegree = m_navx.getAngle()%360;
     // boolean X = m_navx.isRotating();
     // ErrorCode error = backright.getLastError(); doesn't work, figure out what's errorcode type
 
@@ -231,7 +231,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Front Right Module Angle ", FRdegree);
     SmartDashboard.putNumber("Back Left Module Angle ", BLdegree);
     SmartDashboard.putNumber("Back Right Module Angle ", BRdegree);
-    // System.out.println("gyrodegree " + gyrodegree);
+    SmartDashboard.putNumber("gyrodegree ", gyrodegree);
     // System.out.println("Gyro is rotating: " + X);
   }
 }
