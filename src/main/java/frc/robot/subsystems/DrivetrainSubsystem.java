@@ -199,7 +199,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_chassisSpeeds = chassisSpeeds;
   }
 
-  public void resetGyroscope() {}
+  public void resetGyroscope() {
+    m_navx.reset();
+  }
 
   public CANCoder frontleft = new CANCoder(3);
   public CANCoder frontright = new CANCoder(6);
