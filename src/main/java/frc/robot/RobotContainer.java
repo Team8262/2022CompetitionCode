@@ -18,6 +18,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 import java.util.function.DoubleSupplier;
 
+import frc.robot.subsystems.KunjamaniLifter;
+import frc.robot.commands.KunjamaniExtendLifter;
+
 
 
 /**
@@ -29,8 +32,10 @@ import java.util.function.DoubleSupplier;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
+  public static Joystick primaryJoystick = new Joystick(0);
+  public static JoystickButton lifterButton = new JoystickButton(primaryJoystick, 7);
+  public static KunjamaniLifter lifter = new KunjamaniLifter();
 
-  private static Joystick primaryJoystick = new Joystick(0);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -73,6 +78,8 @@ public class RobotContainer {
     // Configure the button bindings
     // configureButtonBindings();
   
+    //DrivetrainSubsystem.getInstance().setDefaultCommand(new DriveCommand());
+    configureButtonBindings();
   }
 
   public Joystick getPrimaryJoystick(){
@@ -85,11 +92,13 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-//   private void configureButtonBindings() {
-//     new JoystickButton(primaryJoystick, 1).whenPressed(
-//       new InstantCommand(() -> DrivetrainSubsystem.getInstance().resetGyroscope())
-//     );
-//  }
+  private void configureButtonBindings() {/*
+    new JoystickButton(primaryJoystick, Constants.zeroGyroButton).whenPressed(
+       new InstantCommand(() -> DrivetrainSubsystem.getInstance().resetGyroscope())
+     );*/
+     lifterButton.whileHeld(new KunjamaniExtendLifter(lifter));
+
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

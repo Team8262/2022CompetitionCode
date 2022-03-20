@@ -47,6 +47,16 @@ public final class Constants {
     public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 10; // FIXME Set back right steer motor ID
     public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 12; // FIXME Set back right steer encoder ID
     public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(360-155.654297+180); // FIXME Measure and set back right steer offset
+    // Robot
+    // units are in inches!!
+    public static final double trackWidth = 22.5;
+    public static final double wheelBase = 22.5;
+    public static final int zeroGyroButton = 1; // not the actual value
+
+    public static final int PH_ID = 31;
+    public static final int HOOK_SOLENOID_1 = 1;
+    public static final int HOOK_SOLENOID_2 = 2;
+    public static final int LIFTER_SOLENOID = 7;
 }
 
 
