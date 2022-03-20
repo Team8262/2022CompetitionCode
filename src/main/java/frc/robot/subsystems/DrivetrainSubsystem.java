@@ -181,6 +181,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
    m_navx.zeroYaw();
   }
 
+
+
   public Rotation2d getGyroscopeRotation() {
     // FIXME Remove if you are using a Pigeon
 //     return Rotation2d.fromDegrees(m_pigeon.getFusedHeading());
@@ -188,18 +190,29 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // FIXME Uncomment if you are using a NavX
    if (m_navx.isMagnetometerCalibrated()) {
      // We will only get valid fused headings if the magnetometer is calibrated
-     return Rotation2d.fromDegrees(m_navx.getFusedHeading());
+    //  return Rotation2d.fromDegrees(m_navx.getFusedHeading());
+     return Rotation2d.fromDegrees(-m_navx.getFusedHeading());
    }
 //
 //    // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
-   return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
+  //  return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
+   return Rotation2d.fromDegrees(-(360.0 - m_navx.getYaw()));
   }
+
+  //for robo oriented, both returned are positive
+  //for field oriented, both returned as negative
+
+
+
+
 
   public void drive(ChassisSpeeds chassisSpeeds) {
     m_chassisSpeeds = chassisSpeeds;
   }
 
-  public void resetGyroscope() {}
+  public void resetGyroscope() {
+    m_navx.reset();
+  }
 
   public CANCoder frontleft = new CANCoder(3);
   public CANCoder frontright = new CANCoder(6);

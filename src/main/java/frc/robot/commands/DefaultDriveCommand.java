@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 // import frc.robot.Robot;
 import frc.robot.subsystems.DrivetrainSubsystem;
-// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DefaultDriveCommand extends CommandBase {
     private final DrivetrainSubsystem m_drivetrainSubsystem;
@@ -29,17 +28,22 @@ public class DefaultDriveCommand extends CommandBase {
 
     @Override
     public void execute() {        // You can use `new ChassisSpeeds(...)` for robot-oriented movement instead of field-oriented movement
-        m_drivetrainSubsystem.drive(/*new ChassisSpeeds(
+        m_drivetrainSubsystem.drive(
+
+        ////////////////KINDA WORKING BUT DOGWATER ROBO ORIENTED SWERVE CODE//////////////////////////////
+        //         new ChassisSpeeds(
+        //                 m_translationXSupplier.getAsDouble(),
+        //                 m_translationYSupplier.getAsDouble(),
+        //                 m_rotationSupplier.getAsDouble()
+        // )
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        
+            ChassisSpeeds.fromFieldRelativeSpeeds(
                         m_translationXSupplier.getAsDouble(),
                         m_translationYSupplier.getAsDouble(),
-                        m_rotationSupplier.getAsDouble()
-        )*/
-                ChassisSpeeds.fromFieldRelativeSpeeds(
-                         m_translationXSupplier.getAsDouble(),
-                         m_translationYSupplier.getAsDouble(),
-                         m_rotationSupplier.getAsDouble(),
-                         m_drivetrainSubsystem.getGyroscopeRotation()
-                 )
+                        m_rotationSupplier.getAsDouble(),
+                        m_drivetrainSubsystem.getGyroscopeRotation()
+                )
         );
         
         SmartDashboard.putNumber("xinput ", m_translationXSupplier.getAsDouble());

@@ -67,15 +67,15 @@ public class RobotContainer {
     // double forward2 = Math.copySign(Math.pow(forward, 2.0), forward);
 
     // double forward = 0.0;
-     DoubleSupplier forwardsupp = () -> -Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(1), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(1), 0.025));
-  
+     DoubleSupplier forwardsupp = () -> -2*Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(1), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(1), 0.025));
+     
 
     // double strafe = getPrimaryJoystick().getRawAxis(0);
     // Square the strafe stick
     // strafe = deadband(strafe, 0.025);
     // double strafe2 = Math.copySign(Math.pow(strafe, 2.0), strafe);
     // double strafe = 0.0;
-     DoubleSupplier strafesupp = () -> -Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(0), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(0), 0.025));
+     DoubleSupplier strafesupp = () -> -2*Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(0), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(0), 0.025));
 
     // double rotation = getPrimaryJoystick().getRawAxis(2);
     // Square the rotation stick
@@ -85,17 +85,18 @@ public class RobotContainer {
 
 
     
-     DoubleSupplier rotatesupp = () -> -Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(2), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(2), 0.025));
+     DoubleSupplier rotatesupp = () -> -2*Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(2), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(2), 0.025));
 
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
             m_drivetrainSubsystem, 
             forwardsupp,
             strafesupp,
             rotatesupp
-            ));
+            )); //////forwardsupp snd strafesupp in order to do field
+                //////forwardsupp and strafesupp in order to do robo
 
     // Configure the button bindings
-    // configureButtonBindings();
+     configureButtonBindings();
   
     //DrivetrainSubsystem.getInstance().setDefaultCommand(new DriveCommand());
     configureButtonBindings();
@@ -117,6 +118,10 @@ public class RobotContainer {
      );*/
      //lifterButton.whileHeld(new KunjamaniExtendLifter(lifter));
 
+     new JoystickButton(primaryJoystick, Constants.gyroButton).whenPressed(
+      new InstantCommand(() -> m_drivetrainSubsystem.zeroGyroscope())
+    );
+
     IntakeButton = new JoystickButton(primaryJoystick, 7);
     track = new JoystickButton(primaryJoystick, 2);
     spinFlywheel = new JoystickButton(primaryJoystick, 2);
@@ -128,7 +133,6 @@ public class RobotContainer {
     track.whileHeld(new turretTrack(turret));
     spinFlywheel.whenHeld(new keepFlywheelAtSpeed(flywheel, aim));
     fireBall.whileHeld(new feedShooter(intake));
-
   }
 
   /**
