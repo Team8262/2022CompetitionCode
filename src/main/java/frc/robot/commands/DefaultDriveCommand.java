@@ -31,19 +31,19 @@ public class DefaultDriveCommand extends CommandBase {
         m_drivetrainSubsystem.drive(
 
         ////////////////KINDA WORKING BUT DOGWATER ROBO ORIENTED SWERVE CODE//////////////////////////////
-                new ChassisSpeeds(
-                        m_translationXSupplier.getAsDouble(),
-                        m_translationYSupplier.getAsDouble(),
-                        m_rotationSupplier.getAsDouble()
-        )
+        //         new ChassisSpeeds(
+        //                 m_translationXSupplier.getAsDouble(),
+        //                 m_translationYSupplier.getAsDouble(),
+        //                 m_rotationSupplier.getAsDouble()
+        // )
         //////////////////////////////////////////////////////////////////////////////////////////////////
         
-            // ChassisSpeeds.fromFieldRelativeSpeeds(
-            //             m_translationXSupplier.getAsDouble(),
-            //             m_translationYSupplier.getAsDouble(),
-            //             m_rotationSupplier.getAsDouble(),
-            //             m_drivetrainSubsystem.getGyroscopeRotation()
-            //     )
+            ChassisSpeeds.fromFieldRelativeSpeeds(
+                        m_translationXSupplier.getAsDouble(),
+                        m_translationYSupplier.getAsDouble(),
+                        m_rotationSupplier.getAsDouble(),
+                        m_drivetrainSubsystem.getGyroscopeRotation()
+                )
         );
         
         SmartDashboard.putNumber("xinput ", m_translationXSupplier.getAsDouble());
