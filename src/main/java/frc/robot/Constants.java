@@ -13,6 +13,8 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+    public static final int gyroButton = 1;
     /**
      * The left-to-right distance between the drivetrain wheels
      *
