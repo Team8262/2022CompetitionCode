@@ -18,4 +18,9 @@ public final class Constants {
     public static final double trackWidth = 22.5;
     public static final double wheelBase = 22.5;
     public static final int zeroGyroButton = 1; // not the actual value
+
+    public static final int PH_ID = 31;
+    public static final int HOOK_SOLENOID_1 = 1;
+    public static final int HOOK_SOLENOID_2 = 2;
+    public static final int LIFTER_SOLENOID = 7;
 }

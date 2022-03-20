@@ -22,12 +22,14 @@ import frc.robot.Constants;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static Joystick primaryJoystick = new Joystick(0);
+  public static JoystickButton lifterButton = new JoystickButton(primaryJoystick, 7);
+  public static KunjamaniLifter lifter = new KunjamaniLifter();
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    DrivetrainSubsystem.getInstance().setDefaultCommand(new DriveCommand());
+    //DrivetrainSubsystem.getInstance().setDefaultCommand(new DriveCommand());
     configureButtonBindings();
   }
 
@@ -41,10 +43,12 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
-     new JoystickButton(primaryJoystick, Constants.zeroGyroButton).whenPressed(
+  private void configureButtonBindings() {/*
+    new JoystickButton(primaryJoystick, Constants.zeroGyroButton).whenPressed(
        new InstantCommand(() -> DrivetrainSubsystem.getInstance().resetGyroscope())
-     );
+     );*/
+     lifterButton.whileHeld(new KunjamaniExtendLifter(lifter));
+
   }
 
   /**
