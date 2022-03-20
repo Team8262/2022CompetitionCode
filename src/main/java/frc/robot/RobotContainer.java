@@ -4,8 +4,8 @@
 
 package frc.robot;
 
-// import edu.wpi.first.wpilibj.GenericHID;
-// import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID;
+//import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
@@ -13,12 +13,10 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
-
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 import java.util.function.DoubleSupplier;
-
-
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -97,8 +95,18 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return new InstantCommand();
+    SequentialCommandGroup autonCommand = new SequentialCommandGroup();
+
+    // drive in a square, 5 seconds per side
+    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 1.0, 5));
+    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, 0.0, 1.0, 1.0, 5));
+    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 0.0, 1.0, 5));
+    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, 0.0, -1.0, 1.0, 5));
+
+    // spin? for 5 seconds
+    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 1.0, 1.0, 5));
+
+    return autonCommand;
   }
 
   private static double deadband(double value, double deadband) {
@@ -123,4 +131,3 @@ public class RobotContainer {
     return value;
   }
 }
-
