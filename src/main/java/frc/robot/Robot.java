@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import frc.robot.subsystems.DrivetrainSubsystem;
 
 
 
@@ -28,6 +29,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private static RobotContainer m_robotContainer;
+  private final DrivetrainSubsystem m_drivetrainSubsystem2 = new DrivetrainSubsystem();
   
 
 
@@ -57,11 +59,9 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_drivetrainSubsystem2.zeroGyroscope();
+    m_drivetrainSubsystem2.resetGyroscope();
   }
-
-  // public static RobotContainer getRobotContainer(){
-  //   return m_robotContainer;
-  // }
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like

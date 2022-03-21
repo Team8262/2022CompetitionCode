@@ -19,7 +19,16 @@ import edu.wpi.first.wpilibj.Joystick;
 import java.util.function.DoubleSupplier;
 
 import frc.robot.subsystems.KunjamaniLifter;
+import frc.robot.subsystems.limelight;
 import frc.robot.commands.KunjamaniExtendLifter;
+import frc.robot.subsystems.turret;
+import frc.robot.subsystems.flywheel;
+import frc.robot.subsystems.intake;
+import frc.robot.commands.feedShooter;
+import frc.robot.commands.IntakeControl;
+import frc.robot.commands.killShooter;
+import frc.robot.commands.turretTrack;
+import frc.robot.commands.keepFlywheelAtSpeed;
 
 
 
@@ -34,7 +43,17 @@ public class RobotContainer {
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   public static Joystick primaryJoystick = new Joystick(0);
   public static JoystickButton lifterButton = new JoystickButton(primaryJoystick, 7);
-  public static KunjamaniLifter lifter = new KunjamaniLifter();
+  //public static KunjamaniLifter lifter = new KunjamaniLifter();
+  private final limelight aim = new limelight();
+  private final turret turret = new turret(aim);
+  private final flywheel flywheel = new flywheel(aim);
+  private final intake intake = new intake();
+
+  public JoystickButton track;
+  public JoystickButton IntakeButton;
+  public JoystickButton spinFlywheel;
+  public JoystickButton fireBall;
+  public JoystickButton killShooter;
 
 
   /**
@@ -48,15 +67,15 @@ public class RobotContainer {
     // double forward2 = Math.copySign(Math.pow(forward, 2.0), forward);
 
     // double forward = 0.0;
-     DoubleSupplier forwardsupp = () -> -Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(1), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(1), 0.025));
-  
+     DoubleSupplier forwardsupp = () -> -2*Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(1), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(1), 0.025));
+     
 
     // double strafe = getPrimaryJoystick().getRawAxis(0);
     // Square the strafe stick
     // strafe = deadband(strafe, 0.025);
     // double strafe2 = Math.copySign(Math.pow(strafe, 2.0), strafe);
     // double strafe = 0.0;
-     DoubleSupplier strafesupp = () -> -Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(0), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(0), 0.025));
+     DoubleSupplier strafesupp = () -> -2*Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(0), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(0), 0.025));
 
     // double rotation = getPrimaryJoystick().getRawAxis(2);
     // Square the rotation stick
@@ -66,17 +85,18 @@ public class RobotContainer {
 
 
     
-     DoubleSupplier rotatesupp = () -> -Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(2), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(2), 0.025));
+     DoubleSupplier rotatesupp = () -> -2*Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(2), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(2), 0.025));
 
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
             m_drivetrainSubsystem, 
             forwardsupp,
             strafesupp,
             rotatesupp
-            ));
+            )); //////forwardsupp snd strafesupp in order to do field
+                //////forwardsupp and strafesupp in order to do robo
 
     // Configure the button bindings
-    // configureButtonBindings();
+     configureButtonBindings();
   
     //DrivetrainSubsystem.getInstance().setDefaultCommand(new DriveCommand());
     configureButtonBindings();
@@ -96,8 +116,23 @@ public class RobotContainer {
     new JoystickButton(primaryJoystick, Constants.zeroGyroButton).whenPressed(
        new InstantCommand(() -> DrivetrainSubsystem.getInstance().resetGyroscope())
      );*/
-     lifterButton.whileHeld(new KunjamaniExtendLifter(lifter));
+     //lifterButton.whileHeld(new KunjamaniExtendLifter(lifter));
 
+     new JoystickButton(primaryJoystick, Constants.gyroButton).whenPressed(
+      new InstantCommand(() -> m_drivetrainSubsystem.zeroGyroscope())
+    );
+
+    IntakeButton = new JoystickButton(primaryJoystick, 7);
+    track = new JoystickButton(primaryJoystick, 2);
+    spinFlywheel = new JoystickButton(primaryJoystick, 2);
+    fireBall = new JoystickButton(primaryJoystick, 1);
+    killShooter = new JoystickButton(primaryJoystick, 10);
+    
+    IntakeButton.whileHeld(new IntakeControl(intake));
+    killShooter.whenPressed(new killShooter(flywheel));
+    track.whileHeld(new turretTrack(turret));
+    spinFlywheel.whenHeld(new keepFlywheelAtSpeed(flywheel, aim));
+    fireBall.whileHeld(new feedShooter(intake));
   }
 
   /**
