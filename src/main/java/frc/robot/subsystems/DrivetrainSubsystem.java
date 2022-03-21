@@ -181,8 +181,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
    m_navx.zeroYaw();
   }
 
-
-
   public Rotation2d getGyroscopeRotation() {
     // FIXME Remove if you are using a Pigeon
 //     return Rotation2d.fromDegrees(m_pigeon.getFusedHeading());
@@ -201,8 +199,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   //for robo oriented, both returned are positive
   //for field oriented, both returned as negative
-
-
 
 
 

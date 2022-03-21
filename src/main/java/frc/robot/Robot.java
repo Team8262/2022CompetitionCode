@@ -29,7 +29,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private static RobotContainer m_robotContainer;
-  private final DrivetrainSubsystem m_drivetrainSubsystem2 = new DrivetrainSubsystem();
+  // private final DrivetrainSubsystem m_drivetrainSubsystem2 = new DrivetrainSubsystem();
   
 
 
@@ -59,8 +59,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    m_drivetrainSubsystem2.zeroGyroscope();
-    m_drivetrainSubsystem2.resetGyroscope();
+    // m_drivetrainSubsystem2.zeroGyroscope();
+    // m_drivetrainSubsystem2.resetGyroscope();
   }
 
   /**
