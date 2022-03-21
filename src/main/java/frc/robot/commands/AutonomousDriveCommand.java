@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DrivetrainSubsystem;
-import java.util.function.DoubleSupplier;
+//import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -41,7 +41,7 @@ public class AutonomousDriveCommand extends CommandBase {
     }
 
     @Override
-    public void execute() {        // You can use `new ChassisSpeeds(...)` for robot-oriented movement instead of field-oriented movement
+    public void execute() { // You can use `new ChassisSpeeds(...)` for robot-oriented movement instead of field-oriented movement
         elapsedTime = System.currentTimeMillis() - startTime;
         elapsedSeconds = elapsedTime / 1000;
         elapsedwholeSeconds = elapsedSeconds % 60;
@@ -51,8 +51,8 @@ public class AutonomousDriveCommand extends CommandBase {
         SmartDashboard.putNumber("x: ", x);
         SmartDashboard.putNumber("y: ", y);
         SmartDashboard.putNumber("rotation: ", rotation);
-        SmartDashboard.putNumber("seconds passed: " + elapsedwholeSeconds);
-        SmartDashboard.putNumber("UID: " + uid);
+        SmartDashboard.putNumber("seconds passed: ", elapsedwholeSeconds);
+        SmartDashboard.putNumber("UID: ", uid);
     }
 
     @Override
