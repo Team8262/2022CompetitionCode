@@ -27,6 +27,9 @@ public class turret extends SubsystemBase {
     private DutyCycleEncoder shooterEncoder;
     private SparkMaxPIDController turnMotorController;
 
+    public double targetAngle;
+    public boolean autoTrack;
+
     public turret(limelight limelight) {
         //turnMotor.setSmartCurrentLimit(5);
         this.camera = limelight;
@@ -51,8 +54,17 @@ public class turret extends SubsystemBase {
         
     }
 
-    public void track(){
-        turnMotorController.setReference(camera.getXOffset(), ControlType.kPosition);
+    public void track(boolean autoTrack){
+        if(autoTrack) {
+            turnMotorController.setReference(camera.getXOffset() * Constants.SHOOTER_SPROCKET_RATIO / 360, ControlType.kPosition);
+        } else {
+            turnMotorController.setReference(targetAngle * Constants.SHOOTER_SPROCKET_RATIO / 360, ControlType.kPosition);
+        }
+        
+    }
+
+    public void setPosition(double angle){
+        turnMotorController.setReference(angle * Constants.SHOOTER_SPROCKET_RATIO / 360, ControlType.kPosition);
     }
 
     public void stop(){

@@ -11,6 +11,7 @@ import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import edu.wpi.first.wpilibj.Timer;
 
 
 
@@ -29,6 +30,8 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private static RobotContainer m_robotContainer;
+  public static double deltaTime = 0;
+  public static double lastTime = 0;
   // private final DrivetrainSubsystem m_drivetrainSubsystem2 = new DrivetrainSubsystem();
   
 
@@ -54,7 +57,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {    
-
+    
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
@@ -73,6 +76,8 @@ public class Robot extends TimedRobot {
   
   @Override
   public void robotPeriodic() {
+    deltaTime = Timer.getMatchTime() - lastTime;
+    lastTime = Timer.getMatchTime();
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic

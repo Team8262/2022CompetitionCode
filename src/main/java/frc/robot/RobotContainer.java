@@ -21,6 +21,7 @@ import java.util.function.DoubleSupplier;
 import frc.robot.subsystems.KunjamaniLifter;
 import frc.robot.subsystems.limelight;
 import frc.robot.commands.KunjamaniExtendLifter;
+import frc.robot.commands.ManualTrack;
 import frc.robot.subsystems.turret;
 import frc.robot.subsystems.flywheel;
 import frc.robot.subsystems.intake;
@@ -43,6 +44,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   public static Joystick primaryJoystick = new Joystick(0);
+  public static Joystick turretJoystick = new Joystick(1);
   public static JoystickButton lifterButton = new JoystickButton(primaryJoystick, 7);
   //public static KunjamaniLifter lifter = new KunjamaniLifter();
   private final limelight aim = new limelight();
@@ -118,7 +120,7 @@ public class RobotContainer {
        new InstantCommand(() -> DrivetrainSubsystem.getInstance().resetGyroscope())
      );*/
      //lifterButton.whileHeld(new KunjamaniExtendLifter(lifter));
-
+    
      new JoystickButton(primaryJoystick, Constants.gyroButton).whenPressed(
       new InstantCommand(() -> m_drivetrainSubsystem.zeroGyroscope())
     );
@@ -132,6 +134,7 @@ public class RobotContainer {
     IntakeButton.whileHeld(new IntakeControl(intake));
     killShooter.whenPressed(new killShooter(flywheel));
     track.whileHeld(new turretTrack(turret));
+    track.whenInactive(new ManualTrack(turret, turretJoystick.getRawAxis(0)));
     spinFlywheel.whenHeld(new keepFlywheelAtSpeed(flywheel, aim));
     fireBall.whileHeld(new forceFeedShooter(intake));
   }

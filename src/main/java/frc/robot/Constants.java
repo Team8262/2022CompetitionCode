@@ -123,6 +123,8 @@ public final class Constants {
     public static final double FLYWHEEL_TOLERANCE = 12;
 
     //public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(24.345703); // 360-155.654297+180
+
+    public static final double TURRET_TURN_SPEED = 90;
 }
 
 //181.406250
