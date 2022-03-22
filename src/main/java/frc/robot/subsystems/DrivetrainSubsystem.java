@@ -196,14 +196,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
    return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
   }
 
-<<<<<<< HEAD
-  //for robo oriented, both returned are positive
-  //for field oriented, both returned as negative
-
-
-
-=======
->>>>>>> d2bcf9c60f21229239ca86ceba8c2f2474337432
   public void drive(ChassisSpeeds chassisSpeeds) {
     m_chassisSpeeds = chassisSpeeds;
   }
