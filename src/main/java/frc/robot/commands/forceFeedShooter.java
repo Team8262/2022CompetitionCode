@@ -4,44 +4,42 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.KenjiLifter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.intake;
 
 /** An example command that uses an example subsystem. */
-public class KenjiStepLifter extends CommandBase {
+public class forceFeedShooter extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final KenjiLifter lifter;
-  private final boolean direction;
+  private final intake m_intakeSubsystem;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  // //direction = true means the robot goes up, direction = false means the robot goes down
-  public KenjiStepLifter(KenjiLifter lifter, boolean direction) {
-    this.lifter = lifter;
-    this.direction = direction;
+  public forceFeedShooter(intake intakeSubsystem) {
+    this.m_intakeSubsystem = intakeSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(lifter);
+    addRequirements(this.m_intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    lifter.setHookState(!lifter.getHookState());
-    lifter.stepLifter(direction);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    m_intakeSubsystem.turnFeederMotor(-1);
+    m_intakeSubsystem.turnStorageMotor(-0.4);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_intakeSubsystem.turnFeederMotor(0);
+    m_intakeSubsystem.turnStorageMotor(0);
+  }
 
   // Returns true when the command should end.
   @Override

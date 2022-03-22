@@ -20,6 +20,9 @@ public class turret extends SubsystemBase {
     private double neoAngle;
     private double revAngle;
 
+    private boolean left;
+    private double spip = 0;
+
     private CANSparkMax turnMotor;
     private DutyCycleEncoder shooterEncoder;
     private SparkMaxPIDController turnMotorController;
@@ -69,6 +72,21 @@ public class turret extends SubsystemBase {
           instance = new turret(aim);
         }
         return instance;
+    }
+
+    public boolean spin(){
+        left = (turnMotor.getEncoder().getPosition() > 0);
+        if (this.onTarget()){
+            return true;
+        } else {
+            turnMotorController.setReference(spip, ControlType.kPosition);
+            if (left){
+                spip = spip - 3 / (Constants.SHOOTER_SPROCKET_RATIO);
+            } else {
+                spip = spip + 3 / (Constants.SHOOTER_SPROCKET_RATIO);
+            }
+            return false;
+        }
     }
 
     @Override
