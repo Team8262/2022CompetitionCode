@@ -14,7 +14,7 @@ package frc.robot;
  */
 public final class Constants {
 
-    // public static final int gyroButton = 1;
+    public static final int gyroButton = 1;
     /**
      * The left-to-right distance between the drivetrain wheels
      *
@@ -51,11 +51,6 @@ public final class Constants {
     public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 8; // FIXME Set back right drive motor ID
     public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 10; // FIXME Set back right steer motor ID
     public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 12; // FIXME Set back right steer encoder ID
-<<<<<<< HEAD
-    // public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(24.345703); // 360-155.654297+180
-    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(0);
-
-=======
     public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(24.345703); // 360-155.654297+180
 
     // Robot
@@ -128,7 +123,6 @@ public final class Constants {
     public static final double FLYWHEEL_TOLERANCE = 1;
 
     //public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(24.345703); // 360-155.654297+180
->>>>>>> d2bcf9c60f21229239ca86ceba8c2f2474337432
 }
 
 //181.406250

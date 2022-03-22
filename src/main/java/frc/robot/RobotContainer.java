@@ -112,13 +112,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-<<<<<<< HEAD
-  //  private void configureButtonBindings() {
-  //    new JoystickButton(primaryJoystick, Constants.gyroButton).whenPressed(
-  //      new InstantCommand(() -> m_drivetrainSubsystem.zeroGyroscope())
-  //    );
-  // }
-=======
   private void configureButtonBindings() {/*
     new JoystickButton(primaryJoystick, Constants.zeroGyroButton).whenPressed(
        new InstantCommand(() -> DrivetrainSubsystem.getInstance().resetGyroscope())
@@ -141,7 +134,6 @@ public class RobotContainer {
     spinFlywheel.whenHeld(new keepFlywheelAtSpeed(flywheel, aim));
     fireBall.whileHeld(new feedShooter(intake));
   }
->>>>>>> d2bcf9c60f21229239ca86ceba8c2f2474337432
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
