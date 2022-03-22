@@ -1,12 +1,12 @@
-package com.swervedrivespecialties.swervelib;
+package com.swervedrivespecialties.swervelib.ctre;
 
 import java.util.Objects;
 
-public class SteerConfiguration<EncoderConfiguration> {
+public class Falcon500SteerConfiguration<EncoderConfiguration> {
     private final int motorPort;
     private final EncoderConfiguration encoderConfiguration;
 
-    public SteerConfiguration(int motorPort, EncoderConfiguration encoderConfiguration) {
+    public Falcon500SteerConfiguration(int motorPort, EncoderConfiguration encoderConfiguration) {
         this.motorPort = motorPort;
         this.encoderConfiguration = encoderConfiguration;
     }
@@ -23,7 +23,7 @@ public class SteerConfiguration<EncoderConfiguration> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SteerConfiguration<?> that = (SteerConfiguration<?>) o;
+        Falcon500SteerConfiguration<?> that = (Falcon500SteerConfiguration<?>) o;
         return getMotorPort() == that.getMotorPort() && getEncoderConfiguration().equals(that.getEncoderConfiguration());
     }
 
@@ -34,7 +34,7 @@ public class SteerConfiguration<EncoderConfiguration> {
 
     @Override
     public String toString() {
-        return "SteerConfiguration{" +
+        return "Falcon500SteerConfiguration{" +
                 "motorPort=" + motorPort +
                 ", encoderConfiguration=" + encoderConfiguration +
                 '}';

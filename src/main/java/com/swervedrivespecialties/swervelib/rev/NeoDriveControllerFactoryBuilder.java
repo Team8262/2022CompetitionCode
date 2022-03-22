@@ -37,7 +37,7 @@ public final class NeoDriveControllerFactoryBuilder {
 
     private class FactoryImplementation implements DriveControllerFactory<ControllerImplementation, Integer> {
         @Override
-        public ControllerImplementation create(Integer id, String _canbus, ModuleConfiguration moduleConfiguration) {
+        public ControllerImplementation create(Integer id, ModuleConfiguration moduleConfiguration) {
             CANSparkMax motor = new CANSparkMax(id, CANSparkMaxLowLevel.MotorType.kBrushless);
             motor.setInverted(moduleConfiguration.isDriveInverted());
 
@@ -73,11 +73,6 @@ public final class NeoDriveControllerFactoryBuilder {
         private ControllerImplementation(CANSparkMax motor, RelativeEncoder encoder) {
             this.motor = motor;
             this.encoder = encoder;
-        }
-
-        @Override
-        public Object getDriveMotor() {
-            return this.motor;
         }
 
         @Override
