@@ -99,13 +99,18 @@ public class RobotContainer {
     SequentialCommandGroup autonCommand = new SequentialCommandGroup();
 
     // drive in a square, 5 seconds per side
-    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 1.0, 5));
+    autonCommand.addCommands(
+      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 1.0, 5)
+    );
+    
+    /*
     autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, 0.0, 1.0, 1.0, 5));
     autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 0.0, 1.0, 5));
     autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, 0.0, -1.0, 1.0, 5));
 
     // spin? for 5 seconds
     autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 1.0, 1.0, 5));
+    */
 
     return autonCommand;
   }
