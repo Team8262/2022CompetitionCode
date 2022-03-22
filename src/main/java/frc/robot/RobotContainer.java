@@ -25,6 +25,7 @@ import frc.robot.subsystems.turret;
 import frc.robot.subsystems.flywheel;
 import frc.robot.subsystems.intake;
 import frc.robot.commands.feedShooter;
+import frc.robot.commands.forceFeedShooter;
 import frc.robot.commands.IntakeControl;
 import frc.robot.commands.killShooter;
 import frc.robot.commands.turretTrack;
@@ -132,7 +133,7 @@ public class RobotContainer {
     killShooter.whenPressed(new killShooter(flywheel));
     track.whileHeld(new turretTrack(turret));
     spinFlywheel.whenHeld(new keepFlywheelAtSpeed(flywheel, aim));
-    fireBall.whileHeld(new feedShooter(intake));
+    fireBall.whileHeld(new forceFeedShooter(intake));
   }
 
   /**
