@@ -23,7 +23,6 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.sensors.CANCoder;
 import java.lang.Math;
-import frc.robot.RobotContainer;
 
 
 
@@ -196,35 +195,17 @@ public class DrivetrainSubsystem extends SubsystemBase {
    return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
   }
 
-<<<<<<< HEAD
-  //for robo oriented, both returned are positive
-  //for field oriented, both returned as negative
-
-
-
-=======
->>>>>>> d2bcf9c60f21229239ca86ceba8c2f2474337432
   public void drive(ChassisSpeeds chassisSpeeds) {
     m_chassisSpeeds = chassisSpeeds;
   }
 
   public void resetGyroscope() {}
-
-  public CANCoder frontleft = new CANCoder(3);
-  public CANCoder frontright = new CANCoder(6);
-  public CANCoder backleft = new CANCoder(12);
-  public CANCoder backright = new CANCoder(9);  
-
-  // RobotContainer RC = new RobotContainer();
   
         
     //get angles for angle offset
 
   @Override
   public void periodic() {
-
-    // double speedfactor = RC.speedfactor();
-
     SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
     
@@ -233,10 +214,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_backLeftModule.set(states[2].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[2].angle.getRadians());
     m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[3].angle.getRadians());
 
-    double FLdegree = frontleft.getPosition()%360;
-    double FRdegree = frontright.getPosition()%360;
-    double BLdegree = backleft.getPosition()%360;
-    double BRdegree = backright.getPosition()%360;
+    double FLdegree = Math.toDegrees(m_frontLeftModule.getSteerAngle());
+    double FRdegree = Math.toDegrees(m_frontRightModule.getSteerAngle());
+    double BLdegree = Math.toDegrees(m_backLeftModule.getSteerAngle());
+    double BRdegree = Math.toDegrees(m_backRightModule.getSteerAngle());
+
     double gyrodegree = m_navx.getAngle()%360;
     // boolean X = m_navx.isRotating();
     // ErrorCode error = backright.getLastError(); doesn't work, figure out what's errorcode type
@@ -245,6 +227,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Front Right Module Angle ", FRdegree);
     SmartDashboard.putNumber("Back Left Module Angle ", BLdegree);
     SmartDashboard.putNumber("Back Right Module Angle ", BRdegree);
+
+
     SmartDashboard.putNumber("gyrodegree ", gyrodegree);
     // System.out.println("Gyro is rotating: " + X);
   }

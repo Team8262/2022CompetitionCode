@@ -40,7 +40,7 @@ import frc.robot.commands.keepFlywheelAtSpeed;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
+  private DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   public static Joystick primaryJoystick = new Joystick(0);
   public static JoystickButton lifterButton = new JoystickButton(primaryJoystick, 7);
   //public static KunjamaniLifter lifter = new KunjamaniLifter();
