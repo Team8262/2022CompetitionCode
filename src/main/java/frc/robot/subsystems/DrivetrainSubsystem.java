@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.sensors.CANCoder;
 import java.lang.Math;
+import frc.robot.RobotContainer;
 
 
 
@@ -188,38 +189,42 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // FIXME Uncomment if you are using a NavX
    if (m_navx.isMagnetometerCalibrated()) {
      // We will only get valid fused headings if the magnetometer is calibrated
-    //  return Rotation2d.fromDegrees(m_navx.getFusedHeading());
-     return Rotation2d.fromDegrees(-m_navx.getFusedHeading());
+     return Rotation2d.fromDegrees(m_navx.getFusedHeading());
    }
 //
 //    // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
-  //  return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
-   return Rotation2d.fromDegrees(-(360.0 - m_navx.getYaw()));
+   return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
   }
 
+<<<<<<< HEAD
   //for robo oriented, both returned are positive
   //for field oriented, both returned as negative
 
 
 
+=======
+>>>>>>> d2bcf9c60f21229239ca86ceba8c2f2474337432
   public void drive(ChassisSpeeds chassisSpeeds) {
     m_chassisSpeeds = chassisSpeeds;
   }
 
-  public void resetGyroscope() {
-    m_navx.reset();
-  }
+  public void resetGyroscope() {}
 
   public CANCoder frontleft = new CANCoder(3);
   public CANCoder frontright = new CANCoder(6);
   public CANCoder backleft = new CANCoder(12);
   public CANCoder backright = new CANCoder(9);  
+
+  // RobotContainer RC = new RobotContainer();
   
         
     //get angles for angle offset
 
   @Override
   public void periodic() {
+
+    // double speedfactor = RC.speedfactor();
+
     SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
     
