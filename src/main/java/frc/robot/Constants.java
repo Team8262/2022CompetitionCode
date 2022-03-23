@@ -13,8 +13,13 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-
+    //Buttons
     public static final int gyroButton = 1;
+
+    //Joystick
+    public static final int forwardAxis = 1;
+    public static final int strafeAxis = 0;
+    public static final int rotationAxis = 2;
     /**
      * The left-to-right distance between the drivetrain wheels
      *

@@ -70,7 +70,7 @@ public class RobotContainer {
     // double forward2 = Math.copySign(Math.pow(forward, 2.0), forward);
 
     // double forward = 0.0;
-     DoubleSupplier forwardsupp = () -> -2*Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(1), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(1), 0.025));
+     DoubleSupplier forwardsupp = () -> -1*modifyAxis(getPrimaryJoystick().getRawAxis(Constants.forwardAxis));
      
 
     // double strafe = getPrimaryJoystick().getRawAxis(0);
@@ -78,7 +78,7 @@ public class RobotContainer {
     // strafe = deadband(strafe, 0.025);
     // double strafe2 = Math.copySign(Math.pow(strafe, 2.0), strafe);
     // double strafe = 0.0;
-     DoubleSupplier strafesupp = () -> -2*Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(0), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(0), 0.025));
+     DoubleSupplier strafesupp = () -> -1*modifyAxis(getPrimaryJoystick().getRawAxis(Constants.strafeAxis));
 
     // double rotation = getPrimaryJoystick().getRawAxis(2);
     // Square the rotation stick
@@ -88,20 +88,14 @@ public class RobotContainer {
 
 
     
-     DoubleSupplier rotatesupp = () -> -2*Math.copySign(Math.pow(deadband(getPrimaryJoystick().getRawAxis(2), 0.025), 2.0), deadband(getPrimaryJoystick().getRawAxis(2), 0.025));
+     DoubleSupplier rotatesupp = () -> -1*modifyAxis(getPrimaryJoystick().getRawAxis(Constants.rotationAxis));
 
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
             m_drivetrainSubsystem, 
             forwardsupp,
             strafesupp,
             rotatesupp
-            )); //////forwardsupp snd strafesupp in order to do field
-                //////forwardsupp and strafesupp in order to do robo
-
-    // Configure the button bindings
-    //  configureButtonBindings();
-  
-    //DrivetrainSubsystem.getInstance().setDefaultCommand(new DriveCommand());
+            )); 
     configureButtonBindings();
   }
 
@@ -115,10 +109,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {/*
-    new JoystickButton(primaryJoystick, Constants.zeroGyroButton).whenPressed(
-       new InstantCommand(() -> DrivetrainSubsystem.getInstance().resetGyroscope())
-     );*/
+  private void configureButtonBindings() {
      //lifterButton.whileHeld(new KunjamaniExtendLifter(lifter));
     
      new JoystickButton(primaryJoystick, Constants.gyroButton).whenPressed(
@@ -163,7 +154,7 @@ public class RobotContainer {
 
   private static double modifyAxis(double value) {
     // Deadband
-    value = deadband(value, 0.05);
+    value = deadband(value, 0.025);
 
     // Square the axis
     value = Math.copySign(value * value, value);

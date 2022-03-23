@@ -7,10 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import com.ctre.phoenix.sensors.CANCoder;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import frc.robot.subsystems.DrivetrainSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 
 
@@ -41,28 +37,12 @@ public class Robot extends TimedRobot {
    * initialization code.
    */
 
-  // CANCoder frontleft = new CANCoder(3);
-  // CANCoder frontright = new CANCoder(6);
-  // CANCoder backright = new CANCoder(9);
-  // CANCoder backleft = new CANCoder(12); 
-
-  // // TalonFX _talon2 = new TalonFX(2);
-  // TalonFX fl = new TalonFX(4);
-  // // TalonFX _talon5 = new TalonFX(5);
-  // TalonFX fr = new TalonFX(7);
-  // // TalonFX _talon8 = new TalonFX(8);
-  // TalonFX br = new TalonFX(10);
-  // // TalonFX _talon11 = new TalonFX(11);
-  // TalonFX bl = new TalonFX(13);
-
   @Override
   public void robotInit() {    
     
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    // m_drivetrainSubsystem2.zeroGyroscope();
-    // m_drivetrainSubsystem2.resetGyroscope();
   }
 
   /**
@@ -88,18 +68,6 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    // while(frontleft.getPosition()%360 != 0){
-    //   fl.set(ControlMode.PercentOutput, 0.0001);
-    // }
-    // while(frontright.getPosition()%360 != 0){
-    //   fr.set(ControlMode.PercentOutput, 0.0001);
-    // }
-    // while(backright.getPosition()%360 != 0){
-    //   br.set(ControlMode.PercentOutput, 0.0001);
-    // }
-    // while(backleft.getPosition()%360 != 0){
-    //   bl.set(ControlMode.PercentOutput, 0.0001);
-    // }
   }
 
   @Override

@@ -229,7 +229,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Back Right Module Angle ", BRdegree);
 
 
-    SmartDashboard.putNumber("gyrodegree ", gyrodegree);
+    SmartDashboard.putNumber("Gyro Angle ", gyrodegree);
     // System.out.println("Gyro is rotating: " + X);
   }
 }
