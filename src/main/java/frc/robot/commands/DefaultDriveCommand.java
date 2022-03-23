@@ -29,14 +29,6 @@ public class DefaultDriveCommand extends CommandBase {
     @Override
     public void execute() {        // You can use `new ChassisSpeeds(...)` for robot-oriented movement instead of field-oriented movement
         m_drivetrainSubsystem.drive(
-
-        ////////////////KINDA WORKING BUT DOGWATER ROBO ORIENTED SWERVE CODE//////////////////////////////
-                /*new ChassisSpeeds(
-                        m_translationXSupplier.getAsDouble(),
-                        m_translationYSupplier.getAsDouble(),
-                        m_rotationSupplier.getAsDouble()*/
-        //)
-        //////////////////////////////////////////////////////////////////////////////////////////////////
         
             ChassisSpeeds.fromFieldRelativeSpeeds(
                         m_translationXSupplier.getAsDouble(),
@@ -46,10 +38,9 @@ public class DefaultDriveCommand extends CommandBase {
                 )
         );  
         
-        SmartDashboard.putNumber("xinput ", m_translationXSupplier.getAsDouble());
-        SmartDashboard.putNumber("yinput ", m_translationYSupplier.getAsDouble());
-        SmartDashboard.putNumber("rotation", m_rotationSupplier.getAsDouble());
-        // SmartDashboard.putNumber("drivetrain" + m_drivetrainSubsystem);
+        SmartDashboard.putNumber("Drive Strafe Input", m_translationXSupplier.getAsDouble());
+        SmartDashboard.putNumber("Drive Forward Input", m_translationYSupplier.getAsDouble());
+        SmartDashboard.putNumber("Drive Rotation Input", m_rotationSupplier.getAsDouble());
     }
 
     @Override
