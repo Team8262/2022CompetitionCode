@@ -174,18 +174,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * 'forwards' direction.
    */
   public void zeroGyroscope() {
-    // FIXME Remove if you are using a Pigeon
-//     m_pigeon.setFusedHeading(0.0);
-
-    // FIXME Uncomment if you are using a NavX
    m_navx.zeroYaw();
   }
 
   public Rotation2d getGyroscopeRotation() {
-    // FIXME Remove if you are using a Pigeon
-//     return Rotation2d.fromDegrees(m_pigeon.getFusedHeading());
-
-    // FIXME Uncomment if you are using a NavX
    if (m_navx.isMagnetometerCalibrated()) {
      // We will only get valid fused headings if the magnetometer is calibrated
      return Rotation2d.fromDegrees(m_navx.getFusedHeading());
@@ -198,12 +190,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void drive(ChassisSpeeds chassisSpeeds) {
     m_chassisSpeeds = chassisSpeeds;
   }
-
-  public void resetGyroscope() {}
   
-        
-    //get angles for angle offset
-
   @Override
   public void periodic() {
     SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
@@ -219,17 +206,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
     double BLdegree = Math.toDegrees(m_backLeftModule.getSteerAngle());
     double BRdegree = Math.toDegrees(m_backRightModule.getSteerAngle());
 
-    double gyrodegree = m_navx.getAngle()%360;
-    // boolean X = m_navx.isRotating();
-    // ErrorCode error = backright.getLastError(); doesn't work, figure out what's errorcode type
+    SmartDashboard.putNumber("Max speed", MAX_VELOCITY_METERS_PER_SECOND);
+    SmartDashboard.putNumber("Max Rotation Speed", MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND);
 
     SmartDashboard.putNumber("Front Left Module Angle ", FLdegree);
     SmartDashboard.putNumber("Front Right Module Angle ", FRdegree);
     SmartDashboard.putNumber("Back Left Module Angle ", BLdegree);
     SmartDashboard.putNumber("Back Right Module Angle ", BRdegree);
 
-
-    SmartDashboard.putNumber("Gyro Angle ", gyrodegree);
-    // System.out.println("Gyro is rotating: " + X);
+    SmartDashboard.putNumber("Gyro Angle ", getGyroscopeRotation().getDegrees());
   }
 }

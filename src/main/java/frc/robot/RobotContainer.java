@@ -70,7 +70,7 @@ public class RobotContainer {
     // double forward2 = Math.copySign(Math.pow(forward, 2.0), forward);
 
     // double forward = 0.0;
-     DoubleSupplier forwardsupp = () -> -1*modifyAxis(getPrimaryJoystick().getRawAxis(Constants.forwardAxis));
+     DoubleSupplier forwardsupp = () -> -1*modifyAxis(getPrimaryJoystick().getRawAxis(Constants.forwardAxis)) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
      
 
     // double strafe = getPrimaryJoystick().getRawAxis(0);
@@ -78,7 +78,7 @@ public class RobotContainer {
     // strafe = deadband(strafe, 0.025);
     // double strafe2 = Math.copySign(Math.pow(strafe, 2.0), strafe);
     // double strafe = 0.0;
-     DoubleSupplier strafesupp = () -> -1*modifyAxis(getPrimaryJoystick().getRawAxis(Constants.strafeAxis));
+     DoubleSupplier strafesupp = () -> -1*modifyAxis(getPrimaryJoystick().getRawAxis(Constants.strafeAxis)) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
 
     // double rotation = getPrimaryJoystick().getRawAxis(2);
     // Square the rotation stick
@@ -86,9 +86,7 @@ public class RobotContainer {
     // double rotation2 = Math.copySign(Math.pow(rotation, 2.0), rotation);
     // double rotation = 0.0;
 
-
-    
-     DoubleSupplier rotatesupp = () -> -1*modifyAxis(getPrimaryJoystick().getRawAxis(Constants.rotationAxis));
+     DoubleSupplier rotatesupp = () -> -1*modifyAxis(getPrimaryJoystick().getRawAxis(Constants.rotationAxis)) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND;
 
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
             m_drivetrainSubsystem, 

@@ -14,7 +14,7 @@ package frc.robot;
  */
 public final class Constants {
     //Buttons
-    public static final int gyroButton = 1;
+    public static final int gyroButton = 9;
 
     //Joystick
     public static final int forwardAxis = 1;
@@ -62,7 +62,6 @@ public final class Constants {
     // units are in inches!!
     public static final double trackWidth = 22.5;
     public static final double wheelBase = 22.5;
-    public static final int zeroGyroButton = 1; // not the actual value
 
     public static final int PH_ID = 31;
     public static final int HOOK_SOLENOID_1 = 1;

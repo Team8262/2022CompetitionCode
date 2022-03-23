@@ -47,7 +47,7 @@ public class intake extends SubsystemBase {
         intakeSolenoid.set(intakeDown);
         
         
-        SmartDashboard.putBoolean("heyy", intakeSolenoid.isDisabled());
+        SmartDashboard.putBoolean("Intake Solenoid Active", intakeSolenoid.isDisabled());
     }
 
     @Override
