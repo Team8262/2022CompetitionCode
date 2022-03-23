@@ -29,8 +29,12 @@ import frc.robot.commands.feedShooter;
 import frc.robot.commands.forceFeedShooter;
 import frc.robot.commands.IntakeControl;
 import frc.robot.commands.killShooter;
+import frc.robot.commands.toVarSpeed;
 import frc.robot.commands.turretTrack;
 import frc.robot.commands.keepFlywheelAtSpeed;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.AutoTurn;
+import frc.robot.commands.AutonomousDriveCommand;
 
 
 
@@ -133,9 +137,30 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+    /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return new InstantCommand();
+    SequentialCommandGroup autonCommand = new SequentialCommandGroup();
+
+    // drive in a square, 5 seconds per side
+    autonCommand.addCommands(
+      new AutoTurn(m_drivetrainSubsystem, 90, 0.1)
+      //new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.0, 0.5),
+      //new toVarSpeed(flywheel, 100)
+    );
+    
+    /*
+    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, 0.0, 1.0, 1.0, 5));
+    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 0.0, 1.0, 5));
+    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, 0.0, -1.0, 1.0, 5));
+    // spin? for 5 seconds
+    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 1.0, 1.0, 5));
+    */
+
+    return autonCommand;
   }
 
   private static double deadband(double value, double deadband) {
