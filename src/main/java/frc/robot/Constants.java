@@ -20,6 +20,9 @@ public final class Constants {
     public static final int forwardAxis = 1;
     public static final int strafeAxis = 0;
     public static final int rotationAxis = 2;
+
+    public static final double driveSpeedCap = 0.8; //Percent of max speed
+    public static final double rotationSpeedCap = 1; 
     /**
      * The left-to-right distance between the drivetrain wheels
      *
