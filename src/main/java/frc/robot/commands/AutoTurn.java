@@ -4,9 +4,11 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.DrivetrainSubsystem;
 //import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 //import frc.robot.Robot;
 
@@ -34,7 +36,8 @@ public class AutoTurn extends CommandBase {
         elapsedTime = System.currentTimeMillis() - startTime;
         elapsedSeconds = elapsedTime / 1000;
 
-        m_drivetrainSubsystem.drive(new ChassisSpeeds(0, 0, deltaRotation));
+        m_drivetrainSubsystem.drive(new ChassisSpeeds(0, 0, Math.copySign(1, deltaRotation)));
+        //SmartDashboard.putNumber("rot", m_drivetrainSubsystem.getGyroscopeRotation().getDegrees()-startRotation);
     }
 
     @Override
@@ -44,6 +47,6 @@ public class AutoTurn extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return (elapsedSeconds >= seconds) || (m_drivetrainSubsystem.getGyroscopeRotation().getDegrees() >= deltaRotation + startRotation);
+        return (elapsedSeconds >= seconds) || (Math.abs(m_drivetrainSubsystem.getGyroscopeRotation().getDegrees()-startRotation) >= deltaRotation);
     }
 }

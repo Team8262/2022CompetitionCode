@@ -147,8 +147,14 @@ public class RobotContainer {
 
     // drive in a square, 5 seconds per side
     autonCommand.addCommands(
-      new AutoTurn(m_drivetrainSubsystem, 90, 0.1)
-      //new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.0, 0.5),
+      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.5, 3),
+      new AutoTurn(m_drivetrainSubsystem, 95, 5),
+      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.5, 3),
+      new AutoTurn(m_drivetrainSubsystem, 95, 5),
+      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.5, 3),
+      new AutoTurn(m_drivetrainSubsystem, 95, 5),
+      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.5, 3),
+      new AutoTurn(m_drivetrainSubsystem, 95, 5)
       //new toVarSpeed(flywheel, 100)
     );
     

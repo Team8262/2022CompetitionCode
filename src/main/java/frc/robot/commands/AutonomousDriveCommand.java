@@ -21,13 +21,14 @@ public class AutonomousDriveCommand extends CommandBase {
     double x;
     double y;
     double rotation;
+    double speed;
     double seconds;
 
-    public AutonomousDriveCommand(DrivetrainSubsystem drivetrainSubsystem, double x, double y, double rotation, double seconds) {
+    public AutonomousDriveCommand(DrivetrainSubsystem drivetrainSubsystem, double x, double y, double speed, double seconds) {
         this.m_drivetrainSubsystem = drivetrainSubsystem;
         this.x = x;
         this.y = y;
-        this.rotation = rotation;
+        this.speed = speed;
         this.seconds = seconds;
         
         addRequirements(drivetrainSubsystem);
@@ -38,7 +39,7 @@ public class AutonomousDriveCommand extends CommandBase {
         elapsedTime = System.currentTimeMillis() - startTime;
         elapsedSeconds = elapsedTime / 1000;
 
-        m_drivetrainSubsystem.drive(new ChassisSpeeds(x, y, 0));
+        m_drivetrainSubsystem.drive(new ChassisSpeeds(Math.copySign(speed, x), Math.copySign(speed, y), 0));
         
         SmartDashboard.putNumber("x: ", x);
         SmartDashboard.putNumber("y: ", y);
