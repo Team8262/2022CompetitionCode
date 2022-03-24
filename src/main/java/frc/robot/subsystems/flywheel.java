@@ -81,19 +81,19 @@ public class flywheel extends SubsystemBase {
         setSpeed(0);
     }
     
-    public static double getVelocityAvg(){
+    public double getVelocityAvg(){
         return (shooterMotor_1.getEncoder().getVelocity()+shooterMotor_2.getEncoder().getVelocity())/2;
     }
 
-    public static double getVel1(){
+    public double getVel1(){
         return shooterMotor_1.getEncoder().getVelocity();
     }
 
-    public static double getVel2(){
+    public double getVel2(){
         return shooterMotor_2.getEncoder().getVelocity();
     }
 
-    public static boolean onTarget(){
+    public boolean onTarget(){
         return ((Math.abs(shooterMotor_1.getEncoder().getVelocity()-targetVelocity) <= Constants.FLYWHEEL_TOLERANCE) && (Math.abs(shooterMotor_2.getEncoder().getVelocity()-targetVelocity) <= Constants.FLYWHEEL_TOLERANCE));
     }
 

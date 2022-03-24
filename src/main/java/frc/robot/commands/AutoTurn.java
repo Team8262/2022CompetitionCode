@@ -4,16 +4,12 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants;
 import frc.robot.subsystems.DrivetrainSubsystem;
-//import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-//import frc.robot.Robot;
 
 public class AutoTurn extends CommandBase {
-    long startTime = System.currentTimeMillis(); // in milliseconds
+    long startTime; // in milliseconds
     long elapsedTime;
     long elapsedSeconds;
 
@@ -26,9 +22,14 @@ public class AutoTurn extends CommandBase {
         this.m_drivetrainSubsystem = drivetrainSubsystem;
         this.deltaRotation = rotation;
         this.seconds = seconds;
-        this.startRotation = m_drivetrainSubsystem.getGyroscopeRotation().getDegrees();
         
         addRequirements(drivetrainSubsystem);
+    }
+
+    @Override
+    public void initialize() { 
+        this.startTime = System.currentTimeMillis();
+        this.startRotation = m_drivetrainSubsystem.getGyroscopeRotation().getDegrees();
     }
 
     @Override
