@@ -8,8 +8,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -36,8 +34,6 @@ public class intake extends SubsystemBase {
     public void periodic() {
         
         intakeSolenoid.set(intakeDown);
-        
-        SmartDashboard.putBoolean("Intake Solenoid Active", intakeSolenoid.isDisabled());
     }
 
     @Override

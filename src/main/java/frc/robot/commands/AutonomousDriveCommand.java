@@ -7,7 +7,6 @@ package frc.robot.commands;
 import frc.robot.subsystems.DrivetrainSubsystem;
 //import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 //import frc.robot.Robot;
 
@@ -45,12 +44,6 @@ public class AutonomousDriveCommand extends CommandBase {
         elapsedSeconds = elapsedTime / 1000;
 
         m_drivetrainSubsystem.drive(new ChassisSpeeds(Math.copySign(speed, x), Math.copySign(speed, y), 0));
-        
-        SmartDashboard.putNumber("x: ", x);
-        SmartDashboard.putNumber("y: ", y);
-        //SmartDashboard.putNumber("rotation: ", rotation);
-        SmartDashboard.putNumber("seconds passed: ", elapsedSeconds);
-        //SmartDashboard.putNumber("UID: ", uid);
     }
 
     @Override
