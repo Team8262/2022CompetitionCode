@@ -14,9 +14,11 @@ package frc.robot;
  */
 public final class Constants {
     //Buttons
-    public static final int gyroButton = 9;
-    public static final int forceReverseIndexer = 11;
-    public static final int runIntake = 7;
+    public static final int gyroButton = 2;
+    public static final int forceReverseIndexer = 4;
+    public static final int runIntake = 6;
+    public static final int trackAndSpin = 3;
+    public static final int shootBall = 1;
 
     //Joystick
     public static final int forwardAxis = 1;

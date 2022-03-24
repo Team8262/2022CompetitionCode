@@ -120,9 +120,9 @@ public class RobotContainer {
     );
 
     IntakeButton = new JoystickButton(primaryJoystick, Constants.runIntake);
-    track = new JoystickButton(primaryJoystick, 2);
-    spinFlywheel = new JoystickButton(primaryJoystick, 2);
-    fireBall = new JoystickButton(primaryJoystick, 1);
+    track = new JoystickButton(primaryJoystick, Constants.trackAndSpin);
+    spinFlywheel = new JoystickButton(primaryJoystick, Constants.trackAndSpin);
+    fireBall = new JoystickButton(primaryJoystick, Constants.shootBall);
     killShooter = new JoystickButton(primaryJoystick, 10);
     forceReverseIndexer = new JoystickButton(primaryJoystick, Constants.forceReverseIndexer);
     
