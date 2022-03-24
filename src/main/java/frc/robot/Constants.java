@@ -15,14 +15,15 @@ package frc.robot;
 public final class Constants {
     //Buttons
     public static final int gyroButton = 9;
+    public static final int forceReverseIndexer = 11;
 
     //Joystick
     public static final int forwardAxis = 1;
     public static final int strafeAxis = 0;
     public static final int rotationAxis = 2;
 
-    public static final double driveSpeedCap = 0.1; //Percent of max speed
-    public static final double rotationSpeedCap = 0.1; 
+    public static final double driveSpeedCap = 0.8; //Percent of max speed
+    public static final double rotationSpeedCap = 0.8; 
     /**
      * The left-to-right distance between the drivetrain wheels
      *

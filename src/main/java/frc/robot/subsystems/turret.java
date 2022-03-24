@@ -56,7 +56,7 @@ public class turret extends SubsystemBase {
 
     public void track(boolean autoTrack){
         if(autoTrack) {
-            turnMotorController.setReference(camera.getXOffset() * Constants.SHOOTER_SPROCKET_RATIO / 360, ControlType.kPosition);
+            turnMotorController.setReference(camera.getXOffset(), ControlType.kPosition);
         } else {
             turnMotorController.setReference(targetAngle * Constants.SHOOTER_SPROCKET_RATIO / 360, ControlType.kPosition);
         }

@@ -25,21 +25,9 @@ import java.util.function.DoubleSupplier;
 
 import frc.robot.subsystems.KunjamaniLifter;
 import frc.robot.subsystems.limelight;
-import frc.robot.commands.KunjamaniExtendLifter;
-import frc.robot.commands.ManualTrack;
-import frc.robot.subsystems.turret;
-import frc.robot.subsystems.flywheel;
-import frc.robot.subsystems.intake;
-import frc.robot.commands.feedShooter;
-import frc.robot.commands.forceFeedShooter;
-import frc.robot.commands.IntakeControl;
-import frc.robot.commands.killShooter;
-import frc.robot.commands.toVarSpeed;
-import frc.robot.commands.turretTrack;
-import frc.robot.commands.keepFlywheelAtSpeed;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.AutoTurn;
-import frc.robot.commands.AutonomousDriveCommand;
 
 
 
@@ -66,6 +54,7 @@ public class RobotContainer {
   public JoystickButton spinFlywheel;
   public JoystickButton fireBall;
   public JoystickButton killShooter;
+  public JoystickButton forceReverseIndexer;
   public PneumaticHub ph = new PneumaticHub(31);
 
 
@@ -135,6 +124,7 @@ public class RobotContainer {
     spinFlywheel = new JoystickButton(primaryJoystick, 2);
     fireBall = new JoystickButton(primaryJoystick, 1);
     killShooter = new JoystickButton(primaryJoystick, 10);
+    forceReverseIndexer = new JoystickButton(primaryJoystick, Constants.forceReverseIndexer);
     
     IntakeButton.whileHeld(new IntakeControl(intake));
     killShooter.whenPressed(new killShooter(flywheel));
@@ -142,7 +132,12 @@ public class RobotContainer {
     track.whenInactive(new ManualTrack(turret, turretJoystick.getRawAxis(0)));
     spinFlywheel.whenHeld(new keepFlywheelAtSpeed(flywheel, aim));
     fireBall.whileHeld(new forceFeedShooter(intake));
+
+    forceReverseIndexer.whileHeld(new MoveIndexer(intake, 1));
+    
+
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
