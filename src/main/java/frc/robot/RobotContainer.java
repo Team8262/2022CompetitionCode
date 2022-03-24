@@ -119,14 +119,14 @@ public class RobotContainer {
       new InstantCommand(() -> m_drivetrainSubsystem.zeroGyroscope())
     );
 
-    IntakeButton = new JoystickButton(primaryJoystick, 7);
+    IntakeButton = new JoystickButton(primaryJoystick, Constants.runIntake);
     track = new JoystickButton(primaryJoystick, 2);
     spinFlywheel = new JoystickButton(primaryJoystick, 2);
     fireBall = new JoystickButton(primaryJoystick, 1);
     killShooter = new JoystickButton(primaryJoystick, 10);
     forceReverseIndexer = new JoystickButton(primaryJoystick, Constants.forceReverseIndexer);
     
-    IntakeButton.whileHeld(new IntakeControl(intake));
+    IntakeButton.toggleWhenPressed(new IntakeControl(intake));
     killShooter.whenPressed(new killShooter(flywheel));
     track.whileHeld(new turretTrack(turret));
     track.whenInactive(new ManualTrack(turret, turretJoystick.getRawAxis(0)));

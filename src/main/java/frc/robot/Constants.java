@@ -16,6 +16,7 @@ public final class Constants {
     //Buttons
     public static final int gyroButton = 9;
     public static final int forceReverseIndexer = 11;
+    public static final int runIntake = 7;
 
     //Joystick
     public static final int forwardAxis = 1;

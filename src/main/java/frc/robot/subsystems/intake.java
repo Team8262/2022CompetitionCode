@@ -25,9 +25,6 @@ public class intake extends SubsystemBase {
         feederMotor = new CANSparkMax(Constants.FEEDER_MOTOR_ID, MotorType.kBrushless);
         exampleJoystick = new Joystick(0);
         intakeSolenoid =  new Solenoid(31, PneumaticsModuleType.REVPH, 0);
-        
-
-
     }
 
     @Override
