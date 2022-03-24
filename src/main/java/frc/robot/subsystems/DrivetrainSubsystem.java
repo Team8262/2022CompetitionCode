@@ -79,7 +79,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   // FIXME Remove if you are using a Pigeon
   // private final PigeonIMU m_pigeon = new PigeonIMU(DRIVETRAIN_PIGEON_ID);
   // FIXME Uncomment if you are using a NavX
- private final AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200); // NavX connected over MXP
+  private final AHRS m_navx;
 
   // These are our modules. We initialize them in the constructor.
   private final SwerveModule m_frontLeftModule;
@@ -91,7 +91,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
   public DrivetrainSubsystem() {
-         
+        m_navx = new AHRS(SPI.Port.kMXP, (byte) 200); // NavX connected over MXP
   ///CanCoders for swerve 
 //     ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
 
@@ -174,19 +174,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * 'forwards' direction.
    */
   public void zeroGyroscope() {
-          System.out.println("YEEEE");      
         m_navx.zeroYaw();
-        m_navx.reset();
   }
 
   public Rotation2d getGyroscopeRotation() {
+          /*
    if (m_navx.isMagnetometerCalibrated()) {
      // We will only get valid fused headings if the magnetometer is calibrated
      return Rotation2d.fromDegrees(-m_navx.getFusedHeading());
-   }
+   }*/
 //
 //    // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
-   return Rotation2d.fromDegrees(-(360.0 - m_navx.getYaw()));
+   return Rotation2d.fromDegrees(/*-(360.0 - m_navx.getYaw())*/360-m_navx.getYaw());
   }
 
   public void drive(ChassisSpeeds chassisSpeeds) {
@@ -208,8 +207,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     double BLdegree = Math.toDegrees(m_backLeftModule.getSteerAngle());
     double BRdegree = Math.toDegrees(m_backRightModule.getSteerAngle());
 
-    SmartDashboard.putNumber("Max speed", MAX_VELOCITY_METERS_PER_SECOND);
-    SmartDashboard.putNumber("Max Rotation Speed", MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND);
+//     SmartDashboard.putNumber("Max speed", MAX_VELOCITY_METERS_PER_SECOND);
+//     SmartDashboard.putNumber("Max Rotation Speed", MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND);
 
     SmartDashboard.putNumber("Front Left Module Angle ", FLdegree);
     SmartDashboard.putNumber("Front Right Module Angle ", FRdegree);

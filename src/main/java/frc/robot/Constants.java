@@ -27,8 +27,8 @@ public final class Constants {
     public static final int rotationAxis = 4; //Uncomment for other thing
     
 
-    public static final double driveSpeedCap = 0.8; //Percent of max speed
-    public static final double rotationSpeedCap = 0.6; 
+    public static final double driveSpeedCap = 0.4; //Percent of max speed
+    public static final double rotationSpeedCap = 0.2; 
     /**
      * The left-to-right distance between the drivetrain wheels
      *
