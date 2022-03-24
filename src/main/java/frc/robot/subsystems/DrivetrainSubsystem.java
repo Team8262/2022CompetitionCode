@@ -174,17 +174,19 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * 'forwards' direction.
    */
   public void zeroGyroscope() {
-   m_navx.zeroYaw();
+          System.out.println("YEEEE");      
+        m_navx.zeroYaw();
+        m_navx.reset();
   }
 
   public Rotation2d getGyroscopeRotation() {
    if (m_navx.isMagnetometerCalibrated()) {
      // We will only get valid fused headings if the magnetometer is calibrated
-     return Rotation2d.fromDegrees(m_navx.getFusedHeading());
+     return Rotation2d.fromDegrees(-m_navx.getFusedHeading());
    }
 //
 //    // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
-   return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
+   return Rotation2d.fromDegrees(-(360.0 - m_navx.getYaw()));
   }
 
   public void drive(ChassisSpeeds chassisSpeeds) {
