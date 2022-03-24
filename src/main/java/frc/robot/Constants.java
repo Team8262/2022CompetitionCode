@@ -20,10 +20,12 @@ public final class Constants {
     //Joystick
     public static final int forwardAxis = 1;
     public static final int strafeAxis = 0;
-    public static final int rotationAxis = 2;
+    //public static final int rotationAxis = 2; //Uncomment for cool joystick
+    public static final int rotationAxis = 4; //Uncomment for other thing
+    
 
     public static final double driveSpeedCap = 0.8; //Percent of max speed
-    public static final double rotationSpeedCap = 0.8; 
+    public static final double rotationSpeedCap = 0.6; 
     /**
      * The left-to-right distance between the drivetrain wheels
      *
