@@ -34,10 +34,8 @@ public class intake extends SubsystemBase {
 
     @Override
     public void periodic() {
-        //pHub.enableCompressorDigital();
         
         intakeSolenoid.set(intakeDown);
-        
         
         SmartDashboard.putBoolean("Intake Solenoid Active", intakeSolenoid.isDisabled());
     }
