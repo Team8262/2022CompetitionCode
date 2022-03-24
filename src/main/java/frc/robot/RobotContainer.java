@@ -10,8 +10,8 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.button.Button;
-import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -22,6 +22,8 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.function.DoubleSupplier;
+
+import javax.swing.text.ParagraphView;
 
 import frc.robot.subsystems.KunjamaniLifter;
 import frc.robot.subsystems.limelight;
@@ -63,7 +65,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
 
-    ph.enableCompressorDigital();
+    ph.enableCompressorAnalog(60, 120);
     SmartDashboard.putBoolean("Field Oriented", true);
     // double forward = getPrimaryJoystick().getRawAxis(1);
     // Square the forward stick
@@ -133,7 +135,7 @@ public class RobotContainer {
     spinFlywheel.whenHeld(new keepFlywheelAtSpeed(flywheel, aim));
     fireBall.whileHeld(new forceFeedShooter(intake));
 
-    forceReverseIndexer.whileHeld(new MoveIndexer(intake, 1));
+    //forceReverseIndexer.whileHeld(new MoveIndexer(intake, 1));
     
 
   }
@@ -154,15 +156,13 @@ public class RobotContainer {
 
     // drive in a square, 5 seconds per side
     autonCommand.addCommands(
-      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.5, 3),
-      new AutoTurn(m_drivetrainSubsystem, 95, 5),
-      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.5, 3),
-      new AutoTurn(m_drivetrainSubsystem, 95, 5),
-      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.5, 3),
-      new AutoTurn(m_drivetrainSubsystem, 95, 5),
-      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.5, 3),
-      new AutoTurn(m_drivetrainSubsystem, 95, 5)
-      //new toVarSpeed(flywheel, 100)
+      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 2, 2),
+      new ParallelRaceGroup(
+        new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 1.2, 4),
+        new IntakeControl(intake)
+      )
+      
+
     );
     
     /*
