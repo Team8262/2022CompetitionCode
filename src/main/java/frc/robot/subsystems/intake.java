@@ -32,7 +32,6 @@ public class intake extends SubsystemBase {
 
     @Override
     public void periodic() {
-        //pHub.enableCompressorDigital();
         
         intakeSolenoid.set(intakeDown);
     }

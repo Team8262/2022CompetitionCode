@@ -66,7 +66,7 @@ public class RobotContainer {
   public JoystickButton spinFlywheel;
   public JoystickButton fireBall;
   public JoystickButton killShooter;
-  PneumaticHub ph = new PneumaticHub(31);
+  public PneumaticHub ph = new PneumaticHub(31);
 
 
   /**
@@ -111,6 +111,10 @@ public class RobotContainer {
 
   public Joystick getPrimaryJoystick(){
     return primaryJoystick;
+  }
+
+  public PneumaticHub getPH(){
+    return ph;
   }
 
   /**

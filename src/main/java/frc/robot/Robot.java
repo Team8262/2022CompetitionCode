@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  private static RobotContainer m_robotContainer;
+  public static RobotContainer m_robotContainer;
   public static double deltaTime = 0;
   public static double lastTime = 0;
   // private final DrivetrainSubsystem m_drivetrainSubsystem2 = new DrivetrainSubsystem();
