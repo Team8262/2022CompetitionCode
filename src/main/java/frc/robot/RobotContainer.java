@@ -75,8 +75,7 @@ public class RobotContainer {
   public RobotContainer() {
 
     ph.enableCompressorDigital();
-
-    SmartDashboard.putBoolean("FOD", true);
+    SmartDashboard.putBoolean("Field Oriented", true);
     // double forward = getPrimaryJoystick().getRawAxis(1);
     // Square the forward stick
     // forward = deadband(forward, 0.025);
