@@ -5,7 +5,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class flywheel extends SubsystemBase {
@@ -103,19 +102,5 @@ public class flywheel extends SubsystemBase {
     }
 
     @Override
-    public void periodic() {
-        SmartDashboard.putNumber("Target Velocity", targetVelocity);
-        SmartDashboard.putNumber("Avg Velocity", getVelocityAvg());
-        SmartDashboard.putNumber("1 Velocity", getVel1());
-        SmartDashboard.putNumber("2 Velocity", getVel2());
-        SmartDashboard.putNumber("Overall Velocity Error", (getVelocityAvg()-targetVelocity));
-        SmartDashboard.putNumber("Follower Velocity Error", getVel2()-getVel1());
-        SmartDashboard.putNumber("current draw 1", shooterMotor_1.getOutputCurrent());
-        
-        SmartDashboard.putNumber("current draw 2", shooterMotor_2.getOutputCurrent());
-
-        
-        //System.out.println("1 " + shooterMotor_1.getEncoder().getVelocityConversionFactor());
-        //System.out.println("2 " + shooterMotor_2.getEncoder().getVelocityConversionFactor());
-    }
+    public void periodic() {}
 }
