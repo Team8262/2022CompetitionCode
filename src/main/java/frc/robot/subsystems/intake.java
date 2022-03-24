@@ -12,12 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PneumaticHub;
 
 public class intake extends SubsystemBase {
-
-    public PneumaticHub pHub;
-    Compressor pneumaticsCompressor;
     VictorSPX intakeMotor;
     CANSparkMax storageMotor;
     CANSparkMax feederMotor;
@@ -26,9 +22,6 @@ public class intake extends SubsystemBase {
     Solenoid intakeSolenoid;
 
     public intake() {
-
-        pHub = new PneumaticHub(31);
-        pneumaticsCompressor = new Compressor(1, PneumaticsModuleType.REVPH);
         intakeMotor = new VictorSPX(Constants.INTAKE_MOTOR_ID);
         storageMotor = new CANSparkMax(Constants.STORAGE_MOTOR_ID, MotorType.kBrushless);
         feederMotor = new CANSparkMax(Constants.FEEDER_MOTOR_ID, MotorType.kBrushless);
@@ -41,7 +34,6 @@ public class intake extends SubsystemBase {
 
     @Override
     public void periodic() {
-        pneumaticsCompressor.enableDigital();
         //pHub.enableCompressorDigital();
         
         intakeSolenoid.set(intakeDown);

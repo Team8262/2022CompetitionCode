@@ -15,7 +15,12 @@ import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticHub;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import java.util.function.DoubleSupplier;
 
 import frc.robot.subsystems.KunjamaniLifter;
@@ -61,6 +66,7 @@ public class RobotContainer {
   public JoystickButton spinFlywheel;
   public JoystickButton fireBall;
   public JoystickButton killShooter;
+  PneumaticHub ph = new PneumaticHub(31);
 
 
   /**
@@ -68,6 +74,9 @@ public class RobotContainer {
    */
   public RobotContainer() {
 
+    ph.enableCompressorDigital();
+
+    SmartDashboard.putBoolean("FOD", true);
     // double forward = getPrimaryJoystick().getRawAxis(1);
     // Square the forward stick
     // forward = deadband(forward, 0.025);

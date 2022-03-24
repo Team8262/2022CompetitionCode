@@ -9,7 +9,7 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class DefaultDriveCommand extends CommandBase {
     private final DrivetrainSubsystem m_drivetrainSubsystem;
-    private boolean robotOriented = false;
+    private boolean robotOriented = true;
     private final DoubleSupplier m_translationXSupplier;
     private final DoubleSupplier m_translationYSupplier;
     private final DoubleSupplier m_rotationSupplier;
@@ -22,12 +22,13 @@ public class DefaultDriveCommand extends CommandBase {
         this.m_translationXSupplier = translationXSupplier;
         this.m_translationYSupplier = translationYSupplier;
         this.m_rotationSupplier = rotationSupplier;
-
         addRequirements(drivetrainSubsystem);
     }
 
     @Override
     public void execute() {        // You can use `new ChassisSpeeds(...)` for robot-oriented movement instead of field-oriented movement
+        robotOriented = !(SmartDashboard.getBoolean("FOD", true));
+        System.out.println(robotOriented);
         if(robotOriented){
             m_drivetrainSubsystem.drive(
                     new ChassisSpeeds(m_translationXSupplier.getAsDouble(),
@@ -44,7 +45,8 @@ public class DefaultDriveCommand extends CommandBase {
                     )
             );  
         }
-        
+        SmartDashboard.putNumber("Gyro Angle ", m_drivetrainSubsystem.getGyroscopeRotation().getDegrees());
+
         SmartDashboard.putNumber("Drive Strafe Input", m_translationXSupplier.getAsDouble());
         SmartDashboard.putNumber("Drive Forward Input", m_translationYSupplier.getAsDouble());
         SmartDashboard.putNumber("Drive Rotation Input", m_rotationSupplier.getAsDouble());

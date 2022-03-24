@@ -214,6 +214,5 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Back Left Module Angle ", BLdegree);
     SmartDashboard.putNumber("Back Right Module Angle ", BRdegree);
 
-    SmartDashboard.putNumber("Gyro Angle ", getGyroscopeRotation().getDegrees());
   }
 }
