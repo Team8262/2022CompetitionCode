@@ -10,10 +10,9 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.button.Button;
-import frc.robot.subsystems.DrivetrainSubsystem;
-
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
@@ -25,8 +24,6 @@ import java.util.function.DoubleSupplier;
 
 import javax.swing.text.ParagraphView;
 
-import frc.robot.subsystems.KunjamaniLifter;
-import frc.robot.subsystems.limelight;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -156,13 +153,18 @@ public class RobotContainer {
 
     // drive in a square, 5 seconds per side
     autonCommand.addCommands(
+
       new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 2, 2),
       new ParallelRaceGroup(
         new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 1.2, 4),
         new IntakeControl(intake)
+      ),
+      new AutoTurn(m_drivetrainSubsystem, 190, 0.5),
+      new ParallelDeadlineGroup(
+        new feedShooter(intake, flywheel), 
+        new turretTrack(turret),
+        new keepFlywheelAtSpeed(flywheel, aim)
       )
-      
-
     );
     
     /*
