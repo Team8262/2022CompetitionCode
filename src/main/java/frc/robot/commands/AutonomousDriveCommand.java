@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 //import frc.robot.Robot;
 
 public class AutonomousDriveCommand extends CommandBase {
-    long startTime = System.currentTimeMillis(); // in milliseconds
+    long startTime; // in milliseconds
     long elapsedTime;
     long elapsedSeconds;
 
@@ -32,6 +32,11 @@ public class AutonomousDriveCommand extends CommandBase {
         this.seconds = seconds;
         
         addRequirements(drivetrainSubsystem);
+    }
+
+    @Override
+    public void initialize() { 
+        this.startTime = System.currentTimeMillis();
     }
 
     @Override
