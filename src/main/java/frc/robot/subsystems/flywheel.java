@@ -5,6 +5,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class flywheel extends SubsystemBase {
@@ -96,11 +98,21 @@ public class flywheel extends SubsystemBase {
         return ((Math.abs(shooterMotor_1.getEncoder().getVelocity()-targetVelocity) <= Constants.FLYWHEEL_TOLERANCE) && (Math.abs(shooterMotor_2.getEncoder().getVelocity()-targetVelocity) <= Constants.FLYWHEEL_TOLERANCE));
     }
 
+    public void setMotor1(double val){
+        shooterMotor_1.set(val);
+    }
+
     @Override
     public void simulationPeriodic() {
         // This method will be called once per scheduler run during simulation
     }
 
     @Override
-    public void periodic() {}
+    public void periodic() {
+        SmartDashboard.putNumber("Flywheel error", getVel1()-targetVelocity);
+    }
+
+    public void setMotor2(double speed) {
+        shooterMotor_2.set(speed);
+    }
 }

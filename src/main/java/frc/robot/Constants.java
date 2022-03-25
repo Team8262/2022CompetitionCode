@@ -14,21 +14,24 @@ package frc.robot;
  */
 public final class Constants {
     //Buttons
-    public static final int gyroButton = 2;
-    public static final int forceReverseIndexer = 4;
-    public static final int runIntake = 6;
-    public static final int trackAndSpin = 3;
+    public static final int gyroButton = 6;
+    public static final int forceReverseIndexer = 5;
+    public static final int runIntake = 5;
+    public static final int trackAndSpin = 2;
     public static final int shootBall = 1;
-
+    public static final int setShoot = 11;
+    public static final int turretManualOverride = 3;
+    
     //Joystick
     public static final int forwardAxis = 1;
     public static final int strafeAxis = 0;
+    public static int manualTurretAxis = 2;
     //public static final int rotationAxis = 2; //Uncomment for cool joystick
     public static final int rotationAxis = 4; //Uncomment for other thing
     
 
-    public static final double driveSpeedCap = 0.4; //Percent of max speed
-    public static final double rotationSpeedCap = 0.2; 
+    public static final double driveSpeedCap = 0.8; //Percent of max speed
+    public static final double rotationSpeedCap = 0.5; 
     /**
      * The left-to-right distance between the drivetrain wheels
      *
@@ -116,7 +119,10 @@ public final class Constants {
     //public static final int 
 
     //PID constants: index 0 represents P, 1 represents I, 2, represents D
-    public static final double[] TURN_MOTOR_PID = new double[] {0.02, 0.0002, 10, 0.0};/*
+    //public static final double[] TURN_MOTOR_PID = new double[] {0.025, 0.000, 10, 0.0};
+    public static final double[] TURN_MOTOR_PID = new double[] {0.015, 0, 15, 0.0};
+    //public static final double[] TURN_MOTOR_PID = new double[] {0.02, 0.0002, 10, 0.0};
+    /*
     public static final double[] MASTER_SHOOTER_PID = new double[] {0.0004, 0.000001, 0.01};//.0004};
     public static final double[] SLAVE_SHOOTER_PID = new double[] {0.0004, 0.000001, 0.01};//0004};
 */

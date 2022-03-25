@@ -7,6 +7,9 @@ package frc.robot.commands;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.turret;
+
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.Timer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -15,14 +18,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ManualTrack extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final turret m_turret;
-  private double change;
+  private DoubleSupplier change;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ManualTrack(turret roboTurret, double change) {
+  public ManualTrack(turret roboTurret, DoubleSupplier change) {
     m_turret = roboTurret;
     this.change = change;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -36,7 +39,7 @@ public class ManualTrack extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_turret.targetAngle += change * Robot.deltaTime * Constants.TURRET_TURN_SPEED;
+    m_turret.targetAngle += change.getAsDouble() * 10;
     m_turret.track(false);
   }
 

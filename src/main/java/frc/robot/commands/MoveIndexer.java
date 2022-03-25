@@ -26,7 +26,7 @@ public class MoveIndexer extends CommandBase {
   @Override
   public void execute() {
     in.turnStorageMotor(this.val);
-    
+    in.turnFeederMotor(this.val);  
   }
 
   // Called once the command ends or is interrupted.
