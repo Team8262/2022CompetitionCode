@@ -167,10 +167,11 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     SequentialCommandGroup autonCommand = new SequentialCommandGroup();
+    m_drivetrainSubsystem.zeroGyroscope();
 
     autonCommand.addCommands(
-      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 1, 0.5),
-      new ParallelRaceGroup(
+      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 1, 0.5)
+      /*new ParallelRaceGroup(
         new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, .3, 1),
         new IntakeControl(intake)
       ),
@@ -180,6 +181,7 @@ public class RobotContainer {
         new turretTrack(turret),
         new shootAtSpeed(flywheel, 400)
       )
+      */
     );
     autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 2, 0.5),
             new InstantCommand(() -> m_drivetrainSubsystem.drive(                ChassisSpeeds.fromFieldRelativeSpeeds(
