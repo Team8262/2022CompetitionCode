@@ -153,8 +153,7 @@ public class RobotContainer {
 
     // drive in a square, 5 seconds per side
     autonCommand.addCommands(
-
-      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 2, 2),
+      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.1, 2)/*,
       new ParallelRaceGroup(
         new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 1.2, 4),
         new IntakeControl(intake)
@@ -165,6 +164,7 @@ public class RobotContainer {
         new turretTrack(turret),
         new keepFlywheelAtSpeed(flywheel, aim)
       )
+      */
     );
     
     /*

@@ -23,7 +23,7 @@ public class turret extends SubsystemBase {
     private boolean left;
     private double spip = 0;
 
-    private CANSparkMax turnMotor;
+    public CANSparkMax turnMotor;
     private DutyCycleEncoder shooterEncoder;
     private SparkMaxPIDController turnMotorController;
 

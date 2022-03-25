@@ -43,7 +43,7 @@ public class AutonomousDriveCommand extends CommandBase {
         elapsedTime = System.currentTimeMillis() - startTime;
         elapsedSeconds = elapsedTime / 1000;
 
-        m_drivetrainSubsystem.drive(new ChassisSpeeds(Math.copySign(speed, x), Math.copySign(speed, y), 0));
+        m_drivetrainSubsystem.drive(new ChassisSpeeds(speed*x/Math.hypot(x,y), speed*y/Math.hypot(x,y), 0));
     }
 
     @Override

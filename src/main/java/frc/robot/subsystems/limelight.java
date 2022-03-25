@@ -20,7 +20,7 @@ public class limelight extends SubsystemBase{
     double limelightX;
     double limelightY;
     double limelightArea;
-    double targetExists;
+    public double targetExists;
     double distance;
 
     public static limelight instance;
