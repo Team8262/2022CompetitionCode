@@ -12,7 +12,9 @@ import frc.robot.subsystems.intake;
 public class feedShooter extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final intake m_intakeSubsystem;
-
+  private boolean run;
+  private double start;
+  private double elapsedTime = 0;
   private final flywheel m_flywheel;
 
   /**
@@ -34,9 +36,15 @@ public class feedShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_flywheel.onTarget()){
+    if (run){
       m_intakeSubsystem.turnFeederMotor(-1);
       m_intakeSubsystem.turnStorageMotor(-0.4);
+      elapsedTime = (System.currentTimeMillis() - start)/1000;
+    } else if(m_flywheel.onTarget()) {
+      run = true;
+      m_intakeSubsystem.turnFeederMotor(-1);
+      m_intakeSubsystem.turnStorageMotor(-0.4);
+      start = System.currentTimeMillis();
     }
   }
 
@@ -50,6 +58,6 @@ public class feedShooter extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (elapsedTime >= 1);
   }
 }

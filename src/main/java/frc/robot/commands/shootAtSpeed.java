@@ -5,22 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.intake;
+import frc.robot.subsystems.flywheel;
 
-/** An example command that uses an example subsystem. */
-public class forceFeedShooter extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final intake m_intakeSubsystem;
-
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  public forceFeedShooter(intake intakeSubsystem) {
-    this.m_intakeSubsystem = intakeSubsystem;
+public class shootAtSpeed extends CommandBase {
+  flywheel flywheel;
+  double speed;
+  /** Creates a new shootAtSpeed. */
+  public shootAtSpeed(flywheel flywheel, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.m_intakeSubsystem);
+    this.flywheel = flywheel;
+    this.speed = speed;
   }
 
   // Called when the command is initially scheduled.
@@ -30,15 +24,13 @@ public class forceFeedShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intakeSubsystem.turnFeederMotor(-0.8);
-    m_intakeSubsystem.turnStorageMotor(-0.4);
+    flywheel.setMotor1(this.speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intakeSubsystem.turnFeederMotor(0);
-    m_intakeSubsystem.turnStorageMotor(0);
+    flywheel.stop();
   }
 
   // Returns true when the command should end.

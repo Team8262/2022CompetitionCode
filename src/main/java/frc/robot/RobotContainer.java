@@ -4,14 +4,18 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 // import edu.wpi.first.wpilibj.GenericHID;
 // import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.button.Button;
-import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -49,22 +53,29 @@ public class RobotContainer {
   private final flywheel flywheel = new flywheel(aim);
   private final intake intake = new intake();
 
+  private final UsbCamera camera;
+
   public JoystickButton track;
   public JoystickButton IntakeButton;
   public JoystickButton spinFlywheel;
   public JoystickButton fireBall;
   public JoystickButton killShooter;
   public JoystickButton forceReverseIndexer;
+  public JoystickButton setShoot;
+  public JoystickButton manualOveride;
   public PneumaticHub ph = new PneumaticHub(31);
 
+  public DoubleSupplier turretRot = () -> turretJoystick.getRawAxis(Constants.manualTurretAxis);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-
-    ph.enableCompressorDigital();
+    camera = CameraServer.startAutomaticCapture();
+    //ph.enableCompressorDigital();
+    ph.enableCompressorAnalog(70,120);
     SmartDashboard.putBoolean("Field Oriented", true);
+    SmartDashboard.putNumber("presure", ph.getCompressorCurrent());
     // double forward = getPrimaryJoystick().getRawAxis(1);
     // Square the forward stick
     // forward = deadband(forward, 0.025);
@@ -96,6 +107,7 @@ public class RobotContainer {
             rotatesupp
             )); 
     configureButtonBindings();
+    turret.setDefaultCommand(new turretTrack(turret));
   }
 
   public Joystick getPrimaryJoystick(){
@@ -120,20 +132,24 @@ public class RobotContainer {
     );
 
     IntakeButton = new JoystickButton(primaryJoystick, Constants.runIntake);
-    track = new JoystickButton(primaryJoystick, Constants.trackAndSpin);
-    spinFlywheel = new JoystickButton(primaryJoystick, Constants.trackAndSpin);
-    fireBall = new JoystickButton(primaryJoystick, Constants.shootBall);
-    killShooter = new JoystickButton(primaryJoystick, 10);
-    forceReverseIndexer = new JoystickButton(primaryJoystick, Constants.forceReverseIndexer);
+    track = new JoystickButton(turretJoystick, Constants.trackAndSpin);
+    spinFlywheel = new JoystickButton(turretJoystick, Constants.trackAndSpin);
+    fireBall = new JoystickButton(turretJoystick, Constants.shootBall);
+    killShooter = new JoystickButton(turretJoystick, 10);
+    forceReverseIndexer = new JoystickButton(turretJoystick, Constants.forceReverseIndexer);
+    setShoot = new JoystickButton(turretJoystick, Constants.setShoot);
+    manualOveride = new JoystickButton(turretJoystick, Constants.turretManualOverride);
     
     IntakeButton.toggleWhenPressed(new IntakeControl(intake));
     killShooter.whenPressed(new killShooter(flywheel));
-    track.whileHeld(new turretTrack(turret));
-    track.whenInactive(new ManualTrack(turret, turretJoystick.getRawAxis(0)));
     spinFlywheel.whenHeld(new keepFlywheelAtSpeed(flywheel, aim));
     fireBall.whileHeld(new forceFeedShooter(intake));
+    setShoot.whileHeld(new shootAtSpeed(flywheel, -0.7));
+    manualOveride.whileHeld(new ManualTrack(turret, turretRot));
 
-    forceReverseIndexer.whileHeld(new MoveIndexer(intake, 1));
+
+    forceReverseIndexer.whileHeld(new MoveIndexer(intake, 0.5));
+    forceReverseIndexer.whileHeld(new shootAtSpeed(flywheel, 0.5));
     
 
   }
@@ -152,18 +168,26 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     SequentialCommandGroup autonCommand = new SequentialCommandGroup();
 
-    // drive in a square, 5 seconds per side
     autonCommand.addCommands(
-      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.5, 3),
-      new AutoTurn(m_drivetrainSubsystem, 95, 5),
-      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.5, 3),
-      new AutoTurn(m_drivetrainSubsystem, 95, 5),
-      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.5, 3),
-      new AutoTurn(m_drivetrainSubsystem, 95, 5),
-      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.5, 3),
-      new AutoTurn(m_drivetrainSubsystem, 95, 5)
-      //new toVarSpeed(flywheel, 100)
+      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 1, 0.5),
+      new ParallelRaceGroup(
+        new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, .3, 1),
+        new IntakeControl(intake)
+      ),
+      new AutoTurn(m_drivetrainSubsystem, 190, 0.5),
+      new ParallelDeadlineGroup(
+        new feedShooter(intake, flywheel),
+        new turretTrack(turret),
+        new shootAtSpeed(flywheel, 400)
+      )
     );
+    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 2, 0.5),
+            new InstantCommand(() -> m_drivetrainSubsystem.drive(                ChassisSpeeds.fromFieldRelativeSpeeds(
+              0,
+              0,
+              2,
+              m_drivetrainSubsystem.getGyroscopeRotation()
+      ))));
     
     /*
     autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, 0.0, 1.0, 1.0, 5));
