@@ -132,7 +132,7 @@ public class RobotContainer {
     killShooter.whenPressed(new killShooter(flywheel));
     spinFlywheel.whenHeld(new keepFlywheelAtSpeed(flywheel, aim));
     fireBall.whileHeld(new forceFeedShooter(intake));
-    setShoot.whileHeld(new shootAtSpeed(flywheel, -0.7));
+    setShoot.whileHeld(/*new shootAtSpeed(flywheel, -0.7)*/ new toVarSpeed(flywheel, 103));
     manualOveride.whileHeld(new ManualTrack(turret, turretRot));
 
 
@@ -161,7 +161,8 @@ public class RobotContainer {
       //new AutoTurn(m_drivetrainSubsystem, 200, 1),
       new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 0.0, .75, 2.1),
       new toVarSpeed(flywheel, aim.getDistance()),
-      new feedShooter(intake, flywheel)
+      new feedShooter(intake, flywheel),
+      new killShooter(flywheel)
     );
       /*new ParallelDeadlineGroup(
         new feedShooter(intake, flywheel), 
