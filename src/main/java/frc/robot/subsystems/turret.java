@@ -36,8 +36,11 @@ public class turret extends SubsystemBase {
 
         //set motors and encoders
         turnMotor = new CANSparkMax(Constants.TURN_MOTOR_ID, MotorType.kBrushless);
-        turnMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) (180 / (Constants.SHOOTER_SPROCKET_RATIO)));
-        turnMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) (-180    / (Constants.SHOOTER_SPROCKET_RATIO)));
+        //turnMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) ((180 -(360 * shooterEncoder.get() / Constants.SHOOTER_SPROCKET_RATIO))/ (Constants.SHOOTER_SPROCKET_RATIO)));
+        //turnMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) ((-180-(360 * shooterEncoder.get() / Constants.SHOOTER_SPROCKET_RATIO)) / (Constants.SHOOTER_SPROCKET_RATIO)));
+        turnMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) ((180 / (Constants.SHOOTER_SPROCKET_RATIO))));
+        turnMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) ((-180 / (Constants.SHOOTER_SPROCKET_RATIO))));
+
         turnMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
         turnMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
         shooterEncoder = new DutyCycleEncoder(Constants.SHOOTER_ENCODER_ID);
@@ -110,9 +113,11 @@ public class turret extends SubsystemBase {
     public void periodic() {
         neoAngle = 360 * turnMotor.getEncoder().getPosition() / (Math.PI * Constants.SHOOTER_SPROCKET_RATIO);
         revAngle = 360 * shooterEncoder.get() / Constants.SHOOTER_SPROCKET_RATIO;
+        //turnMotor.getEncoder().setPosition(revAngle )* Constants.SHOOTER_SPROCKET_RATIO * Math.PI/ 360)
         SmartDashboard.putNumber("rotations? ", revAngle);
         SmartDashboard.putNumber("limelight offset", camera.getXOffset());
         SmartDashboard.putNumber("neo encoder", neoAngle);
+        
 
     }
 

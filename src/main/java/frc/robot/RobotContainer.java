@@ -144,7 +144,7 @@ public class RobotContainer {
     killShooter.whenPressed(new killShooter(flywheel));
     spinFlywheel.whenHeld(new keepFlywheelAtSpeed(flywheel, aim));
     fireBall.whileHeld(new forceFeedShooter(intake));
-    setShoot.whileHeld(new shootAtSpeed(flywheel, -0.7));
+    setShoot.whileHeld(/*new shootAtSpeed(flywheel, -0.7)*/ new toVarSpeed(flywheel, 103));
     manualOveride.whileHeld(new ManualTrack(turret, turretRot));
 
 
@@ -170,7 +170,7 @@ public class RobotContainer {
     m_drivetrainSubsystem.zeroGyroscope();
 
     autonCommand.addCommands(
-      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.1, 2)/*,
+      new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 0.0, 0.8, 2)/*,
       new ParallelRaceGroup(
         new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 1.2, 4),
         new IntakeControl(intake)
@@ -183,13 +183,6 @@ public class RobotContainer {
       )
       */
     );
-    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 2, 0.5),
-            new InstantCommand(() -> m_drivetrainSubsystem.drive(                ChassisSpeeds.fromFieldRelativeSpeeds(
-              0,
-              0,
-              2,
-              m_drivetrainSubsystem.getGyroscopeRotation()
-      ))));
     
     /*
     autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, 0.0, 1.0, 1.0, 5));
