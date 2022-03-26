@@ -37,7 +37,7 @@ public class AutoTurn extends CommandBase {
         elapsedTime = System.currentTimeMillis() - startTime;
         elapsedSeconds = elapsedTime / 1000;
 
-        m_drivetrainSubsystem.drive(new ChassisSpeeds(0, 0, Math.copySign(1, deltaRotation)));
+        m_drivetrainSubsystem.drive(new ChassisSpeeds(0, 0, Math.copySign(3, deltaRotation)));
         //SmartDashboard.putNumber("rot", m_drivetrainSubsystem.getGyroscopeRotation().getDegrees()-startRotation);
     }
 

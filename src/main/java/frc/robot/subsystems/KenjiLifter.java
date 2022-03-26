@@ -5,11 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.math.geometry.Translation2d;
 //import org.jumprobotics.robot.subsystems.Mk2SwerveDrivetrainFalcon;
-import java.lang.Math;
-
-import javax.print.attribute.standard.Compression;
 
 import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
@@ -17,7 +13,6 @@ import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.Compressor;
 
 public class KenjiLifter extends SubsystemBase {

@@ -8,26 +8,14 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 // import edu.wpi.first.wpilibj.GenericHID;
 // import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import edu.wpi.first.wpilibj2.command.button.Button;
-import frc.robot.subsystems.DrivetrainSubsystem;
-
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticHub;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.function.DoubleSupplier;
-
-import javax.swing.text.ParagraphView;
 
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -170,7 +158,16 @@ public class RobotContainer {
     m_drivetrainSubsystem.zeroGyroscope();
 
     autonCommand.addCommands(
-      new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 0.1, 2)/*,
+      //new AutoTurn(m_drivetrainSubsystem, 200, 1),
+      new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 0.0, .75, 2.1),
+      new toVarSpeed(flywheel, aim.getDistance()),
+      new feedShooter(intake, flywheel)
+    );
+      /*new ParallelDeadlineGroup(
+        new feedShooter(intake, flywheel), 
+        new turretTrack(turret),
+        new keepFlywheelAtSpeed(flywheel, aim)
+      )/*,
       new ParallelRaceGroup(
         new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 1.2, 4),
         new IntakeControl(intake)
@@ -182,22 +179,6 @@ public class RobotContainer {
         new keepFlywheelAtSpeed(flywheel, aim)
       )
       */
-    );
-    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, 1.0, 0.0, 2, 0.5),
-            new InstantCommand(() -> m_drivetrainSubsystem.drive(                ChassisSpeeds.fromFieldRelativeSpeeds(
-              0,
-              0,
-              2,
-              m_drivetrainSubsystem.getGyroscopeRotation()
-      ))));
-    
-    /*
-    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, 0.0, 1.0, 1.0, 5));
-    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 0.0, 1.0, 5));
-    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, 0.0, -1.0, 1.0, 5));
-    // spin? for 5 seconds
-    autonCommand.addCommands(new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 1.0, 1.0, 5));
-    */
 
     return autonCommand;
   }

@@ -13,33 +13,33 @@ public class flywheel extends SubsystemBase {
 
     public static flywheel instance;
     private static CANSparkMax shooterMotor_1;
-    private static CANSparkMax shooterMotor_2;
+    //private static CANSparkMax shooterMotor_2;
     private static SparkMaxPIDController shooterPID_1;
-    private static SparkMaxPIDController shooterPID_2;
+    //private static SparkMaxPIDController shooterPID_2;
     private static double targetVelocity;
     
     
     public flywheel (limelight limelight) {
         
         shooterMotor_1 = new CANSparkMax(Constants.SHOOTER_MOTOR_1_ID, MotorType.kBrushless);
-        shooterMotor_2 = new CANSparkMax(Constants.SHOOTER_MOTOR_2_ID, MotorType.kBrushless);
+        //shooterMotor_2 = new CANSparkMax(Constants.SHOOTER_MOTOR_2_ID, MotorType.kBrushless);
 
         shooterMotor_1.restoreFactoryDefaults();
-        shooterMotor_2.restoreFactoryDefaults();
+        //shooterMotor_2.restoreFactoryDefaults();
 
-        shooterMotor_2.getEncoder().setVelocityConversionFactor(1);
+        //shooterMotor_2.getEncoder().setVelocityConversionFactor(1);
         shooterMotor_1.getEncoder().setVelocityConversionFactor(1);
 
         //shooterMotor_1.setInverted(true);
 
         shooterPID_1 = shooterMotor_1.getPIDController();
-        shooterPID_2 = shooterMotor_2.getPIDController();
+        //shooterPID_2 = shooterMotor_2.getPIDController();
 
         shooterPID_1.setP(Constants.MASTER_SHOOTER_PID[0]);
         shooterPID_1.setI(Constants.MASTER_SHOOTER_PID[1]);
         shooterPID_1.setD(Constants.MASTER_SHOOTER_PID[2]);
         shooterPID_1.setFF(Constants.FEEDFORWARD[0]);
-        shooterPID_2.setP(Constants.SLAVE_SHOOTER_PID[0]);
+        /*shooterPID_2.setP(Constants.SLAVE_SHOOTER_PID[0]);
         shooterPID_2.setI(Constants.SLAVE_SHOOTER_PID[1]);
         shooterPID_2.setD(Constants.SLAVE_SHOOTER_PID[2]);
         shooterPID_2.setFF(Constants.FEEDFORWARD[1]);
@@ -48,6 +48,7 @@ public class flywheel extends SubsystemBase {
         //shooterMotor_2.follow(shooterMotor_1, false);
         //shooterPID_1.setIZone(500);
         //shooterPID_2.setIZone(500);
+        */
     }
 
     public static flywheel getInstance(limelight aim){
@@ -81,21 +82,13 @@ public class flywheel extends SubsystemBase {
     public void stop(){
         setSpeed(0);
     }
-    
-    public double getVelocityAvg(){
-        return (shooterMotor_1.getEncoder().getVelocity()+shooterMotor_2.getEncoder().getVelocity())/2;
-    }
 
     public double getVel1(){
         return shooterMotor_1.getEncoder().getVelocity();
     }
 
-    public double getVel2(){
-        return shooterMotor_2.getEncoder().getVelocity();
-    }
-
     public boolean onTarget(){
-        return ((Math.abs(shooterMotor_1.getEncoder().getVelocity()-targetVelocity) <= Constants.FLYWHEEL_TOLERANCE) && (Math.abs(shooterMotor_2.getEncoder().getVelocity()-targetVelocity) <= Constants.FLYWHEEL_TOLERANCE));
+        return (Math.abs(shooterMotor_1.getEncoder().getVelocity()-targetVelocity) <= Constants.FLYWHEEL_TOLERANCE);
     }
 
     public void setMotor1(double val){
@@ -110,9 +103,5 @@ public class flywheel extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Flywheel error", getVel1()-targetVelocity);
-    }
-
-    public void setMotor2(double speed) {
-        shooterMotor_2.set(speed);
     }
 }
