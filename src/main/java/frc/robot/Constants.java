@@ -30,11 +30,11 @@ public final class Constants {
     public static final int rotationAxis = 4; //Uncomment for other thing
     
 
-    public static final double driveSpeedCap = 0.8; //Percent of max speed
-    public static final double rotationSpeedCap = 0.5; 
+    public static final double driveSpeedCap = 1; //Percent of max speed
+    public static final double rotationSpeedCap = 0.6; 
     /**
      * The left-to-right distance between the drivetrain wheels
-     *
+     * 
      * Should be measured from center to center.
      */
     public static final double DRIVETRAIN_TRACKWIDTH_METERS = 0.5715; // FIXME Measure and set trackwidth
@@ -139,7 +139,7 @@ public final class Constants {
     public static final double SHOOTER_SPROCKET_RATIO = 180/16.0;
 
     // les speed
-    public static final double FLYWHEEL_TOLERANCE = 30;
+    public static final double FLYWHEEL_TOLERANCE = 50;
 
     //public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(24.345703); // 360-155.654297+180
     public static final double TURN = 5;

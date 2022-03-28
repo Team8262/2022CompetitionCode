@@ -41,7 +41,7 @@ public class RobotContainer {
   private final flywheel flywheel = new flywheel(aim);
   private final intake intake = new intake();
 
-  private final UsbCamera camera;
+  //private final UsbCamera camera;
 
   public JoystickButton track;
   public JoystickButton IntakeButton;
@@ -51,7 +51,7 @@ public class RobotContainer {
   public JoystickButton forceReverseIndexer;
   public JoystickButton setShoot;
   public JoystickButton manualOveride;
-  public PneumaticHub ph = new PneumaticHub(31);
+  //public PneumaticHub ph = new PneumaticHub(31);
 
   public DoubleSupplier turretRot = () -> turretJoystick.getRawAxis(Constants.manualTurretAxis);
 
@@ -59,11 +59,11 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    camera = CameraServer.startAutomaticCapture();
+    //camera = CameraServer.startAutomaticCapture();
     //ph.enableCompressorDigital();
-    ph.enableCompressorAnalog(70,120);
+    //ph.enableCompressorAnalog(70,120);
     SmartDashboard.putBoolean("Field Oriented", true);
-    SmartDashboard.putNumber("presure", ph.getCompressorCurrent());
+    //SmartDashboard.putNumber("presure", ph.getCompressorCurrent());
     // double forward = getPrimaryJoystick().getRawAxis(1);
     // Square the forward stick
     // forward = deadband(forward, 0.025);
@@ -102,9 +102,9 @@ public class RobotContainer {
     return primaryJoystick;
   }
 
-  public PneumaticHub getPH(){
+  /*public PneumaticHub getPH(){
     return ph;
-  }
+  }*/
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -159,10 +159,12 @@ public class RobotContainer {
 
     autonCommand.addCommands(
       //new AutoTurn(m_drivetrainSubsystem, 200, 1),
-      new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 0.0, .75, 2.1),
-      new toVarSpeed(flywheel, aim.getDistance()),
+      new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 0.0, .75, 1.9),
+      new toVarSpeed(flywheel,120),
+      new wait(4),
       new feedShooter(intake, flywheel),
-      new killShooter(flywheel)
+      /*new killShooter(flywheel)*/
+      new InstantCommand(() -> flywheel.stop())
     );
       /*new ParallelDeadlineGroup(
         new feedShooter(intake, flywheel), 

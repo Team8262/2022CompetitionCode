@@ -59,6 +59,6 @@ public class feedShooter extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (elapsedTime >= .7);
+    return (elapsedTime >= 1.5);
   }
 }
