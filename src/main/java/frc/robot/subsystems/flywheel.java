@@ -80,7 +80,7 @@ public class flywheel extends SubsystemBase {
     }
 
     public void stop(){
-        setSpeed(0);
+        setVelocity(0);
     }
 
     public double getVel1(){
