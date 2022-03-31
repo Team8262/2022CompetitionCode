@@ -114,9 +114,9 @@ public class turret extends SubsystemBase {
         neoAngle = 360 * turnMotor.getEncoder().getPosition() / (Math.PI * Constants.SHOOTER_SPROCKET_RATIO);
         revAngle = 360 * shooterEncoder.get() / Constants.SHOOTER_SPROCKET_RATIO;
         //turnMotor.getEncoder().setPosition(revAngle )* Constants.SHOOTER_SPROCKET_RATIO * Math.PI/ 360)
-        SmartDashboard.putNumber("rotations? ", revAngle);
+        //SmartDashboard.putNumber("rotations? ", revAngle);
         SmartDashboard.putNumber("limelight offset", camera.getXOffset());
-        SmartDashboard.putNumber("neo encoder", neoAngle);
+        //SmartDashboard.putNumber("neo encoder", neoAngle);
         
 
     }
