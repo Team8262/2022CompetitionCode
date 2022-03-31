@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 import java.util.function.DoubleSupplier;
 
@@ -53,12 +54,18 @@ public class RobotContainer {
   public JoystickButton manualOveride;
   //public PneumaticHub ph = new PneumaticHub(31);
 
+  private static final SendableChooser<Command> autoChooser = new SendableChooser<>();
+
   public DoubleSupplier turretRot = () -> turretJoystick.getRawAxis(Constants.manualTurretAxis);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    // Populate Auto Chooser
+    autoChooser.setDefaultOption("Move Forward", new MoveForward(m_drivetrainSubsystem));
+    autoChooser.addOption("Semi-Circle", new SemiCircle(m_drivetrainSubsystem));
+    SmartDashboard.putData("Auto Chooser", autoChooser);
     //camera = CameraServer.startAutomaticCapture();
     //ph.enableCompressorDigital();
     //ph.enableCompressorAnalog(70,120);
@@ -153,19 +160,25 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    SequentialCommandGroup autonCommand = new SequentialCommandGroup();
-    m_drivetrainSubsystem.zeroGyroscope();
 
-    autonCommand.addCommands(
+  public Command getAutonomousCommand() {
+    // An ExampleCommand will run in autonomous
+    return autoChooser.getSelected();
+
+  //public Command getAutonomousCommand() {
+  //  SequentialCommandGroup autonCommand = new SequentialCommandGroup();
+  //  m_drivetrainSubsystem.zeroGyroscope();
+
+  //  autonCommand.addCommands(
       //new AutoTurn(m_drivetrainSubsystem, 200, 1),
-      new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 0.0, .75, 1.9),
-      new toVarSpeed(flywheel,120),
-      new wait(4),
-      new feedShooter(intake, flywheel),
+  //    new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 0.0, .75, 1.9),
+  //    new toVarSpeed(flywheel,120),
+  //    new wait(4),
+  //    new feedShooter(intake, flywheel),
       /*new killShooter(flywheel)*/
-      new InstantCommand(() -> flywheel.stop())
-    );
+  //    new InstantCommand(() -> flywheel.stop())
+  //  );
+    
       /*new ParallelDeadlineGroup(
         new feedShooter(intake, flywheel), 
         new turretTrack(turret),
@@ -183,7 +196,7 @@ public class RobotContainer {
       )
       */
 
-    return autonCommand;
+    //return autonCommand;
   }
 
   private static double deadband(double value, double deadband) {
