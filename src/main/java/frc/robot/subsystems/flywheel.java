@@ -13,7 +13,7 @@ public class flywheel extends SubsystemBase {
 
     public static flywheel instance;
     private static CANSparkMax shooterMotor_1;
-    //private static CANSparkMax shooterMotor_2;
+    private static CANSparkMax shooterMotor_2;
     private static SparkMaxPIDController shooterPID_1;
     //private static SparkMaxPIDController shooterPID_2;
     private static double targetVelocity;
@@ -45,10 +45,11 @@ public class flywheel extends SubsystemBase {
         shooterPID_2.setFF(Constants.FEEDFORWARD[1]);
         //shooterPID_2.setFeedbackDevice(sensor)
 
-        //shooterMotor_2.follow(shooterMotor_1, false);
         //shooterPID_1.setIZone(500);
         //shooterPID_2.setIZone(500);
         */
+        //shooterMotor_2.follow(shooterMotor_1, false);
+
     }
 
     public static flywheel getInstance(limelight aim){
@@ -87,6 +88,10 @@ public class flywheel extends SubsystemBase {
         return shooterMotor_1.getEncoder().getVelocity();
     }
 
+    public double getVel2(){
+        return shooterMotor_1.getEncoder().getVelocity();
+    }
+
     public boolean onTarget(){
         return (Math.abs(shooterMotor_1.getEncoder().getVelocity()-targetVelocity) <= Constants.FLYWHEEL_TOLERANCE);
     }
@@ -103,5 +108,7 @@ public class flywheel extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Flywheel error", getVel1()-targetVelocity);
+        SmartDashboard.putNumber("Flywheel Speed", getVel1());
+        SmartDashboard.putNumber("second motor", getVel2());
     }
 }

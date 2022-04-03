@@ -126,7 +126,7 @@ public final class Constants {
     public static final double[] MASTER_SHOOTER_PID = new double[] {0.0004, 0.000001, 0.01};//.0004};
     public static final double[] SLAVE_SHOOTER_PID = new double[] {0.0004, 0.000001, 0.01};//0004};
 */
-    public static final double[] MASTER_SHOOTER_PID = new double[] {0.0025, 0.000000097, 5};//.0004};
+    public static final double[] MASTER_SHOOTER_PID = new double[] {0.001, /*0.000000037*/0, 9};//.0004};
     public static final double[] SLAVE_SHOOTER_PID = MASTER_SHOOTER_PID;
     //
     public static final double[] FEEDFORWARD = new double[] {0.00007,0};//{0.00002, 0.00002};

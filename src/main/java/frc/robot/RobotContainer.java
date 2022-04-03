@@ -51,6 +51,8 @@ public class RobotContainer {
   public JoystickButton forceReverseIndexer;
   public JoystickButton setShoot;
   public JoystickButton manualOveride;
+  public JoystickButton test;
+  public JoystickButton test2;
   //public PneumaticHub ph = new PneumaticHub(31);
 
   public DoubleSupplier turretRot = () -> turretJoystick.getRawAxis(Constants.manualTurretAxis);
@@ -138,6 +140,11 @@ public class RobotContainer {
 
     forceReverseIndexer.whileHeld(new MoveIndexer(intake, 0.5));
     forceReverseIndexer.whileHeld(new shootAtSpeed(flywheel, 0.5));
+
+    test2 = new JoystickButton(turretJoystick, 7);
+    test = new JoystickButton(turretJoystick, 9);
+    test.whenPressed(new toVarSpeed(flywheel, 110));
+    test2.whenPressed(new InstantCommand(() -> flywheel.stop()));
     
 
   }
