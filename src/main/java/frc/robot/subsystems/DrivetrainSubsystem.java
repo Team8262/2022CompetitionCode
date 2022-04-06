@@ -63,21 +63,22 @@ public class DrivetrainSubsystem extends SubsystemBase {
    */
 
   SwerveDrivePoseEstimator m_PoseEstimator;
+  public static Pose2d DFLT_START_POSE;
+
+  
   Pose2d curEstPose = new Pose2d(DFLT_START_POSE.getTranslation(), DFLT_START_POSE.getRotation());
   ProfiledPIDController thetaController = 
           new ProfiledPIDController(
-                  THETACONTROLLERkP, 0, 0, THETACONTROLLERCONSTRAINTS);
+                  1, 0, 0, THETACONTROLLERCONSTRAINTS);
   SwerveModuleState[] states;
 
-  public static Pose2d DFLT_START_POSE;
 
-  public static double THETACONTROLLERkP;
-  public static double TRAJECTORYXkP;
-  public static double TRAJECTORYYkP;
-  public static TrapezoidProfile.Constraints THETACONTROLLERCONSTRAINTS;
 
-  public static PIDController XPIDCONTROLLER = new PIDController(TRAJECTORYXkP, 0, 0);
-  public static PIDController YPIDCONTROLLER = new PIDController(TRAJECTORYYkP, 0, 0);
+  public static TrapezoidProfile.Constraints THETACONTROLLERCONSTRAINTS = 
+        new TrapezoidProfile.Constraints(Math.PI, Math.PI);
+
+  public static PIDController XPIDCONTROLLER = new PIDController(1, 0, 0);
+  public static PIDController YPIDCONTROLLER = new PIDController(1, 0, 0);
 
 
   

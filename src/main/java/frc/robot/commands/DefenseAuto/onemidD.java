@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 
 
 public class onemidD extends SequentialCommandGroup{
@@ -14,6 +16,7 @@ public class onemidD extends SequentialCommandGroup{
     private intake m_intakeSubsystem;
 
     public onemidD(DrivetrainSubsystem m_drivetrainSubsystem){
+        DrivetrainSubsystem.DFLT_START_POSE = new Pose2d(6.02, 3.89, Rotation2d.fromDegrees(20.38));
         addCommands(
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),
             new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(-1)),
