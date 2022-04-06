@@ -23,6 +23,7 @@ public final class Constants {
     public static final int shootBall = 1;
     public static final int setShoot = 11;
     public static final int turretManualOverride = 3;
+    public static final int climbButton = 5; //Actually set
     
     //Joystick
     public static final int forwardAxis = 1;
@@ -34,6 +35,10 @@ public final class Constants {
 
     public static final Color blueBall = new Color(0.143, 0.427, 0.429); //Actually get real values
     public static final Color redBall = new Color(0.561, 0.232, 0.114);
+
+    //Climber
+    public static final int climber1 = 1;
+    //public static final int climber2 = 2;
 
 
     public static final double driveSpeedCap = 1; //Percent of max speed

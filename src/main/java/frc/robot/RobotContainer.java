@@ -46,6 +46,7 @@ public class RobotContainer {
   private final turret turret = new turret(aim);
   private final flywheel flywheel = new flywheel(aim);
   private final intake intake = new intake();
+  private final climber climber = new climber();
 
   //private final UsbCamera camera;
 
@@ -57,8 +58,7 @@ public class RobotContainer {
   public JoystickButton forceReverseIndexer;
   public JoystickButton setShoot;
   public JoystickButton manualOveride;
-  public JoystickButton test;
-  public JoystickButton test2;
+  public JoystickButton climb;
   //public PneumaticHub ph = new PneumaticHub(31);
 
   public DoubleSupplier turretRot = () -> turretJoystick.getRawAxis(Constants.manualTurretAxis);
@@ -141,6 +141,8 @@ public class RobotContainer {
     );
 
     IntakeButton = new JoystickButton(primaryJoystick, Constants.runIntake);
+    climb = new JoystickButton(primaryJoystick, Constants.climbButton);
+
     track = new JoystickButton(turretJoystick, Constants.trackAndSpin);
     spinFlywheel = new JoystickButton(turretJoystick, Constants.trackAndSpin);
     fireBall = new JoystickButton(turretJoystick, Constants.shootBall);
@@ -148,6 +150,7 @@ public class RobotContainer {
     forceReverseIndexer = new JoystickButton(turretJoystick, Constants.forceReverseIndexer);
     setShoot = new JoystickButton(turretJoystick, Constants.setShoot);
     manualOveride = new JoystickButton(turretJoystick, Constants.turretManualOverride);
+
     
     IntakeButton.toggleWhenPressed(new IntakeControl(intake));
     killShooter.whenPressed(new killShooter(flywheel));
@@ -155,19 +158,13 @@ public class RobotContainer {
     fireBall.whileHeld(new forceFeedShooter(intake));
     setShoot.whileHeld(/*new shootAtSpeed(flywheel, -0.7)*/ new toVarSpeed(flywheel, 103));
     manualOveride.whileHeld(new ManualTrack(turret, turretRot));
+    climb.whenPressed(new InstantCommand(() -> climber.setState(!climber.getState())));
 
 
     forceReverseIndexer.whileHeld(new MoveIndexer(intake, 0.5));
     forceReverseIndexer.whileHeld(new shootAtSpeed(flywheel, 0.5));
     forceReverseIndexer.whenPressed(new InstantCommand(() -> intake.feedingBall(true)));
     forceReverseIndexer.whenReleased(new InstantCommand(() -> intake.feedingBall(false)));
-
-
-    test2 = new JoystickButton(turretJoystick, 7);
-    test = new JoystickButton(turretJoystick, 9);
-    test.whenPressed(new toVarSpeed(flywheel, 110));
-    test2.whenPressed(new InstantCommand(() -> flywheel.stop()));
-    
 
   }
 
