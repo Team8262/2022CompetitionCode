@@ -26,37 +26,34 @@ public class intake extends SubsystemBase {
     boolean intakeDown = false;
     Solenoid intakeSolenoid;
 
-    private final I2C.Port i2cPort = I2C.Port.kOnboard;
+    private static boolean feed;
 
-    private final ColorSensorV3 colorsensor = new ColorSensorV3(i2cPort);
-    private final ColorMatch colormatch = new ColorMatch();
+    private final static I2C.Port i2cPort = I2C.Port.kOnboard;
 
+    private final static ColorSensorV3 colorsensor = new ColorSensorV3(i2cPort);
+    private static ColorMatch colormatch;
+    private final static Color blue = Constants.blueBall;
+    private final static Color red = Constants.redBall;
 
-    private final Color blue = Constants.blueBall;
-    private final Color red = Constants.redBall;
-
-
-
-
+    
     public intake() {
         intakeMotor = new VictorSPX(Constants.INTAKE_MOTOR_ID);
         storageMotor = new CANSparkMax(Constants.STORAGE_MOTOR_ID, MotorType.kBrushless);
         feederMotor = new CANSparkMax(Constants.FEEDER_MOTOR_ID, MotorType.kBrushless);
         exampleJoystick = new Joystick(0);
         intakeSolenoid =  new Solenoid(31, PneumaticsModuleType.REVPH, 0);
-
+        colormatch = new ColorMatch();
         colormatch.addColorMatch(red);
         colormatch.addColorMatch(blue);
     }
 
     @Override
     public void periodic() {
-        
         intakeSolenoid.set(intakeDown);
         SmartDashboard.putString("Top Ball Color", getColorMatch());
     }
 
-    public String getColorMatch(){
+    public static String getColorMatch(){
         Color detectedColor = colorsensor.getColor();
         ColorMatchResult match = colormatch.matchClosestColor(detectedColor);
         if(match.color == blue){
@@ -65,6 +62,14 @@ public class intake extends SubsystemBase {
             return "red";
         }
         return "no";
+    }
+
+    public void feedingBall(boolean state){
+        feed = state;
+    }
+
+    public static boolean indexerState(){
+        return feed;
     }
 
     @Override

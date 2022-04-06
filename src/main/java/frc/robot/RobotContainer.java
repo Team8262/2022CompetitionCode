@@ -97,7 +97,7 @@ public class RobotContainer {
             rotatesupp
             )); 
     configureButtonBindings();
-    turret.setDefaultCommand(new turretTrack(turret));
+    turret.setDefaultCommand(new turretTrack(turret, intake));
   }
 
   public Joystick getPrimaryJoystick(){
@@ -140,6 +140,9 @@ public class RobotContainer {
 
     forceReverseIndexer.whileHeld(new MoveIndexer(intake, 0.5));
     forceReverseIndexer.whileHeld(new shootAtSpeed(flywheel, 0.5));
+    forceReverseIndexer.whenPressed(new InstantCommand(() -> intake.feedingBall(true)));
+    forceReverseIndexer.whenReleased(new InstantCommand(() -> intake.feedingBall(false)));
+
 
     test2 = new JoystickButton(turretJoystick, 7);
     test = new JoystickButton(turretJoystick, 9);
