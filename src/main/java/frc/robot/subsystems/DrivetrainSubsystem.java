@@ -8,6 +8,8 @@ package frc.robot.subsystems;
 import com.swervedrivespecialties.swervelib.Mk4SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 import com.swervedrivespecialties.swervelib.SwerveModule;
+
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -18,10 +20,23 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 // import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.kauailabs.navx.frc.AHRS;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+
 import edu.wpi.first.wpilibj.SPI;
 // import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.lang.Math;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import frc.robot.subsystems.*;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+
+
+
 
 
 
@@ -47,7 +62,25 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * This is a measure of how fast the robot should be able to drive in a straight line.
    */
 
-//   private static DrivetrainSubsystem instance;
+  SwerveDrivePoseEstimator m_PoseEstimator;
+  Pose2d curEstPose = new Pose2d(DFLT_START_POSE.getTranslation(), DFLT_START_POSE.getRotation());
+  ProfiledPIDController thetaController = 
+          new ProfiledPIDController(
+                  THETACONTROLLERkP, 0, 0, THETACONTROLLERCONSTRAINTS);
+  SwerveModuleState[] states;
+
+  public static Pose2d DFLT_START_POSE;
+
+  public static double THETACONTROLLERkP;
+  public static double TRAJECTORYXkP;
+  public static double TRAJECTORYYkP;
+  public static TrapezoidProfile.Constraints THETACONTROLLERCONSTRAINTS;
+
+  public static PIDController XPIDCONTROLLER = new PIDController(TRAJECTORYXkP, 0, 0);
+  public static PIDController YPIDCONTROLLER = new PIDController(TRAJECTORYYkP, 0, 0);
+
+
+  
 
   public static final double MAX_VELOCITY_METERS_PER_SECOND = 6380.0 / 60.0 *
           SdsModuleConfigurations.MK4_L2.getDriveReduction() *
@@ -85,6 +118,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private final SwerveModule m_frontRightModule;
   private final SwerveModule m_backLeftModule;
   private final SwerveModule m_backRightModule;
+
 
 
   private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
@@ -172,6 +206,31 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * Sets the gyroscope angle to zero. This can be used to set the direction the robot is currently facing to the
    * 'forwards' direction.
    */
+
+  public void setknownPose(Pose2d in){
+        //wants us to reset wheel encoders?
+        zeroGyroscope();
+        m_PoseEstimator.resetPosition(in, getGyroscopeRotation());
+        curEstPose = in;
+  }
+
+  public Pose2d getpose(){
+          return m_PoseEstimator.getEstimatedPosition();
+  }
+
+  public Command createCommandForTrajectory(PathPlannerTrajectory trajectory, DrivetrainSubsystem m_drivetrainSubsystem){
+          PPSwerveControllerCommand swerveControllerCommand =
+          new PPSwerveControllerCommand(trajectory, 
+          () -> getpose(), 
+          m_kinematics, 
+          XPIDCONTROLLER, 
+          YPIDCONTROLLER, 
+          thetaController, 
+          commandStates -> this.states = commandStates, 
+          m_drivetrainSubsystem);
+        return swerveControllerCommand.andThen(() -> drive(new ChassisSpeeds(0,0,0)));
+  }
+
   public void zeroGyroscope() {
         m_navx.zeroYaw();
   }
@@ -184,7 +243,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
    }*/
 //
 //    // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
-   return Rotation2d.fromDegrees(/*-(360.0 - m_navx.getYaw())*/360-m_navx.getYaw());
+//    return Rotation2d.fromDegrees(360-m_navx.getYaw());
+   return Rotation2d.fromDegrees(-(360.0 - m_navx.getYaw()));
   }
 
   public void drive(ChassisSpeeds chassisSpeeds) {
@@ -193,7 +253,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   
   @Override
   public void periodic() {
-    SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
+    states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
     
     m_frontLeftModule.set(states[0].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[0].angle.getRadians());

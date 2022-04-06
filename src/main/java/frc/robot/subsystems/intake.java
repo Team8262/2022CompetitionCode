@@ -98,3 +98,4 @@ public class intake extends SubsystemBase {
         storageMotor.set(speed);
     }
 }
+    
