@@ -34,8 +34,8 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-
-
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.util.Units;
 
 
 
@@ -126,7 +126,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public DrivetrainSubsystem() {
         m_navx = new AHRS(SPI.Port.kMXP, (byte) 200); // NavX connected over MXP
   ///CanCoders for swerve 
-//     ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
+  //     ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
 
     // There are 4 methods you can call to create your swerve modules.
     // The method you use depends on what motors you are using.
@@ -198,6 +198,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
             BACK_RIGHT_MODULE_STEER_ENCODER,
             BACK_RIGHT_MODULE_STEER_OFFSET
     );
+
+    var stateStdDevs = VecBuilder.fill(0.05, 0.05, Units.radiansToDegrees(5));
+    var localMeasurementStdDevs = VecBuilder.fill(Units.degreesToRadians(0.1));
+    var visionMeasurementStdDevs = VecBuilder.fill(0.01, 0.01, Units.degreesToRadians(0.1));
+
+    m_PoseEstimator = new SwerveDrivePoseEstimator(getGyroscopeRotation(), DFLT_START_POSE,
+    m_kinematics, stateStdDevs, localMeasurementStdDevs, visionMeasurementStdDevs,
+    0.02);
+
+    setknownPose(DFLT_START_POSE);
 
     
   }
