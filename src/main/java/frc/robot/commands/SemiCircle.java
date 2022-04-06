@@ -13,9 +13,10 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 public class SemiCircle extends SequentialCommandGroup {
     PathPlannerTrajectory forward = PathPlanner.loadPath("SemiCircle", 2.0, 3.0);
             
-    public SemiCircle(DrivetrainSubsystem m_drive) {
+    public SemiCircle(DrivetrainSubsystem m_drive) {/*
       addCommands(
         m_drive.dt.createCommandForTrajectory(forward, m_drive)
-      );
+      );*/
+      addCommands(m_drive.createCommandForTrajectory(forward, m_drive));
     }
   }

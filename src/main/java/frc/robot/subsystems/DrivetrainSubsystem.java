@@ -8,20 +8,35 @@ package frc.robot.subsystems;
 import com.swervedrivespecialties.swervelib.Mk4SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 import com.swervedrivespecialties.swervelib.SwerveModule;
+
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj2.command.Command;
 // import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 // import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 // import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.kauailabs.navx.frc.AHRS;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+
 import edu.wpi.first.wpilibj.SPI;
 // import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.lang.Math;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 
 
 
@@ -35,6 +50,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * This can be reduced to cap the robot's maximum speed. Typically, this is useful during initial testing of the robot.
    */
   public static final double MAX_VOLTAGE = 12.0;
+  SwerveModuleState[] states;
   // FIXME Measure the drivetrain's maximum velocity or calculate the theoretical.
   //  The formula for calculating the theoretical maximum velocity is:
   //   <Motor free speed RPM> / 60 * <Drive reduction> * <Wheel diameter meters> * pi
@@ -79,6 +95,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   // private final PigeonIMU m_pigeon = new PigeonIMU(DRIVETRAIN_PIGEON_ID);
   // FIXME Uncomment if you are using a NavX
   private final AHRS m_navx;
+  SwerveDrivePoseEstimator m_poseEstimator;
 
   // These are our modules. We initialize them in the constructor.
   private final SwerveModule m_frontLeftModule;
@@ -164,7 +181,21 @@ public class DrivetrainSubsystem extends SubsystemBase {
             BACK_RIGHT_MODULE_STEER_ENCODER,
             BACK_RIGHT_MODULE_STEER_OFFSET
     );
+        Pose2d init = new Pose2d();
+        Matrix<N3, N1> stateStdDevs;
+        Matrix<N1, N1> localMeasurementStdDevs;
+        Matrix<N3, N1> visionMeasurementStdDevs;
 
+        stateStdDevs = VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5));
+
+        // Trustworthiness of gyro in radians of standard deviation.
+        localMeasurementStdDevs = VecBuilder.fill(Units.degreesToRadians(0.1));
+
+        // Trustworthiness of the vision system
+        // Measured in expected standard deviation (meters of position and degrees of
+        // rotation)
+        visionMeasurementStdDevs = VecBuilder.fill(0.01, 0.01, Units.degreesToRadians(0.1));
+        m_poseEstimator = new SwerveDrivePoseEstimator(getGyroscopeRotation(), init, m_kinematics, stateStdDevs, localMeasurementStdDevs, visionMeasurementStdDevs);
     
   }
 
@@ -190,10 +221,36 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void drive(ChassisSpeeds chassisSpeeds) {
     m_chassisSpeeds = chassisSpeeds;
   }
+
+  public Command createCommandForTrajectory(PathPlannerTrajectory trajectory, DrivetrainSubsystem m_drive) {
+        
+        PPSwerveControllerCommand swerveControllerCommand =
+            new PPSwerveControllerCommand(
+                trajectory,
+                () -> getPose(), // Functional interface to feed supplier
+                m_kinematics,
+
+                // Position controllers (x,y,theta)
+                new PIDController(1, 0, 0),
+                new PIDController(1, 0, 0),
+                new ProfiledPIDController(1.0, 0.0, 0.0, new TrapezoidProfile.Constraints(
+                        1, 1), 0.02),
+                
+                commandStates -> this.states = commandStates,
+                m_drive);
+        return swerveControllerCommand.andThen(() -> {states = m_kinematics.toSwerveModuleStates(
+                ChassisSpeeds.fromFieldRelativeSpeeds(
+                        0,
+                        0,
+                        0,
+                        getGyroscopeRotation()
+                )    
+        );}/*setModuleStates(new SwerveInput(0,0,0))*/);
+    }
   
   @Override
   public void periodic() {
-    SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
+    states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
     
     m_frontLeftModule.set(states[0].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[0].angle.getRadians());
@@ -214,5 +271,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Back Left Module Angle ", BLdegree);
     SmartDashboard.putNumber("Back Right Module Angle ", BRdegree);
 
+  }
+
+  public Pose2d getPose() {
+        return m_poseEstimator.getEstimatedPosition();
   }
 }
