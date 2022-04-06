@@ -6,6 +6,7 @@ import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Solenoid;
 import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.Joystick;
@@ -17,6 +18,8 @@ import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
+
+import edu.wpi.first.wpilibj.AnalogInput;
 
 public class intake extends SubsystemBase {
     VictorSPX intakeMotor;
@@ -35,6 +38,9 @@ public class intake extends SubsystemBase {
     private final static Color blue = Constants.blueBall;
     private final static Color red = Constants.redBall;
 
+    private final AnalogInput ultrasonic = new AnalogInput(Constants.ultrasonicPin);
+    
+
     
     public intake() {
         intakeMotor = new VictorSPX(Constants.INTAKE_MOTOR_ID);
@@ -51,6 +57,9 @@ public class intake extends SubsystemBase {
     public void periodic() {
         intakeSolenoid.set(intakeDown);
         SmartDashboard.putString("Top Ball Color", getColorMatch());
+        boolean ballBot = getUltrasonicDist() < 40;
+        SmartDashboard.putNumber("Ultrasonic Distance (cm)", getUltrasonicDist());
+        SmartDashboard.putBoolean("Bottom Ball", ballBot);
     }
 
     public static String getColorMatch(){
@@ -66,6 +75,13 @@ public class intake extends SubsystemBase {
 
     public void feedingBall(boolean state){
         feed = state;
+    }
+
+    public double getUltrasonicDist(){
+        double raw_value = ultrasonic.getValue();
+        double voltage_scale_factor = 5/RobotController.getVoltage5V();
+        double currentDistanceCentimeters = raw_value * voltage_scale_factor * 0.125;
+        return currentDistanceCentimeters; //Min Distance of 30cm
     }
 
     public static boolean indexerState(){

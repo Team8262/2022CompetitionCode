@@ -35,6 +35,7 @@ public final class Constants {
 
     public static final Color blueBall = new Color(0.143, 0.427, 0.429); //Actually get real values
     public static final Color redBall = new Color(0.561, 0.232, 0.114);
+    public static final int ultrasonicPin = 0;
 
     //Climber
     public static final int climber1 = 1;
