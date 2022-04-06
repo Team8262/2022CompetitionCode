@@ -15,13 +15,15 @@ public class onetopd  extends SequentialCommandGroup {
 
     public onetopd(DrivetrainSubsystem m_drivetrainSubsystem){
         addCommands(
+            new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),
             new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(-1)),
             new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(-0.4)),
             new InstantCommand(() -> m_drivetrainSubsystem.setknownPose(OTD.getInitialPose())),
             m_drivetrainSubsystem.createCommandForTrajectory(OTD, m_drivetrainSubsystem),
             new wait(1),
             new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(0)),
-            new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(0))
+            new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(0)),
+            new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(false))
         );
     }
 }

@@ -17,13 +17,16 @@ public class onebottomd extends SequentialCommandGroup {
     
     public onebottomd(DrivetrainSubsystem m_drivetrainSubsystem){
         addCommands(
+            new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),
             new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(-1)),
             new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(-0.4)),
             new InstantCommand(() -> m_drivetrainSubsystem.setknownPose(OBD.getInitialPose())),
             m_drivetrainSubsystem.createCommandForTrajectory(OBD, m_drivetrainSubsystem),
             new wait(1),
             new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(0)),
-            new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(0))
+            new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(0)),
+            new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(false))
+            
         );
     }
     
