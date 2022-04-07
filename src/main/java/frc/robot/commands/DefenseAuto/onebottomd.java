@@ -20,7 +20,7 @@ public class onebottomd extends SequentialCommandGroup {
         DrivetrainSubsystem.DFLT_START_POSE = new Pose2d(8.6, 1.8, Rotation2d.fromDegrees(92));
         addCommands(
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),
-            new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(-1)),
+            new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(1)),
             // new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(-0.4)),
             new InstantCommand(() -> m_drivetrainSubsystem.setknownPose(OBD.getInitialPose())),
             m_drivetrainSubsystem.createCommandForTrajectory(OBD, m_drivetrainSubsystem),

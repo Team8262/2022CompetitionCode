@@ -18,7 +18,7 @@ public class onemidD extends SequentialCommandGroup{
         DrivetrainSubsystem.DFLT_START_POSE = new Pose2d(6.02, 3.89, Rotation2d.fromDegrees(20.38));
         addCommands(
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),
-            new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(-1)),
+            new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(1)),
             // new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(-0.4)),
             new InstantCommand(() -> m_drivetrainSubsystem.setknownPose(OMD.getInitialPose())),
             m_drivetrainSubsystem.createCommandForTrajectory(OMD, m_drivetrainSubsystem),

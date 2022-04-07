@@ -18,7 +18,7 @@ public class twomid2topD extends SequentialCommandGroup{
         DrivetrainSubsystem.DFLT_START_POSE = new Pose2d(5.94, 3.84, Rotation2d.fromDegrees(0));
         addCommands(
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),
-            new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(-1)),
+            new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(1)),
             // new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(-0.4)),
             new InstantCommand(() -> m_drivetrainSubsystem.setknownPose(MtoT.getInitialPose())),
             m_drivetrainSubsystem.createCommandForTrajectory(MtoT, m_drivetrainSubsystem),

@@ -18,7 +18,7 @@ public class testd extends SequentialCommandGroup{
         DrivetrainSubsystem.DFLT_START_POSE = new Pose2d(7, 4, Rotation2d.fromDegrees(0));
         addCommands(
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),
-            new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(-1)),
+            new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(1)),
             // new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(-0.4)),
             new InstantCommand(() -> m_drivetrainSubsystem.setknownPose(test.getInitialPose())),
             m_drivetrainSubsystem.createCommandForTrajectory(test, m_drivetrainSubsystem),
