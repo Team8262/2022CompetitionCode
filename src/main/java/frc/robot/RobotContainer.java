@@ -105,14 +105,15 @@ public class RobotContainer {
     turret.setDefaultCommand(new turretTrack(turret, intake));
 
     
-    autoChooser.addOption("one ball top defense", new onetopd(m_drivetrainSubsystem));
-    autoChooser.setDefaultOption("one ball mid defense", new onemidD(m_drivetrainSubsystem));
-    autoChooser.addOption("one ball bottom defense", new onebottomd(m_drivetrainSubsystem));
-    autoChooser.addOption("two ball mid to top defense", new twomid2topD(m_drivetrainSubsystem));
-    autoChooser.addOption("two ball top to mid defense", new twotop2midD(m_drivetrainSubsystem));
-    autoChooser.addOption("test", new testd(m_drivetrainSubsystem));
-    SmartDashboard.putData("Auto Chooser", autoChooser);
 
+    
+    autoChooser.addOption("one ball top defense", new onetopd(m_drivetrainSubsystem, intake));
+    autoChooser.setDefaultOption("one ball mid defense", new onemidD(m_drivetrainSubsystem, intake));
+    autoChooser.addOption("one ball bottom defense", new onebottomd(m_drivetrainSubsystem, intake));
+    autoChooser.addOption("two ball mid to top defense", new twomid2topD(m_drivetrainSubsystem, intake));
+    autoChooser.addOption("two ball top to mid defense", new twotop2midD(m_drivetrainSubsystem, intake));
+    autoChooser.addOption("test", new testd(m_drivetrainSubsystem, intake));
+    SmartDashboard.putData("Auto Chooser", autoChooser);
     
   }
 
@@ -149,7 +150,7 @@ public class RobotContainer {
     manualOveride = new JoystickButton(turretJoystick, Constants.turretManualOverride);
 
     
-    IntakeButton.toggleWhenPressed(new IntakeControl(intake));
+    //IntakeButton.toggleWhenPressed(new IntakeControl(intake));
     killShooter.whenPressed(new killShooter(flywheel));
     spinFlywheel.whenHeld(new keepFlywheelAtSpeed(flywheel, aim));
     fireBall.whileHeld(new forceFeedShooter(intake));

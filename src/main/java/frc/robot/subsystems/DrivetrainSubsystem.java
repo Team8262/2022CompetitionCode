@@ -63,7 +63,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
    */
 
   SwerveDrivePoseEstimator m_PoseEstimator;
-  public static Pose2d DFLT_START_POSE;
+  public static Pose2d DFLT_START_POSE = new Pose2d(new Translation2d(0,0), new Rotation2d(0));
 
   
   Pose2d curEstPose = new Pose2d(DFLT_START_POSE.getTranslation(), DFLT_START_POSE.getRotation());
@@ -77,8 +77,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public static TrapezoidProfile.Constraints THETACONTROLLERCONSTRAINTS = 
         new TrapezoidProfile.Constraints(Math.PI, Math.PI);
 
-  public static PIDController XPIDCONTROLLER = new PIDController(1, 0, 0);
-  public static PIDController YPIDCONTROLLER = new PIDController(1, 0, 0);
+  public static PIDController XPIDCONTROLLER = new PIDController(0.00005, 0, 10);
+  public static PIDController YPIDCONTROLLER = new PIDController(0.00005, 0, 10);
 
 
   
@@ -255,7 +255,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
 //
 //    // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
 //    return Rotation2d.fromDegrees(360-m_navx.getYaw());
-   return Rotation2d.fromDegrees(-(360.0 - m_navx.getYaw()));
+   //return Rotation2d.fromDegrees(-(360.0 - m_navx.getYaw()));
+   return Rotation2d.fromDegrees(-m_navx.getYaw());
   }
 
   public void drive(ChassisSpeeds chassisSpeeds) {

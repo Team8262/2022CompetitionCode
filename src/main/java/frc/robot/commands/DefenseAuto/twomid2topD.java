@@ -13,9 +13,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 
 public class twomid2topD extends SequentialCommandGroup{
     PathPlannerTrajectory MtoT = PathPlanner.loadPath("2 ball mid to top defense", 8, 5);
-    private intake m_intakeSubsystem;
 
-    public twomid2topD(DrivetrainSubsystem m_drivetrainSubsystem){
+    public twomid2topD(DrivetrainSubsystem m_drivetrainSubsystem, intake m_intakeSubsystem){
         DrivetrainSubsystem.DFLT_START_POSE = new Pose2d(5.94, 3.84, Rotation2d.fromDegrees(0));
         addCommands(
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),

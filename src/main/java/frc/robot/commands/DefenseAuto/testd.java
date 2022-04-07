@@ -13,9 +13,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 
 public class testd extends SequentialCommandGroup{
     PathPlannerTrajectory test = PathPlanner.loadPath("test", 8, 5);
-    private intake m_intakeSubsystem;
 
-    public testd(DrivetrainSubsystem m_drivetrainSubsystem){
+    public testd(DrivetrainSubsystem m_drivetrainSubsystem, intake m_intakeSubsystem){
         DrivetrainSubsystem.DFLT_START_POSE = new Pose2d(7, 4, Rotation2d.fromDegrees(0));
         addCommands(
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),

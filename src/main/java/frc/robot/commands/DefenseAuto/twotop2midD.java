@@ -15,7 +15,7 @@ public class twotop2midD extends SequentialCommandGroup{
     PathPlannerTrajectory TtoM = PathPlanner.loadPath("2 ball top to mid defense", 8, 5);
     private intake m_intakeSubsystem;
 
-    public twotop2midD(DrivetrainSubsystem m_drivetrainSubsystem){
+    public twotop2midD(DrivetrainSubsystem m_drivetrainSubsystem, intake m_intakeSubsystem){
         DrivetrainSubsystem.DFLT_START_POSE = new Pose2d(6.86, 5.81, Rotation2d.fromDegrees(-58.74));
         addCommands(
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),

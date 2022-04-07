@@ -13,9 +13,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 
 public class onemidD extends SequentialCommandGroup{
     PathPlannerTrajectory OMD = PathPlanner.loadPath("1 ball mid defense", 8, 5);
-    private intake m_intakeSubsystem;
 
-    public onemidD(DrivetrainSubsystem m_drivetrainSubsystem){
+    public onemidD(DrivetrainSubsystem m_drivetrainSubsystem, intake m_intakeSubsystem){
         DrivetrainSubsystem.DFLT_START_POSE = new Pose2d(6.02, 3.89, Rotation2d.fromDegrees(20.38));
         addCommands(
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),
