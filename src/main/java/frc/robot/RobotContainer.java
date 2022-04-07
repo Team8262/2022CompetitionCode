@@ -5,7 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoMode.PixelFormat;
 // import edu.wpi.first.wpilibj.GenericHID;
 // import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -18,6 +20,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 
 import java.util.function.DoubleSupplier;
+
+import org.opencv.core.Mat;
+import org.opencv.core.Rect;
+
 import frc.robot.commands.*;
 import frc.robot.commands.DefenseAuto.*;
 import frc.robot.subsystems.*;
@@ -43,6 +49,9 @@ public class RobotContainer {
   private final intake intake = new intake();
   private final climber climber = new climber();
 
+  private BallVision bv;
+
+
   //private final UsbCamera camera;
 
   public JoystickButton track;
@@ -60,10 +69,12 @@ public class RobotContainer {
 
   public static final SendableChooser<Command> autoChooser = new SendableChooser<>();
 
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    bv = new BallVision();
     //camera = CameraServer.startAutomaticCapture();
     //ph.enableCompressorDigital();
     ph.enableCompressorAnalog(70,120);
@@ -100,9 +111,9 @@ public class RobotContainer {
             rotatesupp
     )); */
 
-
     configureButtonBindings();
     turret.setDefaultCommand(new turretTrack(turret, intake));
+
 
     
 

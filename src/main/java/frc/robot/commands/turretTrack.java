@@ -32,12 +32,14 @@ public class turretTrack extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        /*
         if(intake.indexerState() && intake.getColorMatch().equals(badcolor)){
             m_turret.setPosition(0);
             m_turret.track(false);
         }else{
             m_turret.track(true);
-        }
+        }*/
+        m_turret.track(true);
         
     }
   

@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import org.opencv.core.Point;
+
 import edu.wpi.first.wpilibj.util.Color;
 
 /**
@@ -31,6 +33,9 @@ public final class Constants {
     public static int manualTurretAxis = 2;
     //public static final int rotationAxis = 2; //Uncomment for cool joystick
     public static final int rotationAxis = 4; //Uncomment for other thing
+
+
+    public static final Point[] cameraROI = new Point[]{new Point(0,0), new Point(50,50)};
     
 
     public static final Color blueBall = new Color(0.16064453125, 0.42333984375, 0.416259765625); //Actually get real values

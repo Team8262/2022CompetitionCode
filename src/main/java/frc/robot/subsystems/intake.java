@@ -5,6 +5,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import org.opencv.core.Mat;
+import org.opencv.core.Rect;
+
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -19,6 +23,10 @@ import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.wpilibj.AnalogInput;
 
 public class intake extends SubsystemBase {
@@ -33,13 +41,14 @@ public class intake extends SubsystemBase {
 
     private final static I2C.Port i2cPort = I2C.Port.kOnboard;
 
-    private final static ColorSensorV3 colorsensor = new ColorSensorV3(i2cPort);
+    //private final static ColorSensorV3 colorsensor = new ColorSensorV3(i2cPort);
     private static ColorMatch colormatch;
     private final static Color blue = Constants.blueBall;
     private final static Color red = Constants.redBall;
 
     private final AnalogInput ultrasonic = new AnalogInput(Constants.ultrasonicPin);
-    
+
+
 
     
     public intake() {
@@ -49,25 +58,32 @@ public class intake extends SubsystemBase {
         storageMotor.setSmartCurrentLimit(35);
         exampleJoystick = new Joystick(0);
         intakeSolenoid =  new Solenoid(31, PneumaticsModuleType.REVPH, 0);
+        
+
+
+        /*
         colormatch = new ColorMatch();
         colormatch.addColorMatch(red);
         colormatch.addColorMatch(blue);
         colormatch.addColorMatch(new Color(0,1,0));
         colormatch.addColorMatch(new Color(0.2,0.2,0.2));
-        colormatch.addColorMatch(colorsensor.getColor());
-        System.out.println("yeeeee");
+        colormatch.addColorMatch(colorsensor.getColor());*/
     }
 
     @Override
     public void periodic() {
         intakeSolenoid.set(intakeDown);
-        SmartDashboard.putString("Top Ball Color", getColorMatch());
+        //SmartDashboard.putString("Top Ball Color", getColorMatch());
         boolean ballBot = getUltrasonicDist() < 40;
         SmartDashboard.putNumber("Ultrasonic Distance (cm)", getUltrasonicDist());
         SmartDashboard.putBoolean("Bottom Ball", ballBot);
-        SmartDashboard.putString("Raw Color", colorsensor.getColor().red + ", " + colorsensor.getColor().blue + ", " + colorsensor.getColor().green);
-        SmartDashboard.putNumber("Raw Color Dist", colorsensor.getProximity());
+        //SmartDashboard.putString("Raw Color", colorsensor.getColor().red + ", " + colorsensor.getColor().blue + ", " + colorsensor.getColor().green);
+        //SmartDashboard.putNumber("Raw Color Dist", colorsensor.getProximity());
+
+
     }
+
+    /*
 
     public static String getColorMatch(){
         Color detectedColor = colorsensor.getColor();
@@ -81,7 +97,7 @@ public class intake extends SubsystemBase {
             return "red";
         }
         return "no";
-    }
+    }*/
 
     public void feedingBall(boolean state){
         feed = state;
