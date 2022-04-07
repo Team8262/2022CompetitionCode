@@ -9,7 +9,7 @@ public class turretTrack extends CommandBase {
     private final turret m_turret;
     private final intake m_intake;
     private String badcolor;
-    private SendableChooser<String> colorpicker;
+    private SendableChooser<String> colorpicker = new SendableChooser<String>();
     
     /**
     * @param turret Is the subsystem used by this command.

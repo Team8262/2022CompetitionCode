@@ -15,9 +15,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 
 public class onebottomd extends SequentialCommandGroup { 
     PathPlannerTrajectory OBD = PathPlanner.loadPath("1 ball bottom defense", 8, 5);
-    private intake m_intakeSubsystem;
     
-    public onebottomd(DrivetrainSubsystem m_drivetrainSubsystem){
+    public onebottomd(DrivetrainSubsystem m_drivetrainSubsystem, intake m_intakeSubsystem){
         DrivetrainSubsystem.DFLT_START_POSE = new Pose2d(8.6, 1.8, Rotation2d.fromDegrees(92));
         addCommands(
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),
