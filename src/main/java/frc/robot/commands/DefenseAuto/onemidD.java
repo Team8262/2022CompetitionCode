@@ -16,13 +16,13 @@ public class onemidD extends SequentialCommandGroup{
     PathPlannerTrajectory OMD = PathPlanner.loadPath("1 ball mid defense", 8, 5);
 
     public onemidD(DrivetrainSubsystem m_drivetrainSubsystem, intake m_intakeSubsystem){
-        DrivetrainSubsystem.DFLT_START_POSE = new Pose2d(6.02, 3.89, Rotation2d.fromDegrees(20.38));
+        DrivetrainSubsystem.setStartPose(new Pose2d(6.02, 3.89, Rotation2d.fromDegrees(20.38)));
         addCommands(
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),
             new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(1)),
             new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(-0.4)),
             new InstantCommand(() -> m_intakeSubsystem.getIntakeMotor().set(ControlMode.PercentOutput,-1)),
-            new InstantCommand(() -> m_drivetrainSubsystem.setknownPose(OMD.getInitialPose())),
+            // new InstantCommand(() -> m_drivetrainSubsystem.setknownPose(OMD.getInitialPose())),
             m_drivetrainSubsystem.createCommandForTrajectory(OMD, m_drivetrainSubsystem),
             new wait(1),
             new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(0)),

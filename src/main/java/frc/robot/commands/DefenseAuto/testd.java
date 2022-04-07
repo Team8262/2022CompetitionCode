@@ -16,13 +16,13 @@ public class testd extends SequentialCommandGroup{
     PathPlannerTrajectory test = PathPlanner.loadPath("test", 8, 5);
 
     public testd(DrivetrainSubsystem m_drivetrainSubsystem, intake m_intakeSubsystem){
-        DrivetrainSubsystem.DFLT_START_POSE = new Pose2d(7, 4, Rotation2d.fromDegrees(0));
+        DrivetrainSubsystem.setStartPose(new Pose2d(7, 4, Rotation2d.fromDegrees(0)));
         addCommands(
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),
             new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(-1)),
             new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(-0.4)),
             new InstantCommand(() -> m_intakeSubsystem.getIntakeMotor().set(ControlMode.PercentOutput,-1)),
-            new InstantCommand(() -> m_drivetrainSubsystem.setknownPose(test.getInitialPose())),
+            // new InstantCommand(() -> m_drivetrainSubsystem.setknownPose(test.getInitialPose())),
             m_drivetrainSubsystem.createCommandForTrajectory(test, m_drivetrainSubsystem),
             new wait(1),
             new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(0)),

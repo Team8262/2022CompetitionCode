@@ -63,7 +63,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
    */
 
   SwerveDrivePoseEstimator m_PoseEstimator;
-  public static Pose2d DFLT_START_POSE = new Pose2d(new Translation2d(0,0), new Rotation2d(0));
+  public static Pose2d DFLT_START_POSE;
+
+  public static void setStartPose(Pose2d startPose){
+        DFLT_START_POSE = startPose;
+  }
 
   
   Pose2d curEstPose = new Pose2d(DFLT_START_POSE.getTranslation(), DFLT_START_POSE.getRotation());
@@ -126,6 +130,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public DrivetrainSubsystem() {
         m_navx = new AHRS(SPI.Port.kMXP, (byte) 200); // NavX connected over MXP
+        
   ///CanCoders for swerve 
   //     ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
 
@@ -231,7 +236,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public Command createCommandForTrajectory(PathPlannerTrajectory trajectory, DrivetrainSubsystem m_drivetrainSubsystem){
           PPSwerveControllerCommand swerveControllerCommand =
-          new PPSwerveControllerCommand(trajectory, 
+          new PPSwerveControllerCommand(
+          trajectory, 
           () -> getpose(), 
           m_kinematics, 
           XPIDCONTROLLER, 
