@@ -25,6 +25,7 @@ public class turret extends SubsystemBase {
 
     public CANSparkMax turnMotor;
     private DutyCycleEncoder shooterEncoder;
+    private DutyCycleEncoder turretEncoder;
     private SparkMaxPIDController turnMotorController;
 
     public double targetAngle;
@@ -33,6 +34,10 @@ public class turret extends SubsystemBase {
     public turret(limelight limelight) {
         //turnMotor.setSmartCurrentLimit(5);
         this.camera = limelight;
+
+        turretEncoder = new DutyCycleEncoder(1);
+
+        //turnMotor.getEncoder().setPosition(turretEncoder.getAbsolutePosition());
 
         //set motors and encoders
         turnMotor = new CANSparkMax(Constants.TURN_MOTOR_ID, MotorType.kBrushless);

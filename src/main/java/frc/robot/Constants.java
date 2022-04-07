@@ -33,8 +33,8 @@ public final class Constants {
     public static final int rotationAxis = 4; //Uncomment for other thing
     
 
-    public static final Color blueBall = new Color(0.143, 0.427, 0.429); //Actually get real values
-    public static final Color redBall = new Color(0.561, 0.232, 0.114);
+    public static final Color blueBall = new Color(0.16064453125, 0.42333984375, 0.416259765625); //Actually get real values
+    public static final Color redBall = new Color(0.5029296875, 0.140380859375, 0.357177734375);
     public static final int ultrasonicPin = 0;
 
     //Climber

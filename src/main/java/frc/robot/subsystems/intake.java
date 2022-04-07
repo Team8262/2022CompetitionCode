@@ -52,6 +52,10 @@ public class intake extends SubsystemBase {
         colormatch = new ColorMatch();
         colormatch.addColorMatch(red);
         colormatch.addColorMatch(blue);
+        colormatch.addColorMatch(new Color(0,1,0));
+        colormatch.addColorMatch(new Color(0.2,0.2,0.2));
+        colormatch.addColorMatch(colorsensor.getColor());
+        System.out.println("yeeeee");
     }
 
     @Override
@@ -61,12 +65,17 @@ public class intake extends SubsystemBase {
         boolean ballBot = getUltrasonicDist() < 40;
         SmartDashboard.putNumber("Ultrasonic Distance (cm)", getUltrasonicDist());
         SmartDashboard.putBoolean("Bottom Ball", ballBot);
+        SmartDashboard.putString("Raw Color", colorsensor.getColor().red + ", " + colorsensor.getColor().blue + ", " + colorsensor.getColor().green);
+        SmartDashboard.putNumber("Raw Color Dist", colorsensor.getProximity());
     }
 
     public static String getColorMatch(){
         Color detectedColor = colorsensor.getColor();
+        int dist = colorsensor.getProximity();
         ColorMatchResult match = colormatch.matchClosestColor(detectedColor);
-        if(match.color == blue){
+        if(dist > 800){
+            return "no";
+        }else if(match.color == blue){
             return "blue";
         }else if(match.color == red){
             return "red";
