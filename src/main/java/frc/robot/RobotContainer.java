@@ -18,13 +18,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 
 import java.util.function.DoubleSupplier;
-
 import frc.robot.commands.*;
-import frc.robot.commands.DefenseAuto.onebottomd;
-import frc.robot.commands.DefenseAuto.onemidD;
-import frc.robot.commands.DefenseAuto.onetopd;
-import frc.robot.commands.DefenseAuto.twomid2topD;
-import frc.robot.commands.DefenseAuto.twotop2midD;
+import frc.robot.commands.DefenseAuto.*;
 import frc.robot.subsystems.*;
 
 
@@ -109,12 +104,14 @@ public class RobotContainer {
     configureButtonBindings();
     turret.setDefaultCommand(new turretTrack(turret, intake));
 
-    SmartDashboard.putData("Auto Chooser", autoChooser);
+    
     autoChooser.addOption("one ball top defense", new onetopd(m_drivetrainSubsystem));
     autoChooser.setDefaultOption("one ball mid defense", new onemidD(m_drivetrainSubsystem));
     autoChooser.addOption("one ball bottom defense", new onebottomd(m_drivetrainSubsystem));
     autoChooser.addOption("two ball mid to top defense", new twomid2topD(m_drivetrainSubsystem));
     autoChooser.addOption("two ball top to mid defense", new twotop2midD(m_drivetrainSubsystem));
+    autoChooser.addOption("test", new testd(m_drivetrainSubsystem));
+    SmartDashboard.putData("Auto Chooser", autoChooser);
 
     
   }
