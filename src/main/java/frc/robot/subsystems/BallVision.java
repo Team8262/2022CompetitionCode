@@ -10,6 +10,7 @@ import org.opencv.core.Rect;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -20,6 +21,7 @@ public class BallVision extends SubsystemBase {
   /** Creates a new BallVision. */
   public BallVision() {
     yee = CameraServer.startAutomaticCapture(0);
+    yee.setPixelFormat(PixelFormat.kBGR);
     SmartDashboard.putString("HELP ", "sd");
     img = new Mat();
   }
