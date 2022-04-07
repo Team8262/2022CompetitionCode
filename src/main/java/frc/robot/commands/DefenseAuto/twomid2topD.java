@@ -2,6 +2,7 @@ package frc.robot.commands.DefenseAuto;
 
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -19,12 +20,14 @@ public class twomid2topD extends SequentialCommandGroup{
         addCommands(
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),
             new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(1)),
-            // new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(-0.4)),
+            new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(-0.4)),
+            new InstantCommand(() -> m_intakeSubsystem.getIntakeMotor().set(ControlMode.PercentOutput,-1)),
             new InstantCommand(() -> m_drivetrainSubsystem.setknownPose(MtoT.getInitialPose())),
             m_drivetrainSubsystem.createCommandForTrajectory(MtoT, m_drivetrainSubsystem),
             new wait(1),
             new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(0)),
-            // new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(0)),
+            new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(0)),
+            new InstantCommand(() -> m_intakeSubsystem.getIntakeMotor().set(ControlMode.PercentOutput,0)),
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(false))
         );
     }
