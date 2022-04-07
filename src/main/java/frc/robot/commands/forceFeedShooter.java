@@ -30,8 +30,8 @@ public class forceFeedShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intakeSubsystem.turnFeederMotor(-0.8);
-    m_intakeSubsystem.turnStorageMotor(-0.4);
+    m_intakeSubsystem.turnFeederMotor(-1);
+    m_intakeSubsystem.turnStorageMotor(-1);
   }
 
   // Called once the command ends or is interrupted.

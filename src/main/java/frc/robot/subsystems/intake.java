@@ -46,6 +46,7 @@ public class intake extends SubsystemBase {
         intakeMotor = new VictorSPX(Constants.INTAKE_MOTOR_ID);
         storageMotor = new CANSparkMax(Constants.STORAGE_MOTOR_ID, MotorType.kBrushless);
         feederMotor = new CANSparkMax(Constants.FEEDER_MOTOR_ID, MotorType.kBrushless);
+        storageMotor.setSmartCurrentLimit(35);
         exampleJoystick = new Joystick(0);
         intakeSolenoid =  new Solenoid(31, PneumaticsModuleType.REVPH, 0);
         colormatch = new ColorMatch();

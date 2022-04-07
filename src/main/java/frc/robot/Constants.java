@@ -18,7 +18,7 @@ public final class Constants {
     //Buttons
     public static final int gyroButton = 6;
     public static final int forceReverseIndexer = 5;
-    public static final int runIntake = 5;
+    public static final int runIntake = 2;//5;
     public static final int trackAndSpin = 2;
     public static final int shootBall = 1;
     public static final int setShoot = 11;
@@ -117,13 +117,13 @@ public final class Constants {
     public static final double SHOOTER_MAX_ROT_COUNTERCLOCK = 180;//-45/8;
 
     //can id
-    public static final int TURN_MOTOR_ID = 23;
+    public static final int TURN_MOTOR_ID = 22;
     public static final int SHOOTER_MOTOR_1_ID = 25;
     public static final int TURRET_ENCODER_ID = 9;
     public static final int SHOOTER_ENCODER_ID = 8;
     //public static final int SHOOTER_ENCODER_ID = 9;
     public static final int INTAKE_MOTOR_ID = 30;
-    public static final int STORAGE_MOTOR_ID = 22;
+    public static final int STORAGE_MOTOR_ID = 23;
     public static final int FEEDER_MOTOR_ID = 24;
     //public static final int INTAKE_MOTOR_ID = ;
     //public static final int DEPLOY_INTAKE_MOTOR_ID = ;

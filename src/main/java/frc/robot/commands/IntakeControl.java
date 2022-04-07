@@ -28,7 +28,7 @@ public class IntakeControl extends CommandBase {
         intakeSystem.setIntakeDown(true);
         intakeSystem.getIntakeMotor().set(ControlMode.PercentOutput, -0.8);
         intakeSystem.getStorageMotor().set(-0.5);
-        intakeSystem.turnFeederMotor(0.1);
+        intakeSystem.turnFeederMotor(1);
 
     }
 

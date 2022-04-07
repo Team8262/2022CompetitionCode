@@ -145,14 +145,14 @@ public class RobotContainer {
 
     track = new JoystickButton(turretJoystick, Constants.trackAndSpin);
     spinFlywheel = new JoystickButton(turretJoystick, Constants.trackAndSpin);
-    fireBall = new JoystickButton(turretJoystick, Constants.shootBall);
+    fireBall = new JoystickButton(/*turretJoystick*/primaryJoystick, Constants.shootBall);
     killShooter = new JoystickButton(turretJoystick, 10);
     forceReverseIndexer = new JoystickButton(turretJoystick, Constants.forceReverseIndexer);
     setShoot = new JoystickButton(turretJoystick, Constants.setShoot);
     manualOveride = new JoystickButton(turretJoystick, Constants.turretManualOverride);
 
     
-    //IntakeButton.toggleWhenPressed(new IntakeControl(intake));
+    IntakeButton.toggleWhenPressed(new IntakeControl(intake));
     killShooter.whenPressed(new killShooter(flywheel));
     spinFlywheel.whenHeld(new keepFlywheelAtSpeed(flywheel, aim));
     fireBall.whileHeld(new forceFeedShooter(intake));
