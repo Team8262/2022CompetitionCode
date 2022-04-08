@@ -22,7 +22,7 @@ public class twotop2midD extends SequentialCommandGroup{
             new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(1)),
             new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(-0.4)),
             new InstantCommand(() -> m_intakeSubsystem.getIntakeMotor().set(ControlMode.PercentOutput,-1)),
-            // new InstantCommand(() -> m_drivetrainSubsystem.setknownPose(TtoM.getInitialPose())),
+            new InstantCommand(() -> m_drivetrainSubsystem.setknownPose(TtoM.getInitialPose())),
             m_drivetrainSubsystem.createCommandForTrajectory(TtoM, m_drivetrainSubsystem),
             new wait(1),
             new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(0)),

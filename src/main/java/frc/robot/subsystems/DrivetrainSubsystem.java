@@ -71,9 +71,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   
   Pose2d curEstPose = new Pose2d(DFLT_START_POSE.getTranslation(), DFLT_START_POSE.getRotation());
-  ProfiledPIDController thetaController = 
-          new ProfiledPIDController(
-                  1, 0, 0, THETACONTROLLERCONSTRAINTS);
   SwerveModuleState[] states;
 
 
@@ -81,8 +78,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public static TrapezoidProfile.Constraints THETACONTROLLERCONSTRAINTS = 
         new TrapezoidProfile.Constraints(Math.PI, Math.PI);
 
-  public static PIDController XPIDCONTROLLER = new PIDController(0.00005, 0, 10);
-  public static PIDController YPIDCONTROLLER = new PIDController(0.00005, 0, 10);
 
 
   
@@ -240,9 +235,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
           trajectory, 
           () -> getpose(), 
           m_kinematics, 
-          XPIDCONTROLLER, 
-          YPIDCONTROLLER, 
-          thetaController, 
+          new PIDController(0.00005, 0, 10), //XPIDCONTROLLER, 
+          new PIDController(0.00005, 0, 10), //YPIDCONTROLLER, 
+          new ProfiledPIDController(1, 0, 0, THETACONTROLLERCONSTRAINTS), //thetaController, 
           commandStates -> this.states = commandStates, 
           m_drivetrainSubsystem);
         return swerveControllerCommand.andThen(() -> drive(new ChassisSpeeds(0,0,0)));
@@ -268,9 +263,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void drive(ChassisSpeeds chassisSpeeds) {
     m_chassisSpeeds = chassisSpeeds;
   }
+
+  public void update(){
+          curEstPose = m_PoseEstimator.getEstimatedPosition();
+  }
   
   @Override
   public void periodic() {
+
+    update();
+
     states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
     
@@ -291,6 +293,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Front Right Module Angle ", FRdegree);
     SmartDashboard.putNumber("Back Left Module Angle ", BLdegree);
     SmartDashboard.putNumber("Back Right Module Angle ", BRdegree);
+
+    SmartDashboard.putString("pose", curEstPose.toString());
 
   }
 }
