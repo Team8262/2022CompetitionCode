@@ -38,7 +38,7 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  //private DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
+  private DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   public static Joystick primaryJoystick = new Joystick(0);
   public static Joystick turretJoystick = new Joystick(1);
   public static JoystickButton lifterButton = new JoystickButton(primaryJoystick, 7);
@@ -74,7 +74,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    bv = new BallVision();
+    //bv = new BallVision();
     //camera = CameraServer.startAutomaticCapture();
     //ph.enableCompressorDigital();
     ph.enableCompressorAnalog(70,120);
@@ -104,27 +104,24 @@ public class RobotContainer {
 
      DoubleSupplier rotatesupp = () -> -1*modifyAxis(getPrimaryJoystick().getRawAxis(Constants.rotationAxis)) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * Constants.rotationSpeedCap;
 
-    /*m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
+    m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
             m_drivetrainSubsystem, 
             forwardsupp,
             strafesupp,
             rotatesupp
-    )); */
+    ));
 
     configureButtonBindings();
-    turret.setDefaultCommand(new turretTrack(turret, intake));
-
+    //turret.setDefaultCommand(new turretTrack(turret, intake));
 
     
-
-    /*
     autoChooser.addOption("one ball top defense", new onetopd(m_drivetrainSubsystem, intake));
     autoChooser.addOption("one ball mid defense", new onemidD(m_drivetrainSubsystem, intake));
     autoChooser.setDefaultOption("one ball bottom defense", new onebottomd(m_drivetrainSubsystem, intake));
     autoChooser.addOption("two ball mid to top defense", new twomid2topD(m_drivetrainSubsystem, intake));
     autoChooser.addOption("two ball top to mid defense", new twotop2midD(m_drivetrainSubsystem, intake));
     autoChooser.addOption("test", new testd(m_drivetrainSubsystem, intake));
-    SmartDashboard.putData("Auto Chooser", autoChooser);*/
+    SmartDashboard.putData("Auto Chooser", autoChooser);
     
   }
 
@@ -145,20 +142,22 @@ public class RobotContainer {
   private void configureButtonBindings() {
      //lifterButton.whileHeld(new KunjamaniExtendLifter(lifter));
     
-     /*
+     
      new JoystickButton(primaryJoystick, Constants.gyroButton).whenPressed(
       new InstantCommand(() -> m_drivetrainSubsystem.zeroGyroscope())
-    );*/
+    );
 
     IntakeButton = new JoystickButton(primaryJoystick, Constants.runIntake);
     climb = new JoystickButton(primaryJoystick, Constants.climbButton);
 
-    track = new JoystickButton(turretJoystick, Constants.trackAndSpin);
+    //track = new JoystickButton(turretJoystick, Constants.trackAndSpin);
+    track = new JoystickButton(primaryJoystick, 4);
     spinFlywheel = new JoystickButton(turretJoystick, Constants.trackAndSpin);
     fireBall = new JoystickButton(/*turretJoystick*/primaryJoystick, Constants.shootBall);
     killShooter = new JoystickButton(turretJoystick, 10);
     forceReverseIndexer = new JoystickButton(turretJoystick, Constants.forceReverseIndexer);
-    setShoot = new JoystickButton(turretJoystick, Constants.setShoot);
+    //setShoot = new JoystickButton(turretJoystick, Constants.setShoot);
+    setShoot = new JoystickButton(primaryJoystick, 5);
     manualOveride = new JoystickButton(turretJoystick, Constants.turretManualOverride);
 
     
@@ -166,7 +165,7 @@ public class RobotContainer {
     killShooter.whenPressed(new killShooter(flywheel));
     spinFlywheel.whenHeld(new keepFlywheelAtSpeed(flywheel, aim));
     fireBall.whileHeld(new forceFeedShooter(intake));
-    setShoot.whileHeld(/*new shootAtSpeed(flywheel, -0.7)*/ new toVarSpeed(flywheel, 103));
+    setShoot.whileHeld(/*new shootAtSpeed(flywheel, -0.7)*/ new shootAtVarSpeed(flywheel, 130));
     manualOveride.whileHeld(new ManualTrack(turret, turretRot));
     climb.whenPressed(new InstantCommand(() -> climber.setState(!climber.getState())));
 

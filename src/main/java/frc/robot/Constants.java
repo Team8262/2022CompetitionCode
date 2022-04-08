@@ -25,7 +25,7 @@ public final class Constants {
     public static final int shootBall = 1;
     public static final int setShoot = 11;
     public static final int turretManualOverride = 3;
-    public static final int climbButton = 5; //Actually set
+    public static final int climbButton = 3; //Actually set
     
     //Joystick
     public static final int forwardAxis = 1;
@@ -43,7 +43,7 @@ public final class Constants {
     public static final int ultrasonicPin = 0;
 
     //Climber
-    public static final int climber1 = 1;
+    public static final int climber1 = 0;
     //public static final int climber2 = 2;
 
 
@@ -136,7 +136,7 @@ public final class Constants {
 
     //PID constants: index 0 represents P, 1 represents I, 2, represents D
     //public static final double[] TURN_MOTOR_PID = new double[] {0.025, 0.000, 10, 0.0};
-    public static final double[] TURN_MOTOR_PID = new double[] {0.015, 0, 15, 0.0};
+    public static final double[] TURN_MOTOR_PID = new double[] {0.006, 0, 15, 0.0};
     //public static final double[] TURN_MOTOR_PID = new double[] {0.02, 0.0002, 10, 0.0};
     /*
     public static final double[] MASTER_SHOOTER_PID = new double[] {0.0004, 0.000001, 0.01};//.0004};

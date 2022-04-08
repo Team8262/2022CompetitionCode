@@ -47,7 +47,7 @@ public class intake extends SubsystemBase {
     private final static Color red = Constants.redBall;
 
     private final AnalogInput ultrasonic = new AnalogInput(Constants.ultrasonicPin);
-
+    private boolean yep;
 
 
     
@@ -55,9 +55,8 @@ public class intake extends SubsystemBase {
         intakeMotor = new VictorSPX(Constants.INTAKE_MOTOR_ID);
         storageMotor = new CANSparkMax(Constants.STORAGE_MOTOR_ID, MotorType.kBrushless);
         feederMotor = new CANSparkMax(Constants.FEEDER_MOTOR_ID, MotorType.kBrushless);
-        storageMotor.setSmartCurrentLimit(35);
         exampleJoystick = new Joystick(0);
-        intakeSolenoid =  new Solenoid(31, PneumaticsModuleType.REVPH, 0);
+        intakeSolenoid =  new Solenoid(31, PneumaticsModuleType.REVPH, 1);
         
 
 
@@ -79,6 +78,15 @@ public class intake extends SubsystemBase {
         SmartDashboard.putBoolean("Bottom Ball", ballBot);
         //SmartDashboard.putString("Raw Color", colorsensor.getColor().red + ", " + colorsensor.getColor().blue + ", " + colorsensor.getColor().green);
         //SmartDashboard.putNumber("Raw Color Dist", colorsensor.getProximity());
+        if(exampleJoystick.getRawAxis(3) > 0.9){
+            yep = true;
+            feederMotor.set(0.5);
+            storageMotor.set(0.1);
+        }else if(yep){
+            feederMotor.set(0);
+            storageMotor.set(0);
+            yep = false;
+        }
 
 
     }

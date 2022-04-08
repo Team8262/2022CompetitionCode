@@ -63,7 +63,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
    */
 
   SwerveDrivePoseEstimator m_PoseEstimator;
-  public static Pose2d DFLT_START_POSE;
+  public static Pose2d DFLT_START_POSE = new Pose2d();
 
   public static void setStartPose(Pose2d startPose){
         DFLT_START_POSE = startPose;

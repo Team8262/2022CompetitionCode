@@ -43,8 +43,8 @@ public class turret extends SubsystemBase {
         turnMotor = new CANSparkMax(Constants.TURN_MOTOR_ID, MotorType.kBrushless);
         //turnMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) ((180 -(360 * shooterEncoder.get() / Constants.SHOOTER_SPROCKET_RATIO))/ (Constants.SHOOTER_SPROCKET_RATIO)));
         //turnMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) ((-180-(360 * shooterEncoder.get() / Constants.SHOOTER_SPROCKET_RATIO)) / (Constants.SHOOTER_SPROCKET_RATIO)));
-        turnMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) ((180 / (Constants.SHOOTER_SPROCKET_RATIO))));
-        turnMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) ((-180 / (Constants.SHOOTER_SPROCKET_RATIO))));
+        turnMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) ((100)/ (Constants.SHOOTER_SPROCKET_RATIO)));
+        turnMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) ((-100) / (Constants.SHOOTER_SPROCKET_RATIO)));
 
         turnMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
         turnMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);

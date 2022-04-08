@@ -20,6 +20,7 @@ public class IntakeControl extends CommandBase {
     @Override
     public void initialize() {
         // add the data making
+        intakeSystem.getStorageMotor().setSmartCurrentLimit(35);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -27,8 +28,8 @@ public class IntakeControl extends CommandBase {
     public void execute() {
         intakeSystem.setIntakeDown(true);
         intakeSystem.getIntakeMotor().set(ControlMode.PercentOutput, -0.8);
-        intakeSystem.getStorageMotor().set(-0.5);
-        intakeSystem.turnFeederMotor(0.8);
+        intakeSystem.getStorageMotor().set(-0.2);
+        intakeSystem.turnFeederMotor(1);
 
     }
 
