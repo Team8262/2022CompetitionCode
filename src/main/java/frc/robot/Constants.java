@@ -102,7 +102,7 @@ public final class Constants {
     public static final double reflectiveStripWidth = 9.0;
     public static final double reflectiveStripHeight = 10.0;
 
-    public static final double LIMELIGHTHEIGHT = 39;
+    public static final double LIMELIGHTHEIGHT = 36;
     public static final double HUBHEIGHT = 105;
 
 
@@ -112,7 +112,7 @@ public final class Constants {
 
 
     // In degrees
-    public static final double LIMELIGHTANGLE = 25;
+    public static final double LIMELIGHTANGLE = 25.5;
     public static final double TURRET_TOLERANCE = 1;
     public static final double SHOOTER_ENCODER_OFFSET = 0;
 
@@ -150,8 +150,11 @@ public final class Constants {
     //le data
     public static final double[] DISTANCE = {77.476902, 95, 131.466488, 157, 185.365014, 204.941936, 242};
     public static final double[] SPEED =    {-2300, -2400, -2600, -2900, -3100, -3250, -3600};
-    public static final double TRANSLATE = -1636.1;
-    public static final double SCALER = -7.9555;
+    
+    //public static final double TRANSLATE = -1636.1;
+    //public static final double SCALER = -7.9555;
+    public static final double TRANSLATE = -1541.93- 150;
+    public static final double SCALER = -8.17586;
     public static final double SHOOTER_SPROCKET_RATIO = 180/16.0;
 
     // les speed

@@ -64,7 +64,7 @@ public class limelight extends SubsystemBase{
     public double getDistance() {
         // 56 inch difference
         double newDistance = 1*limelightHeightDifference/Math.tan((limelightY+Constants.LIMELIGHTANGLE)*Math.PI/180);
-        if(Math.abs(newDistance - 141.537457) < 0.1 ) {
+        if(Math.abs(newDistance - 144.661) < 0.1 ) {
             return distance;
         }
         distance = newDistance;

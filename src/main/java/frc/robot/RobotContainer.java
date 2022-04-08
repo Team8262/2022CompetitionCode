@@ -77,6 +77,7 @@ public class RobotContainer {
     //bv = new BallVision();
     //camera = CameraServer.startAutomaticCapture();
     //ph.enableCompressorDigital();
+    SmartDashboard.putNumber("Shooter Offset", 0);
     ph.enableCompressorAnalog(70,120);
     SmartDashboard.putBoolean("Field Oriented", true);
     //SmartDashboard.putNumber("presure", ph.getCompressorCurrent());
@@ -112,7 +113,7 @@ public class RobotContainer {
     ));
 
     configureButtonBindings();
-    //turret.setDefaultCommand(new turretTrack(turret, intake));
+    turret.setDefaultCommand(new turretTrack(turret, intake));
 
     
     autoChooser.addOption("one ball top defense", new onetopd(m_drivetrainSubsystem, intake));
@@ -143,30 +144,39 @@ public class RobotContainer {
      //lifterButton.whileHeld(new KunjamaniExtendLifter(lifter));
     
      
-     new JoystickButton(primaryJoystick, Constants.gyroButton).whenPressed(
+     new JoystickButton(primaryJoystick, /*Constants.gyroButton*/1).whenPressed(
       new InstantCommand(() -> m_drivetrainSubsystem.zeroGyroscope())
     );
 
+    /*
     IntakeButton = new JoystickButton(primaryJoystick, Constants.runIntake);
     climb = new JoystickButton(primaryJoystick, Constants.climbButton);
 
     //track = new JoystickButton(turretJoystick, Constants.trackAndSpin);
     track = new JoystickButton(primaryJoystick, 4);
     spinFlywheel = new JoystickButton(turretJoystick, Constants.trackAndSpin);
-    fireBall = new JoystickButton(/*turretJoystick*/primaryJoystick, Constants.shootBall);
+    fireBall = new JoystickButton(primaryJoystick, Constants.shootBall);
     killShooter = new JoystickButton(turretJoystick, 10);
     forceReverseIndexer = new JoystickButton(turretJoystick, Constants.forceReverseIndexer);
     //setShoot = new JoystickButton(turretJoystick, Constants.setShoot);
     setShoot = new JoystickButton(primaryJoystick, 5);
     manualOveride = new JoystickButton(turretJoystick, Constants.turretManualOverride);
+    */
+    IntakeButton = new JoystickButton(primaryJoystick, 6);
+    climb = new JoystickButton(primaryJoystick, 2);
+    spinFlywheel = new JoystickButton(primaryJoystick, 5);
+    fireBall = new JoystickButton(primaryJoystick, 3);
+    forceReverseIndexer = new JoystickButton(primaryJoystick,4 );
+
 
     
+
     IntakeButton.toggleWhenPressed(new IntakeControl(intake));
-    killShooter.whenPressed(new killShooter(flywheel));
+    //killShooter.whenPressed(new killShooter(flywheel));
     spinFlywheel.whenHeld(new keepFlywheelAtSpeed(flywheel, aim));
     fireBall.whileHeld(new forceFeedShooter(intake));
-    setShoot.whileHeld(/*new shootAtSpeed(flywheel, -0.7)*/ new shootAtVarSpeed(flywheel, 130));
-    manualOveride.whileHeld(new ManualTrack(turret, turretRot));
+    //setShoot.toggleWhenPressed(/*new shootAtSpeed(flywheel, -0.7)*/ new shootAtVarSpeed(flywheel, 130));
+    //manualOveride.whileHeld(new ManualTrack(turret, turretRot));
     climb.whenPressed(new InstantCommand(() -> climber.setState(!climber.getState())));
 
 

@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.flywheel;
@@ -34,7 +35,7 @@ public class keepFlywheelAtSpeed extends CommandBase {
     @Override
     public void execute() {
         //m_flywheel.setVelocity(list.getInterpolated(camera.getDistance()));
-        prediction = Constants.SCALER*camera.getDistance()+Constants.TRANSLATE;
+        prediction = Constants.SCALER*camera.getDistance()+Constants.TRANSLATE + -1*SmartDashboard.getNumber("Shooter Offset", 0);
         if (prediction < 4500) {m_flywheel.setVelocity(prediction);}
         else {m_flywheel.setVelocity(4500);}
     }
