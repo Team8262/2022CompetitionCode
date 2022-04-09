@@ -119,12 +119,7 @@ public class RobotContainer {
     turret.setDefaultCommand(new turretTrack(turret, intake));
 
     
-    autoChooser.addOption("one ball top defense", new onetopd(m_drivetrainSubsystem, intake));
-    autoChooser.addOption("one ball mid defense", new onemidD(m_drivetrainSubsystem, intake));
-    autoChooser.setDefaultOption("one ball bottom defense", new onebottomd(m_drivetrainSubsystem, intake));
-    autoChooser.addOption("two ball mid to top defense", new twomid2topD(m_drivetrainSubsystem, intake));
-    autoChooser.addOption("two ball top to mid defense", new twotop2midD(m_drivetrainSubsystem, intake));
-    autoChooser.addOption("test", new testd(m_drivetrainSubsystem, intake));
+    autoChooser.addOption("Basic Two Ball", new twoballauto(m_drivetrainSubsystem, intake, flywheel));
     SmartDashboard.putData("Auto Chooser", autoChooser);
     
   }
@@ -213,7 +208,8 @@ public class RobotContainer {
     //SmartDashboard.putBoolean("aaaaaaaaaaaaee", b.isScheduled());
     
     //return new onebottomd(m_drivetrainSubsystem, intake);
-    return autoChooser.getSelected();
+    //return autoChooser.getSelected();
+    return new twoballauto(m_drivetrainSubsystem, intake, flywheel);
     /*
     SequentialCommandGroup autonCommand = new SequentialCommandGroup();
      //m_drivetrainSubsystem.zeroGyroscope();

@@ -245,8 +245,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
           new ProfiledPIDController(1, 0, 0, THETACONTROLLERCONSTRAINTS), //thetaController, 
           commandStates -> this.states = commandStates, 
           m_drivetrainSubsystem);
-        SmartDashboard.putString("helloooooooooo", trajectory.getInitialState().toString());
-        return swerveControllerCommand/*.andThen(() -> drive(new ChassisSpeeds(0,0,0)))*/;
+        return swerveControllerCommand.andThen(() -> drive(new ChassisSpeeds(0,0,0)));
   }
 
   public void zeroGyroscope() {
