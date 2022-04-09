@@ -17,7 +17,7 @@ public class testd extends SequentialCommandGroup{
 
     public testd(DrivetrainSubsystem m_drivetrainSubsystem, intake m_intakeSubsystem){
         DrivetrainSubsystem.setStartPose(new Pose2d(7, 4, Rotation2d.fromDegrees(0)));
-        PathPlannerTrajectory test = PathPlanner.loadPath("test", 8, 5);
+        PathPlannerTrajectory test = PathPlanner.loadPath("test", 4, 3);
         addCommands(
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),
             new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(-1)),

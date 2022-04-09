@@ -123,6 +123,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
+  public boolean auto = false;
   public DrivetrainSubsystem() {
         m_navx = new AHRS(SPI.Port.kMXP, (byte) 200); // NavX connected over MXP
         
@@ -200,7 +201,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
             BACK_RIGHT_MODULE_STEER_OFFSET
     );
 
-    var stateStdDevs = VecBuilder.fill(0.05, 0.05, Units.radiansToDegrees(5));
+    var stateStdDevs = VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5));
     var localMeasurementStdDevs = VecBuilder.fill(Units.degreesToRadians(0.1));
     var visionMeasurementStdDevs = VecBuilder.fill(0.01, 0.01, Units.degreesToRadians(0.1));
 
@@ -209,6 +210,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     0.02);
 
     setknownPose(DFLT_START_POSE);
+    
+
+    states = new SwerveModuleState[] {new SwerveModuleState(),new SwerveModuleState(),new SwerveModuleState(),new SwerveModuleState()};
 
     
   }
@@ -226,6 +230,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public Pose2d getpose(){
+        
           return m_PoseEstimator.getEstimatedPosition();
   }
 
@@ -235,12 +240,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
           trajectory, 
           () -> getpose(), 
           m_kinematics, 
-          new PIDController(0.00005, 0, 10), //XPIDCONTROLLER, 
-          new PIDController(0.00005, 0, 10), //YPIDCONTROLLER, 
+          new PIDController(1, 0, 0), //XPIDCONTROLLER, 
+          new PIDController(1, 0, 0), //YPIDCONTROLLER, 
           new ProfiledPIDController(1, 0, 0, THETACONTROLLERCONSTRAINTS), //thetaController, 
           commandStates -> this.states = commandStates, 
           m_drivetrainSubsystem);
-        return swerveControllerCommand.andThen(() -> drive(new ChassisSpeeds(0,0,0)));
+        SmartDashboard.putString("helloooooooooo", trajectory.getInitialState().toString());
+        return swerveControllerCommand/*.andThen(() -> drive(new ChassisSpeeds(0,0,0)))*/;
   }
 
   public void zeroGyroscope() {
@@ -263,18 +269,23 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void drive(ChassisSpeeds chassisSpeeds) {
     m_chassisSpeeds = chassisSpeeds;
   }
-
+/*
   public void update(){
           curEstPose = m_PoseEstimator.getEstimatedPosition();
-  }
+  }*/
   
   @Override
   public void periodic() {
 
-    update();
+    //update();
 
-    states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
+    if(!auto){
+        states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);  
+    }
+    m_PoseEstimator.update(getGyroscopeRotation(), states[0], states[1], states[2], states[3]);
     SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
+    
+    
     
     m_frontLeftModule.set(states[0].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[0].angle.getRadians());
     m_frontRightModule.set(states[1].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[1].angle.getRadians());
@@ -286,6 +297,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     double BLdegree = Math.toDegrees(m_backLeftModule.getSteerAngle());
     double BRdegree = Math.toDegrees(m_backRightModule.getSteerAngle());
 
+    
+
 //     SmartDashboard.putNumber("Max speed", MAX_VELOCITY_METERS_PER_SECOND);
 //     SmartDashboard.putNumber("Max Rotation Speed", MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND);
 
@@ -293,6 +306,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Front Right Module Angle ", FRdegree);
     SmartDashboard.putNumber("Back Left Module Angle ", BLdegree);
     SmartDashboard.putNumber("Back Right Module Angle ", BRdegree);
+    SmartDashboard.putNumber("estimated position x", m_PoseEstimator.getEstimatedPosition().getX());
+    SmartDashboard.putNumber("estimated position y", m_PoseEstimator.getEstimatedPosition().getY());
+    SmartDashboard.putNumber("estimated rotation", m_PoseEstimator.getEstimatedPosition().getRotation().getDegrees());
+    SmartDashboard.putNumber("state 0", states[0].speedMetersPerSecond);
 
     SmartDashboard.putString("pose", curEstPose.toString());
 

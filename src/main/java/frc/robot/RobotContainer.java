@@ -12,6 +12,7 @@ import edu.wpi.first.cscore.VideoMode.PixelFormat;
 // import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticHub;
@@ -20,6 +21,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 
 import java.util.function.DoubleSupplier;
+
+import com.pathplanner.lib.PathPlanner;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
@@ -78,7 +81,7 @@ public class RobotContainer {
     //camera = CameraServer.startAutomaticCapture();
     //ph.enableCompressorDigital();
     SmartDashboard.putNumber("Shooter Offset", 0);
-    ph.enableCompressorAnalog(70,120);
+    ph.enableCompressorAnalog(100,120);
     SmartDashboard.putBoolean("Field Oriented", true);
     //SmartDashboard.putNumber("presure", ph.getCompressorCurrent());
     // double forward = getPrimaryJoystick().getRawAxis(1);
@@ -164,10 +167,11 @@ public class RobotContainer {
     */
     IntakeButton = new JoystickButton(primaryJoystick, 6);
     climb = new JoystickButton(primaryJoystick, 2);
-    spinFlywheel = new JoystickButton(primaryJoystick, 5);
-    fireBall = new JoystickButton(primaryJoystick, 3);
+    //spinFlywheel = new JoystickButton(primaryJoystick, 5);
+    //fireBall = new JoystickButton(primaryJoystick, 3);
+    spinFlywheel = new JoystickButton(turretJoystick, 2);
+    fireBall = new JoystickButton(turretJoystick, 1);
     forceReverseIndexer = new JoystickButton(primaryJoystick,4 );
-
 
     
 
@@ -178,13 +182,18 @@ public class RobotContainer {
     //setShoot.toggleWhenPressed(/*new shootAtSpeed(flywheel, -0.7)*/ new shootAtVarSpeed(flywheel, 130));
     //manualOveride.whileHeld(new ManualTrack(turret, turretRot));
     climb.whenPressed(new InstantCommand(() -> climber.setState(!climber.getState())));
-
+    //climb.whileHeld(new shootAtVarSpeed(flywheel, 120));
+    
 
     forceReverseIndexer.whileHeld(new MoveIndexer(intake, 0.5));
     forceReverseIndexer.whileHeld(new shootAtSpeed(flywheel, 0.5));
     forceReverseIndexer.whenPressed(new InstantCommand(() -> intake.feedingBall(true)));
     forceReverseIndexer.whenReleased(new InstantCommand(() -> intake.feedingBall(false)));
 
+  }
+
+  public DrivetrainSubsystem getds(){
+    return m_drivetrainSubsystem;
   }
 
 
@@ -199,22 +208,28 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-
+    //Command b = m_drivetrainSubsystem.createCommandForTrajectory(PathPlanner.loadPath("1 ball bottom defense", 1, 1), m_drivetrainSubsystem);
+    //b.schedule();
+    //SmartDashboard.putBoolean("aaaaaaaaaaaaee", b.isScheduled());
+    
+    //return new onebottomd(m_drivetrainSubsystem, intake);
     return autoChooser.getSelected();
-    // SequentialCommandGroup autonCommand = new SequentialCommandGroup();
-    // m_drivetrainSubsystem.zeroGyroscope();
+    /*
+    SequentialCommandGroup autonCommand = new SequentialCommandGroup();
+     //m_drivetrainSubsystem.zeroGyroscope();
 
-    // autonCommand.addCommands( 
-    //   //new AutoTurn(m_drivetrainSubsystem, 200, 1),
-    //   new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 0.0, .75, 1.9),
-    //   new toVarSpeed(flywheel,120),
-      // new wait(4),
-    //   new feedShooter(intake, flywheel),
-    //   /*new killShooter(flywheel)*/
-    //   new InstantCommand(() -> flywheel.stop())
-    // );
+     autonCommand.addCommands( 
+       //new AutoTurn(m_drivetrainSubsystem, 200, 1),
+       new InstantCommand(() -> m_drivetrainSubsystem.zeroGyroscope()),
+       new AutonomousDriveCommand(m_drivetrainSubsystem, -1.0, 0.0, .75, 2),
+       new toVarSpeed(flywheel,120),
+       new wait(4),
+       new feedShooter(intake, flywheel),
+       //new killShooter(flywheel)
+       new InstantCommand(() -> flywheel.stop())
+     );&
 
-    // return autonCommand;
+     return autonCommand;*/
 
           /*new ParallelDeadlineGroup(
         new feedShooter(intake, flywheel), 

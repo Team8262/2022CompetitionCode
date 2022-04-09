@@ -68,13 +68,13 @@ public final class Constants {
     public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 4; // FIXME Set front left module steer motor ID
     public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 3; // FIXME Set front left steer encoder ID
     // public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(271.230469); // 360-88.769531
-    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(265.951538); // 360-88.769531
+    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(266.748047); // 360-88.769531
 
     public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 5; // FIXME Set front right drive motor ID
     public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 7; // FIXME Set front right steer motor ID
     public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 6; // FIXME Set front right steer encoder ID
     // public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(94.482422); // 360-85.517578+180
-    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(82.781982);
+    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(82.878113);
 
     public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 11; // FIXME Set back left drive motor ID
     public static final int BACK_LEFT_MODULE_STEER_MOTOR = 13; // FIXME Set back left steer motor ID
@@ -85,7 +85,7 @@ public final class Constants {
     public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 8; // FIXME Set back right drive motor ID
     public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 10; // FIXME Set back right steer motor ID
     public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 9; // FIXME Set back right steer encoder ID
-    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(156.788635);//139.471); // 360-155.654297+180
+    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(139.828491);//139.471); // 360-155.654297+180
 
     // Robot
     // units are in inches!!
@@ -112,7 +112,7 @@ public final class Constants {
 
 
     // In degrees
-    public static final double LIMELIGHTANGLE = 25.5;
+    public static final double LIMELIGHTANGLE = 25.5-0.2;
     public static final double TURRET_TOLERANCE = 1;
     public static final double SHOOTER_ENCODER_OFFSET = 0;
 
@@ -142,7 +142,7 @@ public final class Constants {
     public static final double[] MASTER_SHOOTER_PID = new double[] {0.0004, 0.000001, 0.01};//.0004};
     public static final double[] SLAVE_SHOOTER_PID = new double[] {0.0004, 0.000001, 0.01};//0004};
 */
-    public static final double[] MASTER_SHOOTER_PID = new double[] {0.001, /*0.000000037*/0, 9};//.0004};
+    public static final double[] MASTER_SHOOTER_PID = new double[] {0.002, /*0.000000037*/0, 9};//.0004};
     public static final double[] SLAVE_SHOOTER_PID = MASTER_SHOOTER_PID;
     //
     public static final double[] FEEDFORWARD = new double[] {0.00007,0};//{0.00002, 0.00002};
@@ -153,12 +153,12 @@ public final class Constants {
     
     //public static final double TRANSLATE = -1636.1;
     //public static final double SCALER = -7.9555;
-    public static final double TRANSLATE = -1541.93- 150;
-    public static final double SCALER = -8.17586;
+    public static final double TRANSLATE = -1541.93- 100;
+    public static final double SCALER = /*-8.17586;*/ -7.9;
     public static final double SHOOTER_SPROCKET_RATIO = 180/16.0;
 
     // les speed
-    public static final double FLYWHEEL_TOLERANCE = 50;
+    public static final double FLYWHEEL_TOLERANCE = 250;//50;
 
     //public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(24.345703); // 360-155.654297+180
     public static final double TURN = 5;

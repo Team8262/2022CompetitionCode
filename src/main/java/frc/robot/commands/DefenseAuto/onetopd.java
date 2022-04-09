@@ -13,7 +13,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 
 
 public class onetopd  extends SequentialCommandGroup {
-    PathPlannerTrajectory OTD = PathPlanner.loadPath("1 ball top defense", 8, 5);
+    PathPlannerTrajectory OTD = PathPlanner.loadPath("1 ball top defense", 4, 3);
     
     public onetopd(DrivetrainSubsystem m_drivetrainSubsystem, intake m_intakeSubsystem){
         DrivetrainSubsystem.setStartPose(new Pose2d(6.2, 5.18, Rotation2d.fromDegrees(-22.48))); 

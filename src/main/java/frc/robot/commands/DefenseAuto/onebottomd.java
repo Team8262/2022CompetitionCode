@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -11,6 +12,7 @@ import frc.robot.subsystems.*;
 import frc.robot.commands.*;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 
@@ -20,7 +22,13 @@ public class onebottomd extends SequentialCommandGroup {
     
     public onebottomd(DrivetrainSubsystem m_drivetrainSubsystem, intake m_intakeSubsystem){
         DrivetrainSubsystem.setStartPose(new Pose2d(8.6, 1.8, Rotation2d.fromDegrees(92)));
-        PathPlannerTrajectory OBD = PathPlanner.loadPath("1 ball bottom defense", 8, 5);
+        PathPlannerTrajectory OBD = PathPlanner.loadPath("weeewooooo", 4, 3);
+
+        
+        addCommands(           m_drivetrainSubsystem.createCommandForTrajectory(OBD, m_drivetrainSubsystem)
+        );
+        
+        /*
         addCommands(
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),
             new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(1)),
@@ -34,7 +42,7 @@ public class onebottomd extends SequentialCommandGroup {
             new InstantCommand(() -> m_intakeSubsystem.getIntakeMotor().set(ControlMode.PercentOutput, 0)),
             new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(false))
             
-        );
+        );*/
     }
     
 }

@@ -13,7 +13,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 
 public class twomid2topD extends SequentialCommandGroup{
-    PathPlannerTrajectory MtoT = PathPlanner.loadPath("2 ball mid to top defense", 8, 5);
+    PathPlannerTrajectory MtoT = PathPlanner.loadPath("2 ball mid to top defense", 4, 3);
 
     public twomid2topD(DrivetrainSubsystem m_drivetrainSubsystem, intake m_intakeSubsystem){
         DrivetrainSubsystem.setStartPose(new Pose2d(5.94, 3.84, Rotation2d.fromDegrees(0)));
