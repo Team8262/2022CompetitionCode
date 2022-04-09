@@ -26,15 +26,23 @@ public class twoballauto extends SequentialCommandGroup {
         PathPlannerTrajectory OBD = PathPlanner.loadPath("Basic2Ball", 4, 3);
         DrivetrainSubsystem.setStartPose(OBD.getInitialPose());
         addCommands(new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(true)),
+                    new InstantCommand(() -> m_intakeSubsystem.getIntakeMotor().set(ControlMode.PercentOutput, .5)),
                     new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(0.5)),
                     new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(-0.6)),
                     m_drivetrainSubsystem.createCommandForTrajectory(OBD, m_drivetrainSubsystem),
                     new InstantCommand(() -> m_intakeSubsystem.setIntakeDown(false)),
                     new InstantCommand(() -> m_intakeSubsystem.turnStorageMotor(0)),
                     new InstantCommand(() -> m_intakeSubsystem.turnFeederMotor(0)),
+                    new InstantCommand(() -> m_intakeSubsystem.getIntakeMotor().set(ControlMode.PercentOutput, 0)),
                     new shootAtVarSpeed(flywheel, 120),
                     new WaitCommand(3),
-                    new feedShooter(m_intakeSubsystem, flywheel));
+                    new feedShooter(m_intakeSubsystem, flywheel),
+                    new WaitCommand(3),
+                    new shootAtVarSpeed(flywheel, 0)
+                    // new feedShooter(m_intakeSubsystem, flywheel).end(true)
+                    );
+                    
+                    
         
         /*
         addCommands(
