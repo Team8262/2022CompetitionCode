@@ -98,6 +98,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    m_robotContainer.getTurret().autoTrack = false;
     m_robotContainer.getds().auto = false;
   }
 

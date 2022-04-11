@@ -153,7 +153,7 @@ public final class Constants {
     
     //public static final double TRANSLATE = -1636.1;
     //public static final double SCALER = -7.9555;
-    public static final double TRANSLATE = -1541.93- 100;
+    public static final double TRANSLATE = -1541.93- 105;
     public static final double SCALER = /*-8.17586;*/ -7.9;
     public static final double SHOOTER_SPROCKET_RATIO = 180/16.0;
 

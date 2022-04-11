@@ -37,10 +37,12 @@ public class AutonomousDriveCommand extends CommandBase {
     @Override
     public void initialize() { 
         this.startTime = System.currentTimeMillis();
+        m_drivetrainSubsystem.auto = false;
     }
 
     @Override
     public void execute() { // You can use `new ChassisSpeeds(...)` for robot-oriented movement instead of field-oriented movement
+        m_drivetrainSubsystem.auto = false;
         elapsedTime = System.currentTimeMillis() - startTime;
         elapsedSeconds = elapsedTime / 1000;
 

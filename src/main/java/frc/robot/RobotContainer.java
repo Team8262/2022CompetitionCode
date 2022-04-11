@@ -52,7 +52,7 @@ public class RobotContainer {
   private final intake intake = new intake();
   private final climber climber = new climber();
 
-  private BallVision bv;
+ // private BallVision bv;
 
 
   //private final UsbCamera camera;
@@ -81,7 +81,7 @@ public class RobotContainer {
     //camera = CameraServer.startAutomaticCapture();
     //ph.enableCompressorDigital();
     SmartDashboard.putNumber("Shooter Offset", 0);
-    ph.enableCompressorAnalog(100,120);
+    ph.enableCompressorAnalog(80,120);
     SmartDashboard.putBoolean("Field Oriented", true);
     //SmartDashboard.putNumber("presure", ph.getCompressorCurrent());
     // double forward = getPrimaryJoystick().getRawAxis(1);
@@ -116,11 +116,11 @@ public class RobotContainer {
     ));
 
     configureButtonBindings();
-    turret.setDefaultCommand(new turretTrack(turret, intake));
+    //turret.setDefaultCommand(new turretTrack(turret, intake));
 
     
-    autoChooser.addOption("Basic Two Ball", new twoballauto(m_drivetrainSubsystem, intake, flywheel));
-    SmartDashboard.putData("Auto Chooser", autoChooser);
+    autoChooser.addOption("Basic Two Ball", new twoballauto(m_drivetrainSubsystem, intake, flywheel, aim, turret));
+    //SmartDashboard.putData("Auto Chooser", autoChooser);
     
   }
 
@@ -180,8 +180,9 @@ public class RobotContainer {
     //climb.whileHeld(new shootAtVarSpeed(flywheel, 120));
     
 
-    forceReverseIndexer.whileHeld(new MoveIndexer(intake, 0.5));
+    forceReverseIndexer.whenPressed(new MoveIndexer(intake, 0.5));
     forceReverseIndexer.whileHeld(new shootAtSpeed(flywheel, 0.5));
+    forceReverseIndexer.whenReleased(new MoveIndexer(intake, 0));
     forceReverseIndexer.whenPressed(new InstantCommand(() -> intake.feedingBall(true)));
     forceReverseIndexer.whenReleased(new InstantCommand(() -> intake.feedingBall(false)));
 
@@ -209,7 +210,8 @@ public class RobotContainer {
     
     //return new onebottomd(m_drivetrainSubsystem, intake);
     //return autoChooser.getSelected();
-    return new twoballauto(m_drivetrainSubsystem, intake, flywheel);
+    return new twoballauto(m_drivetrainSubsystem, intake, flywheel, aim, turret);
+    
     /*
     SequentialCommandGroup autonCommand = new SequentialCommandGroup();
      //m_drivetrainSubsystem.zeroGyroscope();
@@ -223,7 +225,7 @@ public class RobotContainer {
        new feedShooter(intake, flywheel),
        //new killShooter(flywheel)
        new InstantCommand(() -> flywheel.stop())
-     );&
+     );
 
      return autonCommand;*/
 
@@ -244,6 +246,10 @@ public class RobotContainer {
       )
       */
 
+  }
+
+  public turret getTurret(){
+    return turret;
   }
 
   private static double deadband(double value, double deadband) {

@@ -45,6 +45,7 @@ public class limelight extends SubsystemBase{
         limelightY = ty.getDouble(0.0);
         limelightArea = ta.getDouble(0.0);
         targetExists = ((tv.getDouble(0.0)==1) ? 1d : 0d);
+        getDistance();
 
         SmartDashboard.putNumber("Predicted Distance ", this.getDistance());
     }

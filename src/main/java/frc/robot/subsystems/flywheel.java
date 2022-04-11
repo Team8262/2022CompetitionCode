@@ -81,7 +81,8 @@ public class flywheel extends SubsystemBase {
     }
 
     public void stop(){
-        setVelocity(0);
+        //setVelocity(0);
+        setSpeed(0);
     }
 
     public double getVel1(){
@@ -108,7 +109,8 @@ public class flywheel extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Flywheel error", getVel1()-targetVelocity);
+        SmartDashboard.putBoolean("SHOOTER WITHIN TOLERANCE", (getVel1() - targetVelocity)<155);
         SmartDashboard.putNumber("Flywheel Speed", getVel1());
-        SmartDashboard.putNumber("second motor", getVel2());
+        //SmartDashboard.putNumber("second motor", getVel2());
     }
 }

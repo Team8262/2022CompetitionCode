@@ -71,14 +71,14 @@ public class intake extends SubsystemBase {
 
     @Override
     public void periodic() {
-        intakeSolenoid.set(intakeDown);
+        //intakeSolenoid.set(intakeDown);
         //SmartDashboard.putString("Top Ball Color", getColorMatch());
-        boolean ballBot = getUltrasonicDist() < 40;
-        SmartDashboard.putNumber("Ultrasonic Distance (cm)", getUltrasonicDist());
-        SmartDashboard.putBoolean("Bottom Ball", ballBot);
+        //boolean ballBot = getUltrasonicDist() < 40;
+        //SmartDashboard.putNumber("Ultrasonic Distance (cm)", getUltrasonicDist());
+        //SmartDashboard.putBoolean("Bottom Ball", ballBot);
         //SmartDashboard.putString("Raw Color", colorsensor.getColor().red + ", " + colorsensor.getColor().blue + ", " + colorsensor.getColor().green);
         //SmartDashboard.putNumber("Raw Color Dist", colorsensor.getProximity());
-        if(exampleJoystick.getRawAxis(3) > 0.9){
+        /*if(exampleJoystick.getRawAxis(3) > 0.9){
             yep = true;
             feederMotor.set(0.5);
             storageMotor.set(0.1);
@@ -86,7 +86,7 @@ public class intake extends SubsystemBase {
             feederMotor.set(0);
             storageMotor.set(0);
             yep = false;
-        }
+        }*/
 
 
     }
@@ -129,6 +129,7 @@ public class intake extends SubsystemBase {
     
     public void setIntakeDown(boolean intakeDown) {
         this.intakeDown = intakeDown;
+        this.intakeSolenoid.set(intakeDown);
     }
 
     public CANSparkMax getStorageMotor() {

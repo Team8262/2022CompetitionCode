@@ -240,12 +240,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
           trajectory, 
           () -> getpose(), 
           m_kinematics, 
-          new PIDController(1, 0, 0), //XPIDCONTROLLER, 
-          new PIDController(1, 0, 0), //YPIDCONTROLLER, 
-          new ProfiledPIDController(1, 0, 0, THETACONTROLLERCONSTRAINTS), //thetaController, 
+          new PIDController(10, 0, 0), //XPIDCONTROLLER, 
+          new PIDController(10, 0, 0), //YPIDCONTROLLER, 
+          new ProfiledPIDController(10, 0, 0, THETACONTROLLERCONSTRAINTS), //thetaController, 
           commandStates -> this.states = commandStates, 
           m_drivetrainSubsystem);
-        return swerveControllerCommand.andThen(() -> drive(new ChassisSpeeds(0,0,0)));
+        return swerveControllerCommand.andThen(() -> resetStates());
+  }
+
+  public void resetStates(){
+        states = new SwerveModuleState[] {new SwerveModuleState(),new SwerveModuleState(),new SwerveModuleState(),new SwerveModuleState()};
   }
 
   public void zeroGyroscope() {
@@ -280,8 +284,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     if(!auto){
         states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);  
+    }else{
+        m_PoseEstimator.update(getGyroscopeRotation(), states[0], states[1], states[2], states[3]);
     }
-    m_PoseEstimator.update(getGyroscopeRotation(), states[0], states[1], states[2], states[3]);
+
     SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
     
     
@@ -291,26 +297,27 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_backLeftModule.set(states[2].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[2].angle.getRadians());
     m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[3].angle.getRadians());
 
-    double FLdegree = Math.toDegrees(m_frontLeftModule.getSteerAngle());
+   /* double FLdegree = Math.toDegrees(m_frontLeftModule.getSteerAngle());
     double FRdegree = Math.toDegrees(m_frontRightModule.getSteerAngle());
     double BLdegree = Math.toDegrees(m_backLeftModule.getSteerAngle());
-    double BRdegree = Math.toDegrees(m_backRightModule.getSteerAngle());
+    double BRdegree = Math.toDegrees(m_backRightModule.getSteerAngle());*/
 
     
 
 //     SmartDashboard.putNumber("Max speed", MAX_VELOCITY_METERS_PER_SECOND);
 //     SmartDashboard.putNumber("Max Rotation Speed", MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND);
 
-    SmartDashboard.putNumber("Front Left Module Angle ", FLdegree);
+    /*SmartDashboard.putNumber("Front Left Module Angle ", FLdegree);
     SmartDashboard.putNumber("Front Right Module Angle ", FRdegree);
     SmartDashboard.putNumber("Back Left Module Angle ", BLdegree);
-    SmartDashboard.putNumber("Back Right Module Angle ", BRdegree);
-    SmartDashboard.putNumber("estimated position x", m_PoseEstimator.getEstimatedPosition().getX());
-    SmartDashboard.putNumber("estimated position y", m_PoseEstimator.getEstimatedPosition().getY());
-    SmartDashboard.putNumber("estimated rotation", m_PoseEstimator.getEstimatedPosition().getRotation().getDegrees());
-    SmartDashboard.putNumber("state 0", states[0].speedMetersPerSecond);
+    SmartDashboard.putNumber("Back Right Module Angle ", BRdegree);*/
+    //SmartDashboard.putNumber("estimated position x", m_PoseEstimator.getEstimatedPosition().getX());
+    //SmartDashboard.putNumber("estimated position y", m_PoseEstimator.getEstimatedPosition().getY());
+    //SmartDashboard.putNumber("estimated rotation", m_PoseEstimator.getEstimatedPosition().getRotation().getDegrees());
+    //SmartDashboard.putNumber("state 0", states[0].speedMetersPerSecond);
 
-    SmartDashboard.putString("pose", curEstPose.toString());
+    //SmartDashboard.putString("pose", curEstPose.toString());
+    //SmartDashboard.putBoolean("auto", auto);
 
   }
 }

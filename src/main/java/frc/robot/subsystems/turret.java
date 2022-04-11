@@ -22,6 +22,7 @@ public class turret extends SubsystemBase {
 
     private boolean left;
     private double spip = 0;
+    public boolean autoTrack = true;
 
     public CANSparkMax turnMotor;
     private DutyCycleEncoder shooterEncoder;
@@ -29,7 +30,6 @@ public class turret extends SubsystemBase {
     private SparkMaxPIDController turnMotorController;
 
     public double targetAngle;
-    public boolean autoTrack;
 
     public turret(limelight limelight) {
         //turnMotor.setSmartCurrentLimit(5);
@@ -68,11 +68,12 @@ public class turret extends SubsystemBase {
     }
 
     public void track(boolean autoTrack){
+        /*
         if(autoTrack) {
             turnMotorController.setReference(camera.getXOffset(), ControlType.kPosition);
         } else {
             turnMotorController.setReference(targetAngle * Constants.SHOOTER_SPROCKET_RATIO / 360, ControlType.kPosition);
-        }
+        }*/
         
     }
 
@@ -121,14 +122,17 @@ public class turret extends SubsystemBase {
 
     @Override
     public void periodic() {
-        neoAngle = 360 * turnMotor.getEncoder().getPosition() / (Math.PI * Constants.SHOOTER_SPROCKET_RATIO);
-        revAngle = 360 * shooterEncoder.get() / Constants.SHOOTER_SPROCKET_RATIO;
+        if(this.autoTrack) {
+            turnMotorController.setReference(camera.getXOffset(), ControlType.kPosition);
+        }
+        //neoAngle = 360 * turnMotor.getEncoder().getPosition() / (Math.PI * Constants.SHOOTER_SPROCKET_RATIO);
+        //revAngle = 360 * shooterEncoder.get() / Constants.SHOOTER_SPROCKET_RATIO;
         //turnMotor.getEncoder().setPosition(revAngle )* Constants.SHOOTER_SPROCKET_RATIO * Math.PI/ 360)
         //SmartDashboard.putNumber("rotations? ", revAngle);
-        SmartDashboard.putNumber("limelight offset", camera.getXOffset());
-        SmartDashboard.putNumber("Forward Soft Limit",turnMotor.getSoftLimit(CANSparkMax.SoftLimitDirection.kForward));
-        SmartDashboard.putNumber("Reverse Soft Limit", turnMotor.getSoftLimit(CANSparkMax.SoftLimitDirection.kReverse));
-        SmartDashboard.putNumber("Current Turret Rotation???", turnMotor.getEncoder().getPosition());
+        //SmartDashboard.putNumber("limelight offset", camera.getXOffset());
+        //SmartDashboard.putNumber("Forward Soft Limit",turnMotor.getSoftLimit(CANSparkMax.SoftLimitDirection.kForward));
+        //SmartDashboard.putNumber("Reverse Soft Limit", turnMotor.getSoftLimit(CANSparkMax.SoftLimitDirection.kReverse));
+        //SmartDashboard.putNumber("Current Turret Rotation???", turnMotor.getEncoder().getPosition());
         //SmartDashboard.putNumber("neo encoder", neoAngle);
         
 
