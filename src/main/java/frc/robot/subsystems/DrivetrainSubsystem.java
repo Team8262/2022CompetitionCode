@@ -276,7 +276,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void update(){
           curEstPose = m_PoseEstimator.getEstimatedPosition();
   }*/
-  
+
+  public ChassisSpeeds getCS(){
+          return m_chassisSpeeds;
+  }
+
+
   @Override
   public void periodic() {
 
