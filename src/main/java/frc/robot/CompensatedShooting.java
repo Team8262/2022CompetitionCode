@@ -9,12 +9,14 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.limelight;
+import frc.robot.subsystems.turret;
 
 /** Add your docs here. */
 public class CompensatedShooting {
     ChassisSpeeds cs;
     limelight limelight;
     DrivetrainSubsystem ds;
+    turret turret;
 
     private double angle;
 
@@ -36,6 +38,11 @@ public class CompensatedShooting {
         return this;
     }
 
+    public CompensatedShooting SET_TURRET(turret t){
+        this.turret = t;
+        return this;
+    }
+
     public CompensatedShooting SET_SCALERS(double angleS, double powerS){
         this.angleScaler = angleS;
         return this;
@@ -43,7 +50,8 @@ public class CompensatedShooting {
 
     public void updateSpeeds(){
         adjPose = new Translation2d(cs.vxMetersPerSecond, cs.vyMetersPerSecond);
-        angle = ds.getGyroscopeRotation().getDegrees() + this.limelight.getXOffset();
+        //This is definitely wrong, but what can you do
+        angle = ds.getGyroscopeRotation().getDegrees() + this.limelight.getXOffset()+this.turret.getPosition();
         adjPose.rotateBy(Rotation2d.fromDegrees(angle));
     }
 
@@ -52,7 +60,6 @@ public class CompensatedShooting {
 
     public double getAngleAdjustment(){
         return adjPose.getX() * angleScaler;
-
     }
 
 
