@@ -24,6 +24,8 @@ public class CompensatedShooting {
 
     private double angleScaler;
 
+    private double velToRPM;
+
     public CompensatedShooting(){
     }
 
@@ -45,6 +47,7 @@ public class CompensatedShooting {
 
     public CompensatedShooting SET_SCALERS(double angleS, double powerS){
         this.angleScaler = angleS;
+        this.velToRPM = powerS;
         return this;
     }
 
@@ -55,11 +58,12 @@ public class CompensatedShooting {
         adjPose.rotateBy(Rotation2d.fromDegrees(angle));
     }
 
-
-
-
     public double getAngleAdjustment(){
         return adjPose.getX() * angleScaler;
+    }
+
+    public double getForwardAdjustment(){
+        return adjPose.getY() * velToRPM;
     }
 
 
